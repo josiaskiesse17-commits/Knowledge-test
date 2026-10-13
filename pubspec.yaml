@@ -1,5 +1,5 @@
 name: knowledge_test
-description: "A new Flutter project."
+description: "A Flutter quiz competition app for in-person multiplayer games."
 publish_to: 'none'
 version: 0.1.0+1
 
@@ -9,6 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.2.0
+  shared_preferences: ^2.3.0
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:
