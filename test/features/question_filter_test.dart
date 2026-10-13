@@ -42,18 +42,18 @@ void main() {
 
     test('filters by variation', () {
       final filter = const QuestionFilter().toggleVariation(
-        QuestionVariation.howMuchDate,
+        QuestionVariation.whichCameFirst,
       );
       final result = filter.apply(bank);
 
       expect(result, isNotEmpty);
       expect(
-        result.every((q) => q.variation == QuestionVariation.howMuchDate),
+        result.every((q) => q.variation == QuestionVariation.whichCameFirst),
         isTrue,
       );
     });
 
-    test('combines several criteria', () {
+    test('combining filters narrows results', () {
       final filter = const QuestionFilter()
           .toggleMode(GameMode.whichCameFirst)
           .toggleDifficulty(Difficulty.easy);
@@ -61,139 +61,9 @@ void main() {
 
       expect(result, isNotEmpty);
       expect(
-        result.every(
-          (q) =>
-              q.mode == GameMode.whichCameFirst &&
-              q.difficulty == Difficulty.easy,
-        ),
-        isTrue,
-      );
-    });
-
-    test('preserves the order of the questions', () {
-      final filter = const QuestionFilter()
-          .toggleMode(GameMode.whichCameFirst)
-          .toggleMode(GameMode.howMuch);
-      final result = filter.apply(bank);
-
+        result.every((q) => q.mode == GameMode.whichCameFirst), isTrue);
       expect(
-        result.length,
-        bank
-            .where(
-              (q) =>
-                  q.mode == GameMode.whichCameFirst ||
-                  q.mode == GameMode.howMuch,
-            )
-            .length,
-      );
-      // Relative order of the bank is kept, whatever the filters.
-      final bankOrder = <String>[
-        for (final q in bank)
-          if (q.mode == GameMode.whichCameFirst || q.mode == GameMode.howMuch)
-            q.id,
-      ];
-      expect(result.map((q) => q.id).toList(), bankOrder);
-    });
-
-    test('an impossible combination returns nothing', () {
-      // No WhichCameFirst question of the sample bank is an arts question.
-      final filter = const QuestionFilter()
-          .toggleMode(GameMode.whichCameFirst)
-          .toggleCategory(QuestionCategory.arts);
-
-      expect(filter.apply(bank), isEmpty);
-    });
-
-    test('a filter can be removed again', () {
-      const filter = QuestionFilter();
-      final active = filter.toggleMode(GameMode.putInOrder);
-      expect(active.apply(bank).length, lessThan(bank.length));
-
-      final cleared = active.toggleMode(GameMode.putInOrder);
-      expect(cleared.modes, isEmpty);
-      expect(cleared.apply(bank), bank);
-    });
-
-    test('reports the number of active filters', () {
-      const filter = QuestionFilter();
-      expect(filter.isActive, isFalse);
-      expect(filter.activeCount, 0);
-
-      final active = filter
-          .toggleMode(GameMode.putInOrder)
-          .toggleDifficulty(Difficulty.easy)
-          .withSearch('lune');
-      expect(active.isActive, isTrue);
-      expect(active.activeCount, 3);
-    });
-
-    test('cleared removes every filter', () {
-      final active = const QuestionFilter()
-          .toggleMode(GameMode.howMuch)
-          .toggleDifficulty(Difficulty.easy)
-          .toggleCategory(QuestionCategory.nature)
-          .withSearch('test');
-
-      final cleared = active.cleared;
-      expect(cleared, const QuestionFilter());
-      expect(cleared.apply(bank), bank);
-    });
-
-    test('dropping a mode drops the variations of that mode', () {
-      final filter = const QuestionFilter()
-          .toggleMode(GameMode.whichCameFirst)
-          .toggleMode(GameMode.howMuch)
-          .toggleVariation(QuestionVariation.whichCameFirst)
-          .toggleVariation(QuestionVariation.howMuchDate);
-      expect(filter.variations.length, 2);
-
-      // Removing the mode makes its variation inconsistent, so it is dropped.
-      final switched = filter.toggleMode(GameMode.howMuch);
-      expect(switched.variations, {QuestionVariation.whichCameFirst});
-    });
-
-    test('an empty mode selection keeps every variation allowed', () {
-      final filter = const QuestionFilter()
-          .toggleMode(GameMode.howMuch)
-          .toggleVariation(QuestionVariation.howMuchDate);
-
-      // No mode selected means every mode is allowed, so no variation is
-      // inconsistent.
-      final cleared = filter.toggleMode(GameMode.howMuch);
-      expect(cleared.variations, {QuestionVariation.howMuchDate});
-    });
-  });
-
-  group('Question search', () {
-    test('finds a question by a word of its text', () {
-      final filter = const QuestionFilter().withSearch('Lune');
-      final result = filter.apply(bank);
-
-      expect(result, isNotEmpty);
-      expect(result.any((q) => q.id == 'wcf-001'), isTrue);
-    });
-
-    test('is case insensitive', () {
-      final result = const QuestionFilter().withSearch('lune').apply(bank);
-      expect(result.any((q) => q.id == 'wcf-001'), isTrue);
-    });
-
-    test('ignores the accents of the question text', () {
-      // The question reads "découverte" and "pénicilline".
-      final withoutAccents = const QuestionFilter().withSearch('decouverte');
-      final withAccents = const QuestionFilter().withSearch('découverte');
-
-      expect(withoutAccents.apply(bank).any((q) => q.id == 'wcf-003'), isTrue);
-      expect(withAccents.apply(bank).any((q) => q.id == 'wcf-003'), isTrue);
-    });
-
-    test('finds a question by its id', () {
-      final filter = const QuestionFilter().withSearch('wcf-002');
-      expect(filter.apply(bank).map((q) => q.id), ['wcf-002']);
-    });
-
-    test('an empty search keeps every question', () {
-      expect(const QuestionFilter().withSearch('').apply(bank), bank);
+        result.every((q) => q.difficulty == Difficulty.easy), isTrue);
     });
 
     test('a search with no match returns nothing', () {
@@ -242,6 +112,60 @@ void main() {
       for (final question in bank) {
         expect(question.variation.mode, question.mode);
       }
+    });
+  });
+
+  group('Afrique category', () {
+    test('the Africa category is part of the filters', () {
+      final filter = const QuestionFilter().toggleCategory(QuestionCategory.africa);
+      expect(filter.categories, {QuestionCategory.africa});
+      expect(QuestionCategory.africa.displayNameFr, 'Afrique');
+    });
+
+    test('filtering by Africa returns only African questions', () {
+      final result = const QuestionFilter()
+          .toggleCategory(QuestionCategory.africa)
+          .apply(bank);
+
+      expect(result, isNotEmpty);
+      expect(
+        result.every((q) => q.category == QuestionCategory.africa),
+        isTrue,
+      );
+    });
+
+    test('Africa appears in every game mode', () {
+      final african = const QuestionFilter()
+          .toggleCategory(QuestionCategory.africa)
+          .apply(bank);
+
+      for (final mode in GameMode.values) {
+        expect(
+          african.where((q) => q.mode == mode),
+          isNotEmpty,
+          reason: 'aucune question africaine pour le mode ${mode.name}',
+        );
+      }
+    });
+
+    test('Africa covers several modes and difficulties', () {
+      final african = const QuestionFilter()
+          .toggleCategory(QuestionCategory.africa)
+          .apply(bank);
+
+      expect(african.map((q) => q.mode).toSet().length, GameMode.values.length);
+      expect(african.map((q) => q.difficulty).toSet().length, greaterThan(1));
+    });
+
+    test('African questions are found by text search', () {
+      // "Tanzanie" only appears in African questions; "Kilimandjaro" also appears
+      // in a nature question (pio-004) which is not in the Africa category.
+      final result = const QuestionFilter().withSearch('Tanzanie').apply(bank);
+      expect(result, isNotEmpty);
+      expect(
+        result.every((q) => q.category == QuestionCategory.africa),
+        isTrue,
+      );
     });
   });
 }

@@ -35,6 +35,9 @@ Future<(GameController, ProviderContainer)> pumpMode(
       modes: [mode],
       questionCount: questionCount,
       difficulty: Difficulty.easy,
+      // Deterministic order, so the rendered question does not change from one
+      // run to the next.
+      shuffleQuestions: false,
     ),
   );
   controller.start();

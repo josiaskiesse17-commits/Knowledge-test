@@ -174,14 +174,45 @@ void main() {
       );
     });
 
-    test('selection falls back to mode-only when the filters are too narrow', () {
+    test('selection keeps the selected categories even when the pool is small',
+        () {
+      final testQuestions = _testQuestions();
+      final eligible = testQuestions
+          .where((q) => q.category == QuestionCategory.geography)
+          .length;
+      expect(eligible, greaterThan(0));
+      expect(eligible, lessThan(testQuestions.length));
+
+      final state = GameRules.buildSession(
+        config: _config(
+          questionCount: testQuestions.length,
+          categories: const [QuestionCategory.geography],
+        ),
+        availableQuestions: testQuestions,
+      );
+
+      // The session is shorter than requested rather than wider than the
+      // selected category.
+      expect(state.questions.length, eligible);
+      expect(
+        state.questions.every((q) => q.category == QuestionCategory.geography),
+        isTrue,
+      );
+    });
+
+    test('selection widens to the whole mode when no category is eligible',
+        () {
       final state = GameRules.buildSession(
         config: _config(
           questionCount: 4,
           categories: const [QuestionCategory.sports],
+          modes: const [GameMode.putInOrder],
         ),
         availableQuestions: _testQuestions(),
       );
+
+      // Put-in-order has no sports question, so the whole mode stays playable
+      // rather than producing an empty session.
       expect(state.questions, isNotEmpty);
     });
 
@@ -816,26 +847,32 @@ void main() {
     });
 
     test('relaxes the cross-session rule when the pool is too small', () {
-      // 6 WhichCameFirst questions total, all 6 recently played, request 4.
       final wcfIds = bank
           .where((q) => q.mode == GameMode.whichCameFirst)
           .map((q) => q.id)
           .toList();
-      expect(wcfIds.length, 6);
 
-      // History order: wcf-001 (most recent) ... wcf-006 (least recent).
+      // Every WhichCameFirst question of the bank has already been played, so
+      // the pool is exhausted and the cross-session rule has to be relaxed.
       final history = wcfIds;
+      const requested = 4;
 
       final state = GameRules.buildSession(
-        config: _config(questionCount: 4, shuffle: false, modes: const [GameMode.whichCameFirst]),
+        config: _config(
+            questionCount: requested,
+            shuffle: false,
+            modes: const [GameMode.whichCameFirst]),
         availableQuestions: bank,
         recentQuestionIds: history,
       );
 
-      // Least recently used first: wcf-006, wcf-005, wcf-004, wcf-003.
-      expect(state.questions.length, 4);
-      expect(state.questions.map((q) => q.id).toList(),
-          ['wcf-006', 'wcf-005', 'wcf-004', 'wcf-003']);
+      // The requested number of questions is filled with the least recently
+      // used ones, so the oldest id of the history is played again first.
+      expect(state.questions.length, requested);
+      expect(
+        state.questions.map((q) => q.id).toList(),
+        wcfIds.sublist(wcfIds.length - requested).reversed.toList(),
+      );
     });
 
     test('never relaxes within-session uniqueness even when pool is exhausted', () {
@@ -853,6 +890,125 @@ void main() {
       expect(state.questions.length, 6);
       final groups = state.questions.map((q) => q.factGroupId).toList();
       expect(groups.toSet().length, groups.length);
+    });
+  });
+
+  group('Category selection', () {
+    final bank = SampleQuestionBank.questions;
+
+    SessionConfig config({
+      int questionCount = 5,
+      List<QuestionCategory>? categories,
+    }) {
+      return _config(
+        questionCount: questionCount,
+        categories: categories,
+      );
+    }
+
+    test('no category selected means every category is eligible', () {
+      final state = GameRules.buildSession(
+        config: config(categories: const []),
+        availableQuestions: bank,
+      );
+
+      expect(state.questions.length, 5);
+    });
+
+    test('a selected category excludes the other categories', () {
+      final state = GameRules.buildSession(
+        config: config(categories: const [QuestionCategory.history]),
+        availableQuestions: bank,
+      );
+
+      expect(state.questions, isNotEmpty);
+      expect(
+        state.questions.every((q) => q.category == QuestionCategory.history),
+        isTrue,
+      );
+    });
+
+    test('several selected categories are combined', () {
+      final state = GameRules.buildSession(
+        config: config(categories: const [
+          QuestionCategory.geography,
+          QuestionCategory.nature,
+        ]),
+        availableQuestions: bank,
+      );
+
+      expect(state.questions, isNotEmpty);
+      expect(
+        state.questions
+            .every((q) => const {
+                  QuestionCategory.geography,
+                  QuestionCategory.nature,
+                }.contains(q.category)),
+        isTrue,
+      );
+    });
+
+    test('the category is respected in every game mode', () {
+      for (final mode in GameMode.values) {
+        final state = GameRules.buildSession(
+          config: config(
+            questionCount: 5,
+            categories: const [QuestionCategory.africa],
+          ).copyWith(modes: [mode]),
+          availableQuestions: bank,
+        );
+
+        // Every mode has at least one African question in the bank.
+        expect(state.questions, isNotEmpty,
+            reason: 'the ${mode.name} mode has no African question');
+        expect(
+          state.questions.every((q) => q.category == QuestionCategory.africa),
+          isTrue,
+          reason: 'a question of another category leaked into ${mode.name}',
+        );
+      }
+    });
+
+    test('a short session is played when the categories hold fewer questions',
+        () {
+      // Nature holds far fewer questions than the default request of 10.
+      final natureCount = bank
+          .where((q) => q.category == QuestionCategory.nature)
+          .length;
+      expect(natureCount, greaterThan(0));
+
+      final state = GameRules.buildSession(
+        config: config(questionCount: 10, categories: const [QuestionCategory.nature]),
+        availableQuestions: bank,
+      );
+
+      // The session starts, but never exceeds the eligible pool and never
+      // widens to another category.
+      expect(state.questions.length, natureCount);
+      expect(
+        state.questions.every((q) => q.category == QuestionCategory.nature),
+        isTrue,
+      );
+    });
+
+    test('a category with no eligible question widens instead of failing', () {
+      final state = GameRules.buildSession(
+        config: config(
+          questionCount: 3,
+          categories: const [QuestionCategory.africa],
+        ).copyWith(
+          modes: const [GameMode.putInOrder],
+          difficulty: Difficulty.hard,
+        ),
+        availableQuestions: bank
+            .where((q) => !(q.mode == GameMode.putInOrder &&
+                q.category == QuestionCategory.africa))
+            .toList(),
+      );
+
+      // The African put-in-order question was removed: the session still starts
+      // with the questions of the selected mode.
+      expect(state.questions, isNotEmpty);
     });
   });
 }

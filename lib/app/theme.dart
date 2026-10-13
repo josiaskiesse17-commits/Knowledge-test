@@ -256,7 +256,9 @@ ThemeData _buildTheme(_AppColorPalette p, Brightness brightness) {
         elevation: 0,
         padding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.spacingLg,
-          vertical: AppDimensions.spacingMd,
+          // Leaves room for the label line box inside the 48 dp button height,
+          // so the text is never squeezed by the button.
+          vertical: AppDimensions.spacingMd - 4,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
@@ -271,7 +273,7 @@ ThemeData _buildTheme(_AppColorPalette p, Brightness brightness) {
         foregroundColor: p.primary,
         padding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.spacingLg,
-          vertical: AppDimensions.spacingMd,
+          vertical: AppDimensions.spacingMd - 4,
         ),
         side: BorderSide(color: p.primary, width: 1.5),
         shape: RoundedRectangleBorder(

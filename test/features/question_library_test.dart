@@ -74,12 +74,18 @@ void main() {
 
   Widget libraryUnderTest() => const QuestionLibraryScreen();
 
+  /// The filter section is collapsed by default: opening it reveals the chips.
+  Future<void> openFilters(WidgetTester tester) async {
+    await tester.tap(find.byIcon(Icons.expand_more).first);
+    await tester.pumpAndSettle();
+  }
+
   group('Question library', () {
     testWidgets('shows all questions of the library', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
-      expect(find.text('32 questions'), findsOneWidget);
+      expect(find.text('117 questions'), findsOneWidget);
       expect(find.text('Lequel est arrivé en premier : le premier pas de '
           'l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?'),
           findsOneWidget);
@@ -87,37 +93,39 @@ void main() {
 
     testWidgets('filters by mode', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
-      expect(find.text('32 questions'), findsOneWidget);
+      expect(find.text('117 questions'), findsOneWidget);
 
+      await openFilters(tester);
       await tester.tap(find.text('Fait ou Fake').first);
       await tester.pumpAndSettle();
 
       // The sample bank holds 7 Fact-or-cap questions.
-      expect(find.text('7 questions'), findsOneWidget);
+      expect(find.text('25 questions'), findsOneWidget);
     });
 
     testWidgets('shows the questions number by difficulty', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
+      await openFilters(tester);
       await tester.tap(find.text('Facile').first);
       await tester.pumpAndSettle();
 
       // 11 easy questions in the sample bank.
-      expect(find.text('11 questions'), findsOneWidget);
+      expect(find.text('35 questions'), findsOneWidget);
     });
 
     testWidgets('searching filters the list', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
-      // The penicillin question is the only one about it.
-      await tester.enterText(find.byType(TextField), 'pénicilline');
+      // Searching by id returns exactly that question.
+      await tester.enterText(find.byType(TextField), 'hm-001');
       await tester.pumpAndSettle();
 
       expect(find.text('1 question'), findsOneWidget);
       expect(
         find.descendant(
           of: find.byType(ListView),
-          matching: find.textContaining('pénicilline'),
+          matching: find.textContaining('Conseil de sécurité'),
         ),
         findsOneWidget,
       );
@@ -126,13 +134,13 @@ void main() {
     testWidgets('an empty search keeps every question', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
-      await tester.enterText(find.byType(TextField), 'pénicilline');
+      await tester.enterText(find.byType(TextField), 'hm-001');
       await tester.pumpAndSettle();
       expect(find.text('1 question'), findsOneWidget);
 
       await tester.enterText(find.byType(TextField), '');
       await tester.pumpAndSettle();
-      expect(find.text('32 questions'), findsOneWidget);
+      expect(find.text('117 questions'), findsOneWidget);
     });
 
     testWidgets('a search without a match shows the empty state', (tester) async {
@@ -148,27 +156,28 @@ void main() {
     testWidgets('clearing the filters restores every question', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
+      await openFilters(tester);
       await tester.tap(find.text('Difficile').first);
       await tester.pumpAndSettle();
-      expect(find.text('6 questions'), findsOneWidget);
+      expect(find.text('22 questions'), findsOneWidget);
 
-      await tester.tap(find.text('Tout'));
+      await tester.tap(find.text('Réinitialiser'));
       await tester.pumpAndSettle();
-      expect(find.text('32 questions'), findsOneWidget);
+      expect(find.text('117 questions'), findsOneWidget);
     });
 
     testWidgets('the library shows a question with answer and explanation',
         (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
 
-      // The penicillin question is the only one about it.
-      await tester.enterText(find.byType(TextField), 'pénicilline');
+      // Searching by id narrows the list to that single question.
+      await tester.enterText(find.byType(TextField), 'hm-001');
       await tester.pumpAndSettle();
 
       // The card shows the question text, which is what the quizmaster taps.
       await tester.tap(find.descendant(
         of: find.byType(ListView),
-        matching: find.textContaining('pénicilline'),
+        matching: find.textContaining('Conseil de sécurité'),
       ));
       await tester.pumpAndSettle();
 
@@ -205,7 +214,7 @@ void main() {
       // A tablet or desktop layout shows the filters and a detail pane.
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
       expect(find.text('Sélectionnez une question'), findsOneWidget);
-      expect(find.text('32 questions'), findsOneWidget);
+      expect(find.text('117 questions'), findsOneWidget);
 
       await tester.tap(find.text('Lequel est arrivé en premier : le premier pas '
           'de l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?'));

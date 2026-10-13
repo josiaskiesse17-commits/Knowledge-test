@@ -27,9 +27,14 @@ class PrimaryButton extends StatelessWidget {
     final bgColor = backgroundColor ?? colorScheme.primary;
     final fgColor = foregroundColor ?? colorScheme.onPrimary;
 
-    return SizedBox(
-      width: isExpanded ? double.infinity : null,
-      height: AppDimensions.buttonHeight,
+    // The height is a minimum, not a cap: the theme padding and the label line
+    // box are both taken into account, so the text is never squeezed (a tight
+    // height smaller than the content cuts the label into a horizontal line).
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: isExpanded ? double.infinity : 0,
+        minHeight: AppDimensions.buttonHeight,
+      ),
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -95,9 +100,13 @@ class SecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return SizedBox(
-      width: isExpanded ? double.infinity : null,
-      height: AppDimensions.buttonHeight,
+    // A minimum height, so a label wider than the box grows the button instead
+    // of being clipped.
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: isExpanded ? double.infinity : 0,
+        minHeight: AppDimensions.buttonHeight,
+      ),
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(

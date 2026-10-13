@@ -15,6 +15,7 @@ enum QuestionCategory {
   technology,
   nature,
   general,
+  africa,
 }
 
 enum Difficulty {
@@ -103,6 +104,8 @@ extension QuestionCategoryExtension on QuestionCategory {
         return 'Nature';
       case QuestionCategory.general:
         return 'Culture Générale';
+      case QuestionCategory.africa:
+        return 'Afrique';
     }
   }
 }

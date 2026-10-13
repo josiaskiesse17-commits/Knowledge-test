@@ -289,6 +289,120 @@ void main() {
       final signatures = questions.map((q) => '${q.mode.name}|${q.text}').toSet();
       expect(signatures.length, questions.length);
     });
+
+    test('a reused fact group always pairs two different modes', () {
+      final shared = <String, List<BaseQuestion>>{};
+      for (final question in questions) {
+        shared.putIfAbsent(question.factGroupId, () => []).add(question);
+      }
+
+      for (final entry in shared.entries.where((e) => e.value.length > 1)) {
+        final modes = entry.value.map((q) => q.mode).toSet();
+        expect(modes.length, greaterThan(1),
+            reason: 'le groupe ${entry.key} regroupe deux questions du même mode');
+      }
+    });
+  });
+
+  group('Bank size and distribution', () {
+    test('the bank holds more than one hundred questions', () {
+      expect(questions.length, greaterThanOrEqualTo(100));
+      expect(questions.length, lessThanOrEqualTo(130));
+    });
+
+    test('every mode holds a substantial set of questions', () {
+      for (final mode in GameMode.values) {
+        final count = questions.where((q) => q.mode == mode).length;
+        expect(count, greaterThanOrEqualTo(15),
+            reason: 'le mode ${mode.name} ne compte que $count questions');
+      }
+    });
+
+    test('every category is represented, Africa included', () {
+      for (final category in QuestionCategory.values) {
+        final count = questions.where((q) => q.category == category).length;
+        expect(count, greaterThanOrEqualTo(3),
+            reason: 'la catégorie ${category.name} ne compte que $count questions');
+      }
+      expect(questions.any((q) => q.category == QuestionCategory.africa), isTrue);
+    });
+
+    test('Africa is well represented across the modes', () {
+      for (final mode in GameMode.values) {
+        final count = questions
+            .where((q) =>
+                q.category == QuestionCategory.africa && q.mode == mode)
+            .length;
+        expect(count, greaterThanOrEqualTo(2),
+            reason: 'le mode ${mode.name} n\'a que $count question(s) africaine(s)');
+      }
+    });
+
+    test('African questions cover several domains', () {
+      final domains = questions
+          .where((q) => q.category == QuestionCategory.africa)
+          .map((q) => q.id.substring(0, 3))
+          .toSet();
+      // At least three question types carry African content.
+      expect(domains.length, greaterThanOrEqualTo(3));
+    });
+
+    test('difficulties stay balanced', () {
+      for (final difficulty in Difficulty.values) {
+        final count = questions.where((q) => q.difficulty == difficulty).length;
+        expect(count, greaterThanOrEqualTo(20),
+            reason: 'la difficulté ${difficulty.name} ne compte que $count questions');
+      }
+    });
+
+    test('every mode uses at least one variation, the bank many', () {
+      for (final mode in GameMode.values) {
+        final variations =
+            questions.where((q) => q.mode == mode).map((q) => q.variation).toSet();
+        expect(variations, isNotEmpty,
+            reason: 'le mode ${mode.name} n\'a aucune variation');
+      }
+
+      // The library variation filter has something to offer in every mode.
+      for (final mode in const [
+        GameMode.factOrCap,
+        GameMode.putInOrder,
+        GameMode.howMuch,
+      ]) {
+        final variations = questions
+            .where((q) => q.mode == mode)
+            .map((q) => q.variation)
+            .toSet();
+        expect(variations.length, greaterThanOrEqualTo(2),
+            reason: 'le mode ${mode.name} n\'a que ${variations.length} variations');
+      }
+      expect(
+        questions.map((q) => q.variation).toSet().length,
+        greaterThanOrEqualTo(6),
+      );
+    });
+  });
+
+  group('Question library filters', () {
+    test('the Africa category filters every mode', () async {
+      final repository = InMemoryQuestionRepository(questions);
+      for (final mode in GameMode.values) {
+        final filtered = repository
+            .getQuestionsByMode(mode)
+            .where((q) => q.category == QuestionCategory.africa)
+            .toList();
+        expect(filtered, isNotEmpty,
+            reason: 'aucune question africaine dans le mode ${mode.name}');
+      }
+    });
+
+    test('filtering by one category never returns another', () {
+      for (final category in QuestionCategory.values) {
+        final filtered =
+            questions.where((q) => q.category == category).toList();
+        expect(filtered.every((q) => q.category == category), isTrue);
+      }
+    });
   });
 
   group('SampleQuestionBank JSON round trip', () {

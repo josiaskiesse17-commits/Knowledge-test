@@ -115,9 +115,12 @@ class GameRules {
   /// [recentQuestionIds] lists the questions of the saved sessions, most recent
   /// first. Never-used questions are preferred; the cross-session rule is
   /// relaxed gradually when the pool is too small to fill the session, but the
-  /// within-session rules above are never relaxed. When the selection is still
-  /// too small, it falls back to the mode-only pool so a session can always
-  /// start.
+  /// within-session rules above are never relaxed.
+  ///
+  /// The selected categories are kept even when they hold fewer questions than
+  /// requested: the session then plays those questions only. The category
+  /// filter is dropped only when it leaves no eligible question at all, so a
+  /// session can always start.
   static GameState buildSession({
     required SessionConfig config,
     required List<BaseQuestion> availableQuestions,
@@ -135,13 +138,16 @@ class GameRules {
             normalizedConfig.categories.contains(q.category))
         .toList();
 
+    // The selected categories are respected as long as they hold at least one
+    // eligible question: a session that is shorter than the requested number of
+    // questions still plays only the chosen categories. Dropping the filter
+    // just because the pool is smaller than the request would silently ignore
+    // the quizmaster's selection.
     var pool = byModesAndCategories;
-    if (pool.length < normalizedConfig.questionCount && byModes.length > pool.length) {
-      // Not enough questions for these filters: keep every question of the
-      // selected modes rather than refusing to start.
-      pool = byModes;
-    }
-    if (pool.isEmpty && normalizedConfig.modes.isNotEmpty) {
+
+    // No eligible question at all in the selected categories: widen to the
+    // whole selected modes, then to everything, so the session can start.
+    if (pool.isEmpty && byModes.isNotEmpty) {
       pool = byModes;
     }
     if (pool.isEmpty) {
