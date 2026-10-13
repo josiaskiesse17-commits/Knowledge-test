@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:knowledge_test/features/game/final_ranking_screen.dart';
+import 'package:knowledge_test/features/game/game_screen.dart';
 import 'package:knowledge_test/features/game_setup/game_setup_screen.dart';
 import 'package:knowledge_test/features/home/home_screen.dart';
 import 'package:knowledge_test/features/question_library/question_library_screen.dart';
+import 'package:knowledge_test/features/session_history/session_detail_screen.dart';
 import 'package:knowledge_test/features/session_history/session_history_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
 
 enum AppRoute {
   home,
   gameSetup,
+  game,
+  finalRanking,
   questionLibrary,
   sessionHistory,
+  sessionDetail,
   settings,
 }
 
@@ -21,10 +27,16 @@ extension AppRouteExtension on AppRoute {
         return '/';
       case AppRoute.gameSetup:
         return '/game-setup';
+      case AppRoute.game:
+        return '/game';
+      case AppRoute.finalRanking:
+        return '/final-ranking';
       case AppRoute.questionLibrary:
         return '/question-library';
       case AppRoute.sessionHistory:
         return '/session-history';
+      case AppRoute.sessionDetail:
+        return '/session-history/detail';
       case AppRoute.settings:
         return '/settings';
     }
@@ -45,6 +57,16 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const GameSetupScreen(),
     ),
     GoRoute(
+      path: AppRoute.game.path,
+      name: AppRoute.game.name,
+      builder: (context, state) => const GameScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.finalRanking.path,
+      name: AppRoute.finalRanking.name,
+      builder: (context, state) => const FinalRankingScreen(),
+    ),
+    GoRoute(
       path: AppRoute.questionLibrary.path,
       name: AppRoute.questionLibrary.name,
       builder: (context, state) => const QuestionLibraryScreen(),
@@ -53,6 +75,13 @@ final GoRouter appRouter = GoRouter(
       path: AppRoute.sessionHistory.path,
       name: AppRoute.sessionHistory.name,
       builder: (context, state) => const SessionHistoryScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.sessionDetail.path,
+      name: AppRoute.sessionDetail.name,
+      builder: (context, state) => SessionDetailScreen(
+        sessionId: state.uri.queryParameters['id'] ?? '',
+      ),
     ),
     GoRoute(
       path: AppRoute.settings.path,

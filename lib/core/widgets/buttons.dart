@@ -59,12 +59,16 @@ class PrimaryButton extends StatelessWidget {
                     Icon(icon, size: AppDimensions.iconMd),
                     const SizedBox(width: AppDimensions.spacingSm),
                   ],
-                  Text(
-                    label,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: fgColor,
-                        ),
+                  Flexible(
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: fgColor,
+                          ),
+                    ),
                   ),
                 ],
               ),
@@ -111,12 +115,16 @@ class SecondaryButton extends StatelessWidget {
               Icon(icon, size: AppDimensions.iconMd),
               const SizedBox(width: AppDimensions.spacingSm),
             ],
-            Text(
-              label,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.primary,
-                  ),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.primary,
+                    ),
+              ),
             ),
           ],
         ),
@@ -157,12 +165,16 @@ class TextButtonWidget extends StatelessWidget {
             Icon(icon, size: AppDimensions.iconSm),
             const SizedBox(width: AppDimensions.spacingXs),
           ],
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: colorScheme.primary,
-                ),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: colorScheme.primary,
+                  ),
+            ),
           ),
         ],
       ),

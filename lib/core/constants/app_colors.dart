@@ -26,4 +26,18 @@ extension AppColorsExtension on BuildContext {
   Color get backgroundColor => Theme.of(this).colorScheme.surface;
   Color get textPrimaryColor => Theme.of(this).colorScheme.onSurface;
   Color get textSecondaryColor => Theme.of(this).colorScheme.onSurfaceVariant;
+
+  /// Success green, lightened in dark mode so it stays readable on a dark
+  /// surface. Derived from the theme rather than hardcoded per widget.
+  Color get successColor => Theme.of(this).brightness == Brightness.dark
+      ? const Color(0xFF4ADE80)
+      : AppColors.success;
+
+  /// Warning amber, lightened in dark mode for the same reason.
+  Color get warningColor => Theme.of(this).brightness == Brightness.dark
+      ? const Color(0xFFFBBF24)
+      : AppColors.warning;
+
+  /// Error red, derived from the color scheme of the active theme.
+  Color get errorColor => Theme.of(this).colorScheme.error;
 }

@@ -4,15 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/core/constants/app_strings.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
+import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
-
-final playerControllersProvider = StateProvider<List<TextEditingController>>((ref) {
-  return [TextEditingController(), TextEditingController()];
-});
-
-final playerFocusNodesProvider = StateProvider<List<FocusNode>>((ref) {
-  return [FocusNode(), FocusNode()];
-});
+import 'package:knowledge_test/models/questions/index.dart';
+import 'package:knowledge_test/models/session_models.dart';
+import 'package:knowledge_test/providers/game_providers.dart';
+import 'package:knowledge_test/providers/session_history_providers.dart';
 
 class GameSetupScreen extends ConsumerStatefulWidget {
   const GameSetupScreen({super.key});
@@ -22,71 +19,72 @@ class GameSetupScreen extends ConsumerStatefulWidget {
 }
 
 class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
+  final List<TextEditingController> _controllers = [];
+  final List<FocusNode> _focusNodes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _syncControllers(ref.read(sessionSetupProvider).playerNames);
+  }
+
   @override
   void dispose() {
-    final controllers = ref.read(playerControllersProvider);
-    final focusNodes = ref.read(playerFocusNodesProvider);
-    for (final controller in controllers) {
+    for (final controller in _controllers) {
       controller.dispose();
     }
-    for (final focusNode in focusNodes) {
+    for (final focusNode in _focusNodes) {
       focusNode.dispose();
     }
     super.dispose();
   }
 
-  void _addPlayer() {
-    final controllers = ref.read(playerControllersProvider.notifier);
-    final focusNodes = ref.read(playerFocusNodesProvider.notifier);
-    if (controllers.state.length < 8) {
-      controllers.state = [...controllers.state, TextEditingController()];
-      focusNodes.state = [...focusNodes.state, FocusNode()];
+  void _syncControllers(List<String> names) {
+    while (_controllers.length > names.length) {
+      _controllers.removeLast().dispose();
+      _focusNodes.removeLast().dispose();
     }
+    while (_controllers.length < names.length) {
+      _controllers.add(TextEditingController());
+      _focusNodes.add(FocusNode());
+    }
+    for (var i = 0; i < names.length; i++) {
+      if (_controllers[i].text != names[i]) {
+        _controllers[i].text = names[i];
+      }
+    }
+  }
+
+  void _addPlayer() {
+    ref.read(sessionSetupProvider.notifier).addPlayer();
+    _syncControllers(ref.read(sessionSetupProvider).playerNames);
   }
 
   void _removePlayer(int index) {
-    final controllers = ref.read(playerControllersProvider.notifier);
-    final focusNodes = ref.read(playerFocusNodesProvider.notifier);
-    if (controllers.state.length > 2) {
-      controllers.state[index].dispose();
-      focusNodes.state[index].dispose();
-      controllers.state = [
-        ...controllers.state.sublist(0, index),
-        ...controllers.state.sublist(index + 1),
-      ];
-      focusNodes.state = [
-        ...focusNodes.state.sublist(0, index),
-        ...focusNodes.state.sublist(index + 1),
-      ];
-    }
+    ref.read(sessionSetupProvider.notifier).removePlayer(index);
+    _syncControllers(ref.read(sessionSetupProvider).playerNames);
   }
 
   void _startGame() {
-    final controllers = ref.read(playerControllersProvider);
-    final names = controllers
-        .map((c) => c.text.trim())
-        .where((name) => name.isNotEmpty)
-        .toList();
+    final config = ref.read(sessionSetupProvider);
+    // Questions already played in the saved sessions are reused only when the
+    // session cannot be filled with fresh ones.
+    final recentQuestionIds =
+        ref.read(sessionHistoryProvider.notifier).recentQuestionIds;
+    final errors = ref
+        .read(gameControllerProvider.notifier)
+        .prepare(config, recentQuestionIds: recentQuestionIds);
 
-    if (names.length < 2) {
-      _showError(context, AppStrings.minPlayersError);
+    if (errors.isNotEmpty) {
+      _showError(errors.first);
       return;
     }
 
-    if (names.length > 8) {
-      _showError(context, AppStrings.maxPlayersError);
-      return;
-    }
-
-    if (names.toSet().length != names.length) {
-      _showError(context, 'Les noms des joueurs doivent être uniques');
-      return;
-    }
-
-    _showError(context, 'Fonctionnalité à venir - Task 3');
+    ref.read(gameControllerProvider.notifier).start();
+    context.go(AppRoute.game.path);
   }
 
-  void _showError(BuildContext context, String message) {
+  void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
@@ -97,10 +95,10 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controllers = ref.watch(playerControllersProvider);
-    final focusNodes = ref.watch(playerFocusNodesProvider);
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
+    final config = ref.watch(sessionSetupProvider);
+    final notifier = ref.read(sessionSetupProvider.notifier);
+
+    _syncControllers(config.playerNames);
 
     return Scaffold(
       appBar: AppBar(
@@ -113,10 +111,14 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final maxWidth = constraints.maxWidth;
-            final contentWidth = maxWidth > AppDimensions.maxContentWidth
+            final contentWidth = constraints.maxWidth > AppDimensions.maxContentWidth
                 ? AppDimensions.maxContentWidth
-                : maxWidth;
+                : constraints.maxWidth;
+
+            // A desktop or tablet window shows the session options in two
+            // columns instead of one very long phone column.
+            final twoColumns =
+                AppBreakpoints.sizeOf(constraints.maxWidth) != ScreenSize.phone;
 
             return Center(
               child: ConstrainedBox(
@@ -126,50 +128,48 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        AppStrings.players,
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: AppDimensions.spacingSm),
-                      Text(
-                        'Ajoutez 2 à 8 joueurs pour commencer',
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      const SizedBox(height: AppDimensions.spacingLg),
                       Expanded(
-                        child: ListView.separated(
-                          itemCount: controllers.length,
-                          separatorBuilder: (_, _) => const SizedBox(height: AppDimensions.spacingMd),
-                          itemBuilder: (context, index) {
-                            return _PlayerRow(
-                              index: index,
-                              controller: controllers[index],
-                              focusNode: focusNodes[index],
-                              onRemove: controllers.length > 2
-                                  ? () => _removePlayer(index)
-                                  : null,
-                            );
-                          },
-                        ),
+                        child: twoColumns
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: _sessionColumn(
+                                      scrollPadding:
+                                          const EdgeInsets.only(right: AppDimensions.spacingMd),
+                                      children: [
+                                        ..._playerSection(config, notifier),
+                                        ..._modesSection(config, notifier),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: _sessionColumn(
+                                      scrollPadding:
+                                          const EdgeInsets.only(left: AppDimensions.spacingMd),
+                                      children: [
+                                        ..._difficultySection(config, notifier),
+                                        ..._categoriesSection(config, notifier),
+                                        ..._lengthSection(config, notifier),
+                                        ..._shuffleSection(config, notifier),
+                                        ..._errorsSection(config),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : ListView(
+                                children: [
+                                  ..._playerSection(config, notifier),
+                                  ..._modesSection(config, notifier),
+                                  ..._difficultySection(config, notifier),
+                                  ..._categoriesSection(config, notifier),
+                                  ..._lengthSection(config, notifier),
+                                  ..._shuffleSection(config, notifier),
+                                  ..._errorsSection(config),
+                                ],
+                              ),
                       ),
-                      const SizedBox(height: AppDimensions.spacingLg),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: SecondaryButton(
-                              label: AppStrings.addPlayer,
-                              icon: Icons.person_add_outlined,
-                              onPressed: controllers.length < 8 ? _addPlayer : null,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: AppDimensions.spacingLg),
                       PrimaryButton(
                         label: AppStrings.startGame,
                         icon: Icons.play_arrow,
@@ -185,18 +185,270 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
       ),
     );
   }
+
+  /// Scrollable column used by the two-column layout.
+  Widget _sessionColumn({
+    required List<Widget> children,
+    required EdgeInsets scrollPadding,
+  }) {
+    return ListView(
+      padding: scrollPadding,
+      children: children,
+    );
+  }
+
+  List<Widget> _playerSection(SessionConfig config, SessionSetupNotifier notifier) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return [
+      Text(
+        AppStrings.players,
+        style: textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: colorScheme.onSurface,
+        ),
+      ),
+      const SizedBox(height: AppDimensions.spacingXs),
+      Text(
+        'De 2 à 8 joueurs, sur un seul appareil.',
+        style: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
+      ),
+      const SizedBox(height: AppDimensions.spacingMd),
+      for (var i = 0; i < config.playerNames.length; i++)
+        Padding(
+          padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
+          child: _PlayerRow(
+            index: i,
+            controller: _controllers[i],
+            focusNode: _focusNodes[i],
+            onNameChanged: (name) => notifier.updatePlayerName(i, name),
+            onRemove: config.playerNames.length > config.minPlayers
+                ? () => _removePlayer(i)
+                : null,
+          ),
+        ),
+      Align(
+        alignment: Alignment.centerLeft,
+        child: TextButtonWidget(
+          label: AppStrings.addPlayer,
+          icon: Icons.person_add_outlined,
+          onPressed: config.playerNames.length < config.maxPlayers
+              ? _addPlayer
+              : null,
+        ),
+      ),
+      const SizedBox(height: AppDimensions.spacingLg),
+    ];
+  }
+
+  List<Widget> _modesSection(
+      SessionConfig config, SessionSetupNotifier notifier) {
+    return [
+      _SectionTitle(
+        title: 'Modes de jeu',
+        subtitle: 'Un ou plusieurs modes pour la session.',
+      ),
+      const SizedBox(height: AppDimensions.spacingSm),
+      for (final mode in GameMode.values)
+        _ModeTile(
+          mode: mode,
+          isSelected: config.modes.contains(mode),
+          onTap: () => notifier.toggleMode(mode),
+        ),
+      const SizedBox(height: AppDimensions.spacingLg),
+    ];
+  }
+
+  List<Widget> _difficultySection(
+      SessionConfig config, SessionSetupNotifier notifier) {
+    return [
+      _SectionTitle(
+        title: 'Difficulté',
+        subtitle: 'Les questions de ce niveau sont privilégiées.',
+      ),
+      const SizedBox(height: AppDimensions.spacingSm),
+      SegmentedButton<Difficulty>(
+        segments: [
+          for (final difficulty in Difficulty.values)
+            ButtonSegment<Difficulty>(
+              value: difficulty,
+              label: Text(difficulty.displayNameFr),
+            ),
+        ],
+        selected: {config.difficulty},
+        onSelectionChanged: (selection) => notifier.setDifficulty(selection.first),
+      ),
+      const SizedBox(height: AppDimensions.spacingLg),
+    ];
+  }
+
+  List<Widget> _categoriesSection(
+      SessionConfig config, SessionSetupNotifier notifier) {
+    return [
+      _SectionTitle(
+        title: 'Catégories',
+        subtitle: config.categories.isEmpty
+            ? 'Toutes les catégories.'
+            : '${config.categories.length} catégorie(s) sélectionnée(s).',
+      ),
+      const SizedBox(height: AppDimensions.spacingSm),
+      Wrap(
+        spacing: AppDimensions.spacingSm,
+        runSpacing: AppDimensions.spacingSm,
+        children: [
+          for (final category in QuestionCategory.values)
+            FilterChip(
+              label: Text(category.displayNameFr),
+              selected: config.categories.contains(category),
+              onSelected: (_) => notifier.toggleCategory(category),
+            ),
+        ],
+      ),
+      const SizedBox(height: AppDimensions.spacingLg),
+    ];
+  }
+
+  List<Widget> _lengthSection(
+      SessionConfig config, SessionSetupNotifier notifier) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return [
+      _SectionTitle(
+        title: 'Durée ou nombre de questions',
+        subtitle: config.isTimed
+            ? 'Session minutée : la question en cours est toujours terminée.'
+            : 'Session limitée en nombre de questions.',
+      ),
+      const SizedBox(height: AppDimensions.spacingSm),
+      SegmentedButton<bool>(
+        segments: const [
+          ButtonSegment<bool>(
+            value: false,
+            label: Text('Questions'),
+          ),
+          ButtonSegment<bool>(
+            value: true,
+            label: Text('Durée'),
+          ),
+        ],
+        selected: {config.isTimed},
+        onSelectionChanged: (selection) {
+          final timed = selection.first;
+          notifier.setSessionDurationMinutes(timed ? 15 : null);
+        },
+      ),
+      const SizedBox(height: AppDimensions.spacingMd),
+      if (config.isTimed)
+        AppCard(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Durée : ${config.sessionDurationMinutes} min',
+                  style: textTheme.bodyLarge,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.remove_circle_outline),
+                onPressed: () => notifier.setSessionDurationMinutes(
+                  (config.sessionDurationMinutes! - 1).clamp(1, 180),
+                ),
+                tooltip: 'Réduire la durée',
+              ),
+              IconButton(
+                icon: const Icon(Icons.add_circle_outline),
+                onPressed: () => notifier.setSessionDurationMinutes(
+                  (config.sessionDurationMinutes! + 1).clamp(1, 180),
+                ),
+                tooltip: 'Augmenter la durée',
+              ),
+            ],
+          ),
+        )
+      else
+        AppCard(
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Nombre de questions : ${config.questionCount}',
+                  style: textTheme.bodyLarge,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.remove_circle_outline),
+                onPressed: () => notifier.setQuestionCount(
+                  (config.questionCount - 1).clamp(1, 30),
+                ),
+                tooltip: 'Moins de questions',
+              ),
+              IconButton(
+                icon: const Icon(Icons.add_circle_outline),
+                onPressed: () => notifier.setQuestionCount(
+                  (config.questionCount + 1).clamp(1, 30),
+                ),
+                tooltip: 'Plus de questions',
+              ),
+            ],
+          ),
+        ),
+      const SizedBox(height: AppDimensions.spacingSm),
+    ];
+  }
+
+  List<Widget> _shuffleSection(
+      SessionConfig config, SessionSetupNotifier notifier) {
+    return [
+      SwitchListTile(
+        value: config.shuffleQuestions,
+        onChanged: (_) => notifier.toggleShuffle(),
+        title: const Text('Mélanger les questions'),
+        subtitle: const Text('Ordre aléatoire à chaque session.'),
+        contentPadding: EdgeInsets.zero,
+      ),
+    ];
+  }
+
+  List<Widget> _errorsSection(SessionConfig config) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    if (config.validate().isEmpty) {
+      return [const SizedBox(height: AppDimensions.spacingLg)];
+    }
+
+    return [
+      const SizedBox(height: AppDimensions.spacingSm),
+      for (final error in config.validate())
+        Padding(
+          padding: const EdgeInsets.only(bottom: AppDimensions.spacingXs),
+          child: Text(
+            error,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.error,
+            ),
+          ),
+        ),
+      const SizedBox(height: AppDimensions.spacingLg),
+    ];
+  }
 }
 
 class _PlayerRow extends StatelessWidget {
   final int index;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final ValueChanged<String> onNameChanged;
   final VoidCallback? onRemove;
 
   const _PlayerRow({
     required this.index,
     required this.controller,
     required this.focusNode,
+    required this.onNameChanged,
     this.onRemove,
   });
 
@@ -205,12 +457,12 @@ class _PlayerRow extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return AppCard(
-      padding: const EdgeInsets.all(AppDimensions.spacingMd),
+      padding: const EdgeInsets.all(AppDimensions.spacingSm),
       child: Row(
         children: [
           Container(
-            width: 36,
-            height: 36,
+            width: 32,
+            height: 32,
             decoration: BoxDecoration(
               color: colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
@@ -225,17 +477,24 @@ class _PlayerRow extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: AppDimensions.spacingMd),
+          const SizedBox(width: AppDimensions.spacingSm),
           Expanded(
-            child: AppTextField(
+            child: TextField(
               controller: controller,
               focusNode: focusNode,
-              hint: '${AppStrings.playerNameHint} ${index + 1}',
-              textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                hintText: '${AppStrings.playerNameHint} ${index + 1}',
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.spacingSm,
+                ),
+              ),
+              onChanged: onNameChanged,
+              onSubmitted: onNameChanged,
             ),
           ),
-          if (onRemove != null) ...[
-            const SizedBox(width: AppDimensions.spacingSm),
+          if (onRemove != null)
             IconButton(
               icon: Icon(
                 Icons.remove_circle_outline,
@@ -245,8 +504,95 @@ class _PlayerRow extends StatelessWidget {
               onPressed: onRemove,
               tooltip: 'Supprimer le joueur',
             ),
-          ],
         ],
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
+  const _SectionTitle({required this.title, required this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: colorScheme.onSurface,
+          ),
+        ),
+        Text(
+          subtitle,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ModeTile extends StatelessWidget {
+  final GameMode mode;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _ModeTile({
+    required this.mode,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
+      child: AppCard(
+        onTap: onTap,
+        color: isSelected ? colorScheme.primaryContainer.withValues(alpha: 0.4) : null,
+        child: Row(
+          children: [
+            Icon(
+              isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
+              color: isSelected ? colorScheme.primary : colorScheme.outline,
+              size: AppDimensions.iconMd,
+            ),
+            const SizedBox(width: AppDimensions.spacingSm),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    mode.displayNameFr,
+                    style: textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onSurface,
+                    ),
+                  ),
+                  Text(
+                    mode.descriptionFr,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

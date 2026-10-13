@@ -1,3 +1,24 @@
+import 'package:knowledge_test/models/questions/index.dart';
+import 'package:knowledge_test/models/session_models.dart';
+
+/// Parses an ISO-8601 timestamp, returning null when it is missing or unusable.
+///
+/// Stored data can come from an older version of the app, so dates are read
+/// defensively instead of throwing.
+DateTime? parseDateOrNull(Object? value) {
+  if (value is! String || value.isEmpty) return null;
+  return DateTime.tryParse(value);
+}
+
+/// Looks up an enum value by name, falling back to [fallback] for unknown names.
+T? enumByNameOrNull<T extends Enum>(Iterable<T> values, Object? name) {
+  if (name is! String) return null;
+  for (final value in values) {
+    if (value.name == name) return value;
+  }
+  return null;
+}
+
 class Player {
   final String id;
   final String name;
@@ -36,8 +57,8 @@ class Player {
 
   factory Player.fromJson(Map<String, dynamic> json) {
     return Player(
-      id: json['id'] as String,
-      name: json['name'] as String,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? 'Joueur',
       score: json['score'] as int? ?? 0,
       isActive: json['isActive'] as bool? ?? false,
     );
@@ -196,20 +217,26 @@ class GameSession {
   }
 
   factory GameSession.fromJson(Map<String, dynamic> json) {
+    final players = (json['players'] as List<dynamic>? ?? [])
+        .whereType<Map<String, dynamic>>()
+        .map(Player.fromJson)
+        .toList();
+
     return GameSession(
-      id: json['id'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      players: (json['players'] as List<dynamic>)
-          .map((p) => Player.fromJson(p as Map<String, dynamic>))
-          .toList(),
-      settings: GameSettings.fromJson(json['settings'] as Map<String, dynamic>),
+      id: json['id'] as String? ?? '',
+      // Sessions saved by an older version may not carry a parseable date.
+      createdAt: parseDateOrNull(json['createdAt']) ??
+          DateTime.fromMillisecondsSinceEpoch(0),
+      players: players,
+      settings: json['settings'] is Map<String, dynamic>
+          ? GameSettings.fromJson(json['settings'] as Map<String, dynamic>)
+          : const GameSettings(),
       rounds: (json['rounds'] as List<dynamic>? ?? [])
-          .map((r) => RoundResult.fromJson(r as Map<String, dynamic>))
+          .whereType<Map<String, dynamic>>()
+          .map(RoundResult.fromJson)
           .toList(),
-      status: GameStatus.values.byName(json['status'] as String? ?? 'pending'),
-      completedAt: json['completedAt'] != null
-          ? DateTime.parse(json['completedAt'] as String)
-          : null,
+      status: enumByNameOrNull(GameStatus.values, json['status']) ?? GameStatus.pending,
+      completedAt: parseDateOrNull(json['completedAt']),
     );
   }
 
@@ -220,9 +247,9 @@ class GameSession {
           runtimeType == other.runtimeType &&
           id == other.id &&
           createdAt == other.createdAt &&
-          players == other.players &&
+          listEqualsByValue(players, other.players) &&
           settings == other.settings &&
-          rounds == other.rounds &&
+          listEqualsByValue(rounds, other.rounds) &&
           status == other.status &&
           completedAt == other.completedAt;
 
@@ -230,9 +257,9 @@ class GameSession {
   int get hashCode => Object.hash(
         id,
         createdAt,
-        players,
+        listHashCode(players),
         settings,
-        rounds,
+        listHashCode(rounds),
         status,
         completedAt,
       );
@@ -250,6 +277,16 @@ class RoundResult {
   final String correctAnswer;
   final DateTime answeredAt;
 
+  /// How the round ended. Stored so skipped and invalidated questions stay
+  /// distinguishable in the history; older entries that predate the field are
+  /// treated as pending.
+  final QuestionOutcome outcome;
+
+  /// Players who earned the point for this question, so the history can show
+  /// who scored without re-reading the question. Older entries that predate the
+  /// field are treated as unanswered.
+  final Set<String> awardedPlayerIds;
+
   const RoundResult({
     required this.roundNumber,
     required this.questionId,
@@ -257,6 +294,8 @@ class RoundResult {
     required this.answers,
     required this.correctAnswer,
     required this.answeredAt,
+    this.outcome = QuestionOutcome.pending,
+    this.awardedPlayerIds = const {},
   });
 
   RoundResult copyWith({
@@ -266,6 +305,8 @@ class RoundResult {
     List<PlayerAnswer>? answers,
     String? correctAnswer,
     DateTime? answeredAt,
+    QuestionOutcome? outcome,
+    Set<String>? awardedPlayerIds,
   }) {
     return RoundResult(
       roundNumber: roundNumber ?? this.roundNumber,
@@ -274,6 +315,8 @@ class RoundResult {
       answers: answers ?? this.answers,
       correctAnswer: correctAnswer ?? this.correctAnswer,
       answeredAt: answeredAt ?? this.answeredAt,
+      outcome: outcome ?? this.outcome,
+      awardedPlayerIds: awardedPlayerIds ?? this.awardedPlayerIds,
     );
   }
 
@@ -285,19 +328,30 @@ class RoundResult {
       'answers': answers.map((a) => a.toJson()).toList(),
       'correctAnswer': correctAnswer,
       'answeredAt': answeredAt.toIso8601String(),
+      'outcome': outcome.name,
+      'awardedPlayerIds': awardedPlayerIds.toList(),
     };
   }
 
   factory RoundResult.fromJson(Map<String, dynamic> json) {
     return RoundResult(
-      roundNumber: json['roundNumber'] as int,
-      questionId: json['questionId'] as String,
-      questionText: json['questionText'] as String,
-      answers: (json['answers'] as List<dynamic>)
-          .map((a) => PlayerAnswer.fromJson(a as Map<String, dynamic>))
+      roundNumber: json['roundNumber'] as int? ?? 0,
+      questionId: json['questionId'] as String? ?? '',
+      questionText: json['questionText'] as String? ?? '',
+      answers: (json['answers'] as List<dynamic>? ?? [])
+          .whereType<Map<String, dynamic>>()
+          .map(PlayerAnswer.fromJson)
           .toList(),
-      correctAnswer: json['correctAnswer'] as String,
-      answeredAt: DateTime.parse(json['answeredAt'] as String),
+      correctAnswer: json['correctAnswer'] as String? ?? '',
+      answeredAt: parseDateOrNull(json['answeredAt']) ??
+          DateTime.fromMillisecondsSinceEpoch(0),
+      outcome:
+          enumByNameOrNull(QuestionOutcome.values, json['outcome']) ?? QuestionOutcome.pending,
+      awardedPlayerIds: {
+        for (final id in (json['awardedPlayerIds'] as List<dynamic>? ?? const [])
+            .whereType<String>())
+          id,
+      },
     );
   }
 
@@ -309,23 +363,27 @@ class RoundResult {
           roundNumber == other.roundNumber &&
           questionId == other.questionId &&
           questionText == other.questionText &&
-          answers == other.answers &&
+          listEqualsByValue(answers, other.answers) &&
           correctAnswer == other.correctAnswer &&
-          answeredAt == other.answeredAt;
+          answeredAt == other.answeredAt &&
+          outcome == other.outcome &&
+          setEqualsByValue(awardedPlayerIds, other.awardedPlayerIds);
 
   @override
   int get hashCode => Object.hash(
         roundNumber,
         questionId,
         questionText,
-        answers,
+        listHashCode(answers),
         correctAnswer,
         answeredAt,
+        outcome,
+        setHashCode(awardedPlayerIds),
       );
 
   @override
   String toString() =>
-      'RoundResult(roundNumber: $roundNumber, questionId: $questionId, questionText: $questionText, answers: $answers, correctAnswer: $correctAnswer, answeredAt: $answeredAt)';
+      'RoundResult(roundNumber: $roundNumber, questionId: $questionId, questionText: $questionText, answers: $answers, correctAnswer: $correctAnswer, answeredAt: $answeredAt, outcome: ${outcome.name})';
 }
 
 class PlayerAnswer {
@@ -376,12 +434,12 @@ class PlayerAnswer {
 
   factory PlayerAnswer.fromJson(Map<String, dynamic> json) {
     return PlayerAnswer(
-      playerId: json['playerId'] as String,
-      playerName: json['playerName'] as String,
-      answer: json['answer'] as String,
-      isCorrect: json['isCorrect'] as bool,
-      pointsEarned: json['pointsEarned'] as int,
-      responseTimeMs: json['responseTimeMs'] as int,
+      playerId: json['playerId'] as String? ?? '',
+      playerName: json['playerName'] as String? ?? '',
+      answer: json['answer'] as String? ?? '',
+      isCorrect: json['isCorrect'] as bool? ?? false,
+      pointsEarned: json['pointsEarned'] as int? ?? 0,
+      responseTimeMs: json['responseTimeMs'] as int? ?? 0,
     );
   }
 
