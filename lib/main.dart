@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/app/theme.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
+import 'package:knowledge_test/providers/locale_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
 import 'package:knowledge_test/repositories/asset_question_repository.dart';
@@ -120,6 +122,7 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(localeProvider);
 
     // A finished session is saved exactly once, as soon as it is completed:
     // the listener and the final ranking screen share the same id guard, so
@@ -137,6 +140,9 @@ class _MainAppState extends ConsumerState<MainApp> {
       theme: createLightTheme(),
       darkTheme: createDarkTheme(),
       themeMode: themeMode,
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: appRouter,
     );
   }

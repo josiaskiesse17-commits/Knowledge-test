@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:knowledge_test/app/router.dart';
-import 'package:knowledge_test/core/constants/app_strings.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     final width = MediaQuery.sizeOf(context).width;
@@ -20,28 +21,28 @@ class HomeScreen extends StatelessWidget {
 
     final secondaryButtons = [
       _MenuEntry(
-        label: AppStrings.questionLibrary,
+        label: l10n.homeQuestionLibrary,
         icon: Icons.menu_book_outlined,
-        description: 'Consultez les questions du quiz',
+        description: l10n.homeQuestionLibraryDescription,
         onTap: () => context.go(AppRoute.questionLibrary.path),
       ),
       _MenuEntry(
-        label: AppStrings.sessionHistory,
+        label: l10n.homeSessionHistory,
         icon: Icons.history_outlined,
-        description: 'Reprenez vos parties terminées',
+        description: l10n.homeSessionHistoryDescription,
         onTap: () => context.go(AppRoute.sessionHistory.path),
       ),
       _MenuEntry(
-        label: AppStrings.settings,
+        label: l10n.homeSettings,
         icon: Icons.settings_outlined,
-        description: 'Thème clair ou sombre',
+        description: l10n.homeSettingsDescription,
         onTap: () => context.go(AppRoute.settings.path),
       ),
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.appTitle),
+        title: Text(l10n.homeTitle),
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
@@ -68,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppDimensions.spacingMd),
                   Text(
-                    'Bienvenue',
+                    l10n.homeWelcome,
                     style: (isWide
                             ? textTheme.displayLarge
                             : textTheme.displayMedium)
@@ -80,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: AppDimensions.spacingSm),
                   Text(
-                    'Organisez des quiz en personne avec vos amis',
+                    l10n.homeWelcomeSubtitle,
                     style: textTheme.bodyLarge?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                         : AppDimensions.spacingXl,
                   ),
                   PrimaryButton(
-                    label: AppStrings.newGame,
+                    label: l10n.homeNewGame,
                     icon: Icons.play_circle_outline,
                     onPressed: () => context.go(AppRoute.gameSetup.path),
                   ),

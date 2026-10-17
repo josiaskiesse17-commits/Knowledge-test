@@ -5,20 +5,22 @@ import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
 import 'package:knowledge_test/services/session_history_service.dart';
 
 /// Application settings.
 ///
-/// The only preference that exists today is the theme, so that is what this
-/// screen shows. The history size is reported as read-only information: the
-/// sessions themselves are managed from the history screen.
+/// The preferences offered here are the theme and the language. The history
+/// size is reported as read-only information: the sessions themselves are
+/// managed from the history screen.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final themeMode = ref.watch(themeModeProvider);
     final history = ref.watch(sessionHistoryProvider);
     final notifier = ref.read(themeModeProvider.notifier);
@@ -29,10 +31,10 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Paramètres'),
+        title: Text(l10n.settingsTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          tooltip: 'Retour',
+          tooltip: l10n.settingsBackTooltip,
           onPressed: () => context.go(AppRoute.home.path),
         ),
       ),
@@ -44,8 +46,8 @@ class SettingsScreen extends ConsumerWidget {
               padding: EdgeInsets.all(AppBreakpoints.pagePadding(width)),
               children: [
                 _SectionTitle(
-                  title: 'Apparence',
-                  subtitle: 'Choisissez le thème de l\'application',
+                  title: l10n.settingsAppearanceTitle,
+                  subtitle: l10n.settingsAppearanceSubtitle,
                   leadingIcon: Icons.palette_outlined,
                 ),
                 _ThemeSelector(
@@ -54,8 +56,8 @@ class SettingsScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppDimensions.spacingLg),
                 _SectionTitle(
-                  title: 'Données',
-                  subtitle: 'Stockées uniquement sur cet appareil',
+                  title: l10n.settingsDataTitle,
+                  subtitle: l10n.settingsDataSubtitle,
                   leadingIcon: Icons.storage_outlined,
                 ),
                 AppCard(
@@ -66,10 +68,11 @@ class SettingsScreen extends ConsumerWidget {
                       Expanded(
                         child: Text(
                           history.sessions.length <= kMaxStoredSessions
-                              ? '${history.sessions.length} session(s) enregistrée(s) '
-                                  '(maximum $kMaxStoredSessions)'
-                              : 'Historique plein : les sessions les plus anciennes '
-                                  'sont remplacées automatiquement',
+                              ? l10n.settingsStoredSessions(
+                                  history.sessions.length,
+                                  kMaxStoredSessions,
+                                )
+                              : l10n.settingsHistoryFull,
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ),
@@ -83,8 +86,8 @@ class SettingsScreen extends ConsumerWidget {
                     children: [
                       const Icon(Icons.list_alt_outlined),
                       const SizedBox(width: AppDimensions.spacingMd),
-                      const Expanded(
-                        child: Text('Ouvrir l\'historique des sessions'),
+                      Expanded(
+                        child: Text(l10n.settingsOpenHistory),
                       ),
                       const Icon(Icons.chevron_right),
                     ],
@@ -92,15 +95,11 @@ class SettingsScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: AppDimensions.spacingLg),
                 _SectionTitle(
-                  title: 'À propos',
+                  title: l10n.settingsAboutTitle,
                   leadingIcon: Icons.info_outline,
                 ),
-                const AppCard(
-                  child: Text(
-                    'Quiz Master fonctionne hors connexion : ni compte, ni '
-                    'connexion internet, ni publicité. Les questions et les '
-                    'sessions sont stockées localement sur cet appareil.',
-                  ),
+                AppCard(
+                  child: Text(l10n.settingsAboutDescription),
                 ),
               ],
             ),
@@ -166,14 +165,20 @@ class _ThemeSelector extends StatelessWidget {
 
   const _ThemeSelector({required this.current, required this.onChanged});
 
-  static const _options = <(ThemeMode, String, IconData)>[
-    (ThemeMode.light, 'Clair', Icons.light_mode_outlined),
-    (ThemeMode.dark, 'Sombre', Icons.dark_mode_outlined),
-    (ThemeMode.system, 'Système', Icons.brightness_auto_outlined),
-  ];
+  List<(ThemeMode, String, IconData)> _options(AppLocalizations l10n) => [
+        (ThemeMode.light, l10n.settingsThemeLight, Icons.light_mode_outlined),
+        (ThemeMode.dark, l10n.settingsThemeDark, Icons.dark_mode_outlined),
+        (
+          ThemeMode.system,
+          l10n.settingsThemeSystem,
+          Icons.brightness_auto_outlined
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final options = _options(l10n);
     final isNarrow = MediaQuery.sizeOf(context).width < 600;
 
     if (isNarrow) {
@@ -185,7 +190,7 @@ class _ThemeSelector extends StatelessWidget {
         },
         child: Column(
           children: [
-            for (final option in _options)
+            for (final option in options)
               RadioListTile<ThemeMode>(
                 value: option.$1,
                 title: Text(option.$2),
@@ -198,7 +203,7 @@ class _ThemeSelector extends StatelessWidget {
 
     return SegmentedButton<ThemeMode>(
       segments: [
-        for (final option in _options)
+        for (final option in options)
           ButtonSegment<ThemeMode>(
             value: option.$1,
             label: Text(option.$2),
