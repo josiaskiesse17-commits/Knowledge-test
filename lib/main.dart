@@ -5,9 +5,98 @@ import 'package:knowledge_test/app/theme.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
+import 'package:knowledge_test/repositories/asset_question_repository.dart';
+import 'package:knowledge_test/repositories/question_repository.dart';
+
+typedef QuestionRepositoryLoader = Future<QuestionRepository> Function();
 
 void main() {
-  runApp(const ProviderScope(child: MainApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const StartupApp());
+}
+
+class StartupApp extends StatefulWidget {
+  final QuestionRepositoryLoader loader;
+
+  const StartupApp({super.key, this.loader = AssetQuestionRepository.load});
+
+  @override
+  State<StartupApp> createState() => _StartupAppState();
+}
+
+class _StartupAppState extends State<StartupApp> {
+  late Future<QuestionRepository> _loaderFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _startLoading();
+  }
+
+  void _startLoading() {
+    _loaderFuture = widget.loader();
+  }
+
+  void _retry() {
+    setState(() {
+      _startLoading();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<QuestionRepository>(
+      future: _loaderFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(body: Center(child: CircularProgressIndicator())),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.error_outline,
+                        size: 48,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Impossible de charger la banque de questions.\n${snapshot.error}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 24),
+                      FilledButton(
+                        onPressed: _retry,
+                        child: const Text('Réessayer'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+
+        final repository = snapshot.data!;
+        return ProviderScope(
+          overrides: [questionRepositoryProvider.overrideWithValue(repository)],
+          child: const MainApp(),
+        );
+      },
+    );
+  }
 }
 
 class MainApp extends ConsumerStatefulWidget {
