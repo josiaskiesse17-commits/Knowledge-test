@@ -12,6 +12,7 @@ import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
+import '../helpers/localizations.dart';
 import '../helpers/test_question_repository.dart';
 
 /// Window sizes the app has to work on, from a small Android phone to a wide
@@ -35,7 +36,12 @@ Future<void> pumpAt(WidgetTester tester, Widget screen, Size size) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [testQuestionRepositoryOverride],
-      child: MaterialApp(home: screen),
+      child: MaterialApp(
+        locale: kTestLocale,
+        localizationsDelegates: kTestLocalizationDelegates,
+        supportedLocales: kTestSupportedLocales,
+        home: screen,
+      ),
     ),
   );
   await tester.pumpAndSettle();

@@ -6,11 +6,13 @@ import 'package:knowledge_test/features/question_library/question_detail_view.da
 import 'package:knowledge_test/features/question_library/question_library_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
 import 'package:knowledge_test/models/questions/index.dart';
+import 'package:knowledge_test/providers/locale_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
 import 'package:knowledge_test/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helpers/localizations.dart';
 import '../helpers/sample_question_bank.dart';
 import '../helpers/test_question_repository.dart';
 
@@ -38,15 +40,21 @@ void main() {
           testQuestionRepositoryOverride,
           storageServiceProvider.overrideWith((ref) async => storage),
         ],
-        child: MaterialApp(home: widget),
+        child: MaterialApp(
+          locale: kTestLocale,
+          localizationsDelegates: kTestLocalizationDelegates,
+          supportedLocales: kTestSupportedLocales,
+          home: widget,
+        ),
       ),
     );
     await tester.pumpAndSettle();
     return storage;
   }
 
-  /// Pumps a widget inside a MaterialApp that follows the app theme mode, so
-  /// theme switching can be observed on the rendered app.
+  /// Pumps a widget inside a MaterialApp that follows the app theme mode and
+  /// language, so theme and language switching can be observed on the rendered
+  /// app.
   Future<void> pumpThemed(
     WidgetTester tester,
     Widget widget, {
@@ -62,10 +70,14 @@ void main() {
         child: Consumer(
           builder: (context, ref, _) {
             final themeMode = ref.watch(themeModeProvider);
+            final locale = ref.watch(localeProvider);
             return MaterialApp(
               theme: createLightTheme(),
               darkTheme: createDarkTheme(),
               themeMode: themeMode,
+              locale: locale,
+              localizationsDelegates: kTestLocalizationDelegates,
+              supportedLocales: kTestSupportedLocales,
               home: widget,
             );
           },
@@ -337,6 +349,72 @@ void main() {
 
       expect(find.text('Données'), findsOneWidget);
       expect(find.text('Ouvrir l\'historique des sessions'), findsOneWidget);
+    });
+
+    testWidgets('the language selector switches the screen to English and back', (
+      tester,
+    ) async {
+      await pumpThemed(
+        tester,
+        const SettingsScreen(),
+        size: const Size(395, 845),
+      );
+
+      // French is the default language.
+      expect(find.text('Paramètres'), findsOneWidget);
+      expect(find.text('Apparence'), findsOneWidget);
+      expect(find.text('Langue'), findsOneWidget);
+
+      await tester.tap(find.text('English'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Settings'), findsOneWidget);
+      expect(find.text('Appearance'), findsOneWidget);
+      expect(find.text('Data'), findsOneWidget);
+      // The language labels keep their native names in every language.
+      expect(find.text('Français'), findsOneWidget);
+      expect(find.text('English'), findsOneWidget);
+
+      await tester.tap(find.text('Français'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Paramètres'), findsOneWidget);
+      expect(find.text('Apparence'), findsOneWidget);
+      expect(find.text('Données'), findsOneWidget);
+    });
+
+    testWidgets('the language choice is persisted locally', (tester) async {
+      SharedPreferences.setMockInitialValues(<String, Object>{});
+      final storage = await StorageService.create();
+
+      await pumpThemed(
+        tester,
+        const SettingsScreen(),
+        size: const Size(395, 845),
+      );
+
+      await tester.tap(find.text('English'));
+      await tester.pumpAndSettle();
+
+      expect(await storage.getLocale(), const Locale('en'));
+    });
+
+    testWidgets('a restored English preference is applied after a restart', (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues(<String, Object>{
+        'app_locale': 'en',
+      });
+
+      await pumpThemed(
+        tester,
+        const SettingsScreen(),
+        size: const Size(395, 845),
+      );
+
+      // The screen is rendered in English after the restart.
+      expect(find.text('Settings'), findsOneWidget);
+      expect(find.text('Appearance'), findsOneWidget);
     });
   });
 }
