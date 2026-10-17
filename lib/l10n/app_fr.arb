@@ -1,0 +1,41 @@
+{
+  "@@locale": "fr",
+
+  "homeTitle": "Quiz Master",
+  "homeWelcome": "Bienvenue",
+  "homeWelcomeSubtitle": "Organisez des quiz en personne avec vos amis",
+  "homeNewGame": "Nouvelle partie",
+  "homeQuestionLibrary": "Bibliothèque de questions",
+  "homeQuestionLibraryDescription": "Consultez les questions du quiz",
+  "homeSessionHistory": "Historique des sessions",
+  "homeSessionHistoryDescription": "Reprenez vos parties terminées",
+  "homeSettings": "Paramètres",
+  "homeSettingsDescription": "Thème clair ou sombre",
+
+  "settingsTitle": "Paramètres",
+  "settingsBackTooltip": "Retour",
+  "settingsAppearanceTitle": "Apparence",
+  "settingsAppearanceSubtitle": "Choisissez le thème de l'application",
+  "settingsThemeLight": "Clair",
+  "settingsThemeDark": "Sombre",
+  "settingsThemeSystem": "Système",
+  "settingsLanguageTitle": "Langue",
+  "settingsLanguageSubtitle": "Choisissez la langue de l'application",
+  "settingsDataTitle": "Données",
+  "settingsDataSubtitle": "Stockées uniquement sur cet appareil",
+  "settingsStoredSessions": "{count} session(s) enregistrée(s) (maximum {max})",
+  "@settingsStoredSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsHistoryFull": "Historique plein : les sessions les plus anciennes sont remplacées automatiquement",
+  "settingsOpenHistory": "Ouvrir l'historique des sessions",
+  "settingsAboutTitle": "À propos",
+  "settingsAboutDescription": "Quiz Master fonctionne hors connexion : ni compte, ni connexion internet, ni publicité. Les questions et les sessions sont stockées localement sur cet appareil."
+}

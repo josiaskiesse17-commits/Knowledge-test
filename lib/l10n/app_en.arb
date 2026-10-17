@@ -1,0 +1,41 @@
+{
+  "@@locale": "en",
+
+  "homeTitle": "Quiz Master",
+  "homeWelcome": "Welcome",
+  "homeWelcomeSubtitle": "Host quizzes in person with your friends",
+  "homeNewGame": "New game",
+  "homeQuestionLibrary": "Question library",
+  "homeQuestionLibraryDescription": "Browse the quiz questions",
+  "homeSessionHistory": "Session history",
+  "homeSessionHistoryDescription": "Review your finished games",
+  "homeSettings": "Settings",
+  "homeSettingsDescription": "Light or dark theme",
+
+  "settingsTitle": "Settings",
+  "settingsBackTooltip": "Back",
+  "settingsAppearanceTitle": "Appearance",
+  "settingsAppearanceSubtitle": "Choose the app theme",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsThemeSystem": "System",
+  "settingsLanguageTitle": "Language",
+  "settingsLanguageSubtitle": "Choose the app language",
+  "settingsDataTitle": "Data",
+  "settingsDataSubtitle": "Stored on this device only",
+  "settingsStoredSessions": "{count} saved session(s) (maximum {max})",
+  "@settingsStoredSessions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsHistoryFull": "History full: the oldest sessions are replaced automatically",
+  "settingsOpenHistory": "Open the session history",
+  "settingsAboutTitle": "About",
+  "settingsAboutDescription": "Quiz Master works offline: no account, no internet connection, no ads. Questions and sessions are stored locally on this device."
+}
