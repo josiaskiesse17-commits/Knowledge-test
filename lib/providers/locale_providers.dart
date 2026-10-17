@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
-import 'package:knowledge_test/services/storage_service.dart';
 
 /// User language preference: French (default) or English.
 ///
