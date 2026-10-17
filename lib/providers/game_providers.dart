@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
-import 'package:knowledge_test/repositories/in_memory_question_repository.dart';
 import 'package:knowledge_test/repositories/question_repository.dart';
 import 'package:knowledge_test/services/game_engine.dart';
 
 /// Question source used by the app.
 final questionRepositoryProvider = Provider<QuestionRepository>((ref) {
-  return sampleQuestionRepository;
+  throw StateError('questionRepositoryProvider must be overridden');
 });
 
 /// Draft of the session being configured on the setup screen.
@@ -18,18 +17,17 @@ final questionRepositoryProvider = Provider<QuestionRepository>((ref) {
 /// quickest setup for the quizmaster.
 final sessionSetupProvider =
     StateNotifierProvider<SessionSetupNotifier, SessionConfig>((ref) {
-  return SessionSetupNotifier();
-});
+      return SessionSetupNotifier();
+    });
 
-SessionConfig get _defaultConfig => SessionConfig(
-      playerNames: const ['', ''],
-      modes: GameMode.values.toList(),
-    );
+SessionConfig get _defaultConfig =>
+    SessionConfig(playerNames: const ['', ''], modes: GameMode.values.toList());
 
 class SessionSetupNotifier extends StateNotifier<SessionConfig> {
   SessionSetupNotifier() : super(_defaultConfig);
 
-  void setPlayers(List<String> names) => state = state.copyWith(playerNames: names);
+  void setPlayers(List<String> names) =>
+      state = state.copyWith(playerNames: names);
 
   void updatePlayerName(int index, String name) {
     final names = [...state.playerNames];
@@ -61,9 +59,11 @@ class SessionSetupNotifier extends StateNotifier<SessionConfig> {
     state = state.copyWith(categories: categories);
   }
 
-  void setDifficulty(Difficulty difficulty) => state = state.copyWith(difficulty: difficulty);
+  void setDifficulty(Difficulty difficulty) =>
+      state = state.copyWith(difficulty: difficulty);
 
-  void setQuestionCount(int count) => state = state.copyWith(questionCount: count);
+  void setQuestionCount(int count) =>
+      state = state.copyWith(questionCount: count);
 
   void setSessionDurationMinutes(int? minutes) {
     state = minutes == null
@@ -71,28 +71,32 @@ class SessionSetupNotifier extends StateNotifier<SessionConfig> {
         : state.copyWith(sessionDurationMinutes: minutes);
   }
 
-  void toggleShuffle() => state = state.copyWith(shuffleQuestions: !state.shuffleQuestions);
+  void toggleShuffle() =>
+      state = state.copyWith(shuffleQuestions: !state.shuffleQuestions);
 
   void reset() => state = _defaultConfig;
 }
 
 /// Controls the running session: rules live in [GameRules], this controller only
 /// owns the countdown timer and exposes the resulting [GameState].
-final gameControllerProvider =
-    StateNotifierProvider<GameController, GameState>((ref) {
-  final repository = ref.watch(questionRepositoryProvider);
-  return GameController(repository);
-});
+final gameControllerProvider = StateNotifierProvider<GameController, GameState>(
+  (ref) {
+    final repository = ref.watch(questionRepositoryProvider);
+    return GameController(repository);
+  },
+);
 
 class GameController extends StateNotifier<GameState> {
   final QuestionRepository _repository;
   Timer? _timer;
 
   GameController(this._repository)
-      : super(GameRules.buildSession(
+    : super(
+        GameRules.buildSession(
           config: const SessionConfig(),
           availableQuestions: _repository.getAllQuestions(),
-        ));
+        ),
+      );
 
   /// Prepares a session from the quizmaster's draft.
   ///
@@ -147,8 +151,10 @@ class GameController extends StateNotifier<GameState> {
   }
 
   bool undoAward(String playerId) {
-    final (state: nextState, removed: removed) =
-        GameRules.undoAward(state, playerId);
+    final (state: nextState, removed: removed) = GameRules.undoAward(
+      state,
+      playerId,
+    );
     state = nextState;
     return removed;
   }
@@ -189,7 +195,8 @@ class GameController extends StateNotifier<GameState> {
   bool isSequenceCorrect(List<String> orderedIds) =>
       GameRules.isSequenceCorrect(state, orderedIds);
 
-  String formatRemainingTime() => GameRules.formatDuration(state.remainingSeconds);
+  String formatRemainingTime() =>
+      GameRules.formatDuration(state.remainingSeconds);
 
   /// Starts, restarts or stops the countdown so there is never more than one
   /// periodic timer running.

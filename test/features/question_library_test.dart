@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knowledge_test/app/theme.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
-import 'package:knowledge_test/features/question_library/question_library_screen.dart';
 import 'package:knowledge_test/features/question_library/question_detail_view.dart';
+import 'package:knowledge_test/features/question_library/question_library_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
 import 'package:knowledge_test/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/sample_question_bank.dart';
+import '../helpers/test_question_repository.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,10 @@ void main() {
     final storage = await StorageService.create();
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [storageServiceProvider.overrideWith((ref) async => storage)],
+        overrides: [
+          testQuestionRepositoryOverride,
+          storageServiceProvider.overrideWith((ref) async => storage),
+        ],
         child: MaterialApp(home: widget),
       ),
     );
@@ -53,6 +58,7 @@ void main() {
 
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [testQuestionRepositoryOverride],
         child: Consumer(
           builder: (context, ref, _) {
             final themeMode = ref.watch(themeModeProvider);
@@ -86,9 +92,13 @@ void main() {
 
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
       expect(find.text('117 questions'), findsOneWidget);
-      expect(find.text('Lequel est arrivé en premier : le premier pas de '
-          'l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?'),
-          findsOneWidget);
+      expect(
+        find.text(
+          'Lequel est arrivé en premier : le premier pas de '
+          'l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?',
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('filters by mode', (tester) async {
@@ -143,7 +153,9 @@ void main() {
       expect(find.text('117 questions'), findsOneWidget);
     });
 
-    testWidgets('a search without a match shows the empty state', (tester) async {
+    testWidgets('a search without a match shows the empty state', (
+      tester,
+    ) async {
       await pumpNarrow(tester, libraryUnderTest());
 
       await tester.enterText(find.byType(TextField), 'zzzz-introuvable');
@@ -166,8 +178,9 @@ void main() {
       expect(find.text('117 questions'), findsOneWidget);
     });
 
-    testWidgets('the library shows a question with answer and explanation',
-        (tester) async {
+    testWidgets('the library shows a question with answer and explanation', (
+      tester,
+    ) async {
       await pumpNarrow(tester, libraryUnderTest());
 
       // Searching by id narrows the list to that single question.
@@ -175,10 +188,12 @@ void main() {
       await tester.pumpAndSettle();
 
       // The card shows the question text, which is what the quizmaster taps.
-      await tester.tap(find.descendant(
-        of: find.byType(ListView),
-        matching: find.textContaining('Conseil de sécurité'),
-      ));
+      await tester.tap(
+        find.descendant(
+          of: find.byType(ListView),
+          matching: find.textContaining('Conseil de sécurité'),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('Bonne réponse'), findsOneWidget);
@@ -187,17 +202,15 @@ void main() {
       expect(find.textContaining('Groupe de fait :'), findsOneWidget);
     });
 
-    testWidgets('the detail view shows the question metadata and answers',
-        (tester) async {
+    testWidgets('the detail view shows the question metadata and answers', (
+      tester,
+    ) async {
       // A HowMuch question renders its expected value and accepted range.
       final howMuch = SampleQuestionBank.questions
           .whereType<HowMuchQuestion>()
           .first;
 
-      await pumpNarrow(
-        tester,
-        QuestionDetailView(question: howMuch),
-      );
+      await pumpNarrow(tester, QuestionDetailView(question: howMuch));
 
       expect(find.text('Combien ?'), findsOneWidget);
       expect(find.text('Bonne réponse'), findsOneWidget);
@@ -216,8 +229,12 @@ void main() {
       expect(find.text('Sélectionnez une question'), findsOneWidget);
       expect(find.text('117 questions'), findsOneWidget);
 
-      await tester.tap(find.text('Lequel est arrivé en premier : le premier pas '
-          'de l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?'));
+      await tester.tap(
+        find.text(
+          'Lequel est arrivé en premier : le premier pas '
+          'de l\'Homme sur la Lune ou le premier vol spatial habité par une femme ?',
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.text('Bonne réponse'), findsOneWidget);
@@ -235,8 +252,9 @@ void main() {
       expect(find.text('Système'), findsOneWidget);
     });
 
-    testWidgets('switching to the dark theme applies it to the whole app',
-        (tester) async {
+    testWidgets('switching to the dark theme applies it to the whole app', (
+      tester,
+    ) async {
       await pumpThemed(
         tester,
         const SettingsScreen(),
@@ -278,8 +296,9 @@ void main() {
       expect(await storage.getThemeMode(), ThemeMode.dark);
     });
 
-    testWidgets('a restored dark preference is applied after a restart',
-        (tester) async {
+    testWidgets('a restored dark preference is applied after a restart', (
+      tester,
+    ) async {
       SharedPreferences.setMockInitialValues(<String, Object>{
         'theme_mode': 'dark',
       });
@@ -300,8 +319,9 @@ void main() {
       );
     });
 
-    testWidgets('the settings screen offers a wide theme selector',
-        (tester) async {
+    testWidgets('the settings screen offers a wide theme selector', (
+      tester,
+    ) async {
       await pumpWithSize(
         tester,
         const SettingsScreen(),

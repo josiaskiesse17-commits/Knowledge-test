@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/repositories/in_memory_question_repository.dart';
+
+import '../helpers/sample_question_bank.dart';
+import '../helpers/test_question_repository.dart';
 
 void main() {
   final questions = SampleQuestionBank.questions;
@@ -10,8 +12,12 @@ void main() {
     test('every mode has at least five questions', () {
       for (final mode in GameMode.values) {
         final count = questions.where((q) => q.mode == mode).length;
-        expect(count, greaterThanOrEqualTo(5),
-            reason: 'Le mode ${mode.name} doit contenir au moins 5 questions (trouvé : $count)');
+        expect(
+          count,
+          greaterThanOrEqualTo(5),
+          reason:
+              'Le mode ${mode.name} doit contenir au moins 5 questions (trouvé : $count)',
+        );
       }
     });
 
@@ -28,8 +34,11 @@ void main() {
     test('nested ids (events, clues, statements, items) are unique', () {
       final ids = <String>{};
       void collect(String id, String scope) {
-        expect(ids.add(id), isTrue,
-            reason: 'Identifiant dupliqué dans $scope : $id');
+        expect(
+          ids.add(id),
+          isTrue,
+          reason: 'Identifiant dupliqué dans $scope : $id',
+        );
       }
 
       for (final question in questions) {
@@ -58,29 +67,48 @@ void main() {
   group('Shared question metadata', () {
     test('every question has a French text and explanation', () {
       for (final question in questions) {
-        expect(question.text.trim().isNotEmpty, isTrue, reason: '${question.id} sans texte');
-        expect(question.explanationFr.trim().isNotEmpty, isTrue,
-            reason: '${question.id} sans explication');
+        expect(
+          question.text.trim().isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans texte',
+        );
+        expect(
+          question.explanationFr.trim().isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans explication',
+        );
       }
     });
 
     test('every question carries a source reference', () {
       for (final question in questions) {
-        expect(question.sourceReference.trim().isNotEmpty, isTrue,
-            reason: '${question.id} sans source');
+        expect(
+          question.sourceReference.trim().isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans source',
+        );
       }
     });
 
     test('every question has a non-empty fact group id', () {
       for (final question in questions) {
-        expect(question.factGroupId.trim().isNotEmpty, isTrue,
-            reason: '${question.id} sans factGroupId');
+        expect(
+          question.factGroupId.trim().isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans factGroupId',
+        );
       }
     });
 
     test('the bank covers several categories and all difficulties', () {
-      expect(questions.map((q) => q.category).toSet().length, greaterThanOrEqualTo(5));
-      expect(questions.map((q) => q.difficulty).toSet().length, Difficulty.values.length);
+      expect(
+        questions.map((q) => q.category).toSet().length,
+        greaterThanOrEqualTo(5),
+      );
+      expect(
+        questions.map((q) => q.difficulty).toSet().length,
+        Difficulty.values.length,
+      );
     });
 
     test('every question language is French', () {
@@ -104,42 +132,71 @@ void main() {
       expect(chronology.length, greaterThanOrEqualTo(5));
 
       for (final question in chronology) {
-        expect(question.events.length, greaterThanOrEqualTo(2),
-            reason: '${question.id} doit proposer au moins deux événements');
-        expect(question.correctFirstIndex != question.correctSecondIndex, isTrue);
+        expect(
+          question.events.length,
+          greaterThanOrEqualTo(2),
+          reason: '${question.id} doit proposer au moins deux événements',
+        );
+        expect(
+          question.correctFirstIndex != question.correctSecondIndex,
+          isTrue,
+        );
 
         final first = question.events[question.correctFirstIndex];
         final second = question.events[question.correctSecondIndex];
-        expect(first.date.isBefore(second.date) || first.date.isAtSameMomentAs(second.date),
+        expect(
+          first.date.isBefore(second.date) ||
+              first.date.isAtSameMomentAs(second.date),
+          isTrue,
+          reason:
+              '${question.id} : le premier indiqué (${first.date}) doit précéder le second',
+        );
+        expect(
+          question.events.map((e) => e.id).toSet().length,
+          question.events.length,
+        );
+      }
+    });
+
+    test(
+      'Guess the Country has clues, accepted answers, capital and continent',
+      () {
+        final countries = questions.whereType<GuessTheCountryQuestion>();
+        expect(countries.length, greaterThanOrEqualTo(5));
+
+        for (final question in countries) {
+          expect(
+            question.clues.length,
+            greaterThanOrEqualTo(2),
+            reason: '${question.id} doit fournir des indices progressifs',
+          );
+          expect(question.acceptedAnswers.isNotEmpty, isTrue);
+          expect(
+            question.acceptedAnswers.contains(question.targetCountry),
             isTrue,
-            reason: '${question.id} : le premier indiqué (${first.date}) doit précéder le second');
-        expect(question.events.map((e) => e.id).toSet().length, question.events.length);
-      }
-    });
-
-    test('Guess the Country has clues, accepted answers, capital and continent', () {
-      final countries = questions.whereType<GuessTheCountryQuestion>();
-      expect(countries.length, greaterThanOrEqualTo(5));
-
-      for (final question in countries) {
-        expect(question.clues.length, greaterThanOrEqualTo(2),
-            reason: '${question.id} doit fournir des indices progressifs');
-        expect(question.acceptedAnswers.isNotEmpty, isTrue);
-        expect(question.acceptedAnswers.contains(question.targetCountry), isTrue,
-            reason: '${question.id} doit accepter son nom officiel');
-        expect(question.capital.isNotEmpty, isTrue);
-        expect(question.continent.isNotEmpty, isTrue);
-        expect(question.targetCountryCode.length, 2);
-      }
-    });
+            reason: '${question.id} doit accepter son nom officiel',
+          );
+          expect(question.capital.isNotEmpty, isTrue);
+          expect(question.continent.isNotEmpty, isTrue);
+          expect(question.targetCountryCode.length, 2);
+        }
+      },
+    );
 
     test('Guess the Country clues are ordered progressively without gaps', () {
       for (final question in questions.whereType<GuessTheCountryQuestion>()) {
         final orders = question.clues.map((c) => c.order).toList()..sort();
-        expect(orders.first, 1, reason: '${question.id} : le premier indice vaut 1');
+        expect(
+          orders.first,
+          1,
+          reason: '${question.id} : le premier indice vaut 1',
+        );
         for (var i = 1; i < orders.length; i++) {
-          expect(orders[i], orders[i - 1] + 1,
-              reason: '${question.id} : les indices doivent se suivre');
+          expect(
+            orders[i],
+            orders[i - 1] + 1,
+            reason: '${question.id} : les indices doivent se suivre',
+          );
         }
       }
     });
@@ -153,30 +210,50 @@ void main() {
 
         switch (question.variation) {
           case QuestionVariation.factOrCapTrueFalse:
-            expect(question.statements.length, 1,
-                reason: '${question.id} : une affirmation unique');
+            expect(
+              question.statements.length,
+              1,
+              reason: '${question.id} : une affirmation unique',
+            );
             expect(question.lieStatementIndex, isNull);
             expect(question.falseStatementIndex, isNull);
           case QuestionVariation.factOrCapTwoTruthsOneLie:
-            expect(question.statements.length, 3,
-                reason: '${question.id} : deux vérités et un mensonge');
+            expect(
+              question.statements.length,
+              3,
+              reason: '${question.id} : deux vérités et un mensonge',
+            );
             expect(falseCount, 1);
             expect(question.lieStatementIndex, isNotNull);
-            expect(question.statements[question.lieStatementIndex!].isTrue, isFalse,
-                reason: '${question.id} : l\'index du mensonge pointe le faux');
+            expect(
+              question.statements[question.lieStatementIndex!].isTrue,
+              isFalse,
+              reason: '${question.id} : l\'index du mensonge pointe le faux',
+            );
           case QuestionVariation.factOrCapIdentifyFalse:
-            expect(question.statements.length, greaterThanOrEqualTo(3),
-                reason: '${question.id} : un ensemble avec une fausse affirmation');
+            expect(
+              question.statements.length,
+              greaterThanOrEqualTo(3),
+              reason:
+                  '${question.id} : un ensemble avec une fausse affirmation',
+            );
             expect(falseCount, 1);
             expect(question.falseStatementIndex, isNotNull);
-            expect(question.statements[question.falseStatementIndex!].isTrue, isFalse,
-                reason: '${question.id} : l\'index du faux pointe le faux');
+            expect(
+              question.statements[question.falseStatementIndex!].isTrue,
+              isFalse,
+              reason: '${question.id} : l\'index du faux pointe le faux',
+            );
           default:
-            fail('${question.id} : variation inattendue ${question.variation.name}');
+            fail(
+              '${question.id} : variation inattendue ${question.variation.name}',
+            );
         }
 
-        expect(question.statements.map((s) => s.id).toSet().length,
-            question.statements.length);
+        expect(
+          question.statements.map((s) => s.id).toSet().length,
+          question.statements.length,
+        );
       }
     });
 
@@ -195,15 +272,23 @@ void main() {
       expect(orderQuestions.length, greaterThanOrEqualTo(5));
 
       for (final question in orderQuestions) {
-        expect(question.items.length, greaterThanOrEqualTo(3),
-            reason: '${question.id} doit contenir au moins trois éléments');
+        expect(
+          question.items.length,
+          greaterThanOrEqualTo(3),
+          reason: '${question.id} doit contenir au moins trois éléments',
+        );
 
         // The complete correct sequence is stored: same cardinality, same set.
-        expect(question.correctOrderIds.length, question.items.length,
-            reason: '${question.id} : la séquence doit couvrir tous les éléments');
-        expect(question.correctOrderIds.toSet(),
-            question.items.map((i) => i.id).toSet(),
-            reason: '${question.id} : identifiants incohérents');
+        expect(
+          question.correctOrderIds.length,
+          question.items.length,
+          reason: '${question.id} : la séquence doit couvrir tous les éléments',
+        );
+        expect(
+          question.correctOrderIds.toSet(),
+          question.items.map((i) => i.id).toSet(),
+          reason: '${question.id} : identifiants incohérents',
+        );
 
         final itemsById = {for (final item in question.items) item.id: item};
 
@@ -211,17 +296,25 @@ void main() {
           for (var i = 1; i < question.correctOrderIds.length; i++) {
             final previous = itemsById[question.correctOrderIds[i - 1]]!;
             final current = itemsById[question.correctOrderIds[i]]!;
-            expect(previous.referenceValue <= current.referenceValue, isTrue,
-                reason: '${question.id} : ordre chronologique incohérent '
-                    '(${previous.label} puis ${current.label})');
+            expect(
+              previous.referenceValue <= current.referenceValue,
+              isTrue,
+              reason:
+                  '${question.id} : ordre chronologique incohérent '
+                  '(${previous.label} puis ${current.label})',
+            );
           }
         } else {
           for (var i = 1; i < question.correctOrderIds.length; i++) {
             final previous = itemsById[question.correctOrderIds[i - 1]]!;
             final current = itemsById[question.correctOrderIds[i]]!;
-            expect(previous.referenceValue <= current.referenceValue, isTrue,
-                reason: '${question.id} : ordre croissant incohérent '
-                    '(${previous.label} puis ${current.label})');
+            expect(
+              previous.referenceValue <= current.referenceValue,
+              isTrue,
+              reason:
+                  '${question.id} : ordre croissant incohérent '
+                  '(${previous.label} puis ${current.label})',
+            );
           }
         }
       }
@@ -243,26 +336,46 @@ void main() {
       for (final question in estimations) {
         final answer = question.answer;
         expect(answer.referenceValue.isFinite, isTrue);
-        expect(answer.unit.isNotEmpty, isTrue, reason: '${question.id} sans unité');
-        expect(answer.scoringRuleId.isNotEmpty, isTrue,
-            reason: '${question.id} sans identifiant de règle de score');
+        expect(
+          answer.unit.isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans unité',
+        );
+        expect(
+          answer.scoringRuleId.isNotEmpty,
+          isTrue,
+          reason: '${question.id} sans identifiant de règle de score',
+        );
 
         if (answer.acceptedMin != null && answer.acceptedMax != null) {
-          expect(answer.acceptedMin!, lessThanOrEqualTo(answer.acceptedMax!),
-              reason: '${question.id} : plage inversée');
-          expect(answer.referenceValue, inInclusiveRange(answer.acceptedMin!, answer.acceptedMax!),
-              reason: '${question.id} : la valeur de référence doit être dans la plage');
+          expect(
+            answer.acceptedMin!,
+            lessThanOrEqualTo(answer.acceptedMax!),
+            reason: '${question.id} : plage inversée',
+          );
+          expect(
+            answer.referenceValue,
+            inInclusiveRange(answer.acceptedMin!, answer.acceptedMax!),
+            reason:
+                '${question.id} : la valeur de référence doit être dans la plage',
+          );
         }
       }
     });
 
-    test('How Much covers quantity, date, distance and population variations', () {
-      final variations = questions.whereType<HowMuchQuestion>().map((q) => q.variation).toSet();
-      expect(variations, contains(QuestionVariation.howMuchQuantity));
-      expect(variations, contains(QuestionVariation.howMuchDate));
-      expect(variations, contains(QuestionVariation.howMuchDistance));
-      expect(variations, contains(QuestionVariation.howMuchPopulation));
-    });
+    test(
+      'How Much covers quantity, date, distance and population variations',
+      () {
+        final variations = questions
+            .whereType<HowMuchQuestion>()
+            .map((q) => q.variation)
+            .toSet();
+        expect(variations, contains(QuestionVariation.howMuchQuantity));
+        expect(variations, contains(QuestionVariation.howMuchDate));
+        expect(variations, contains(QuestionVariation.howMuchDistance));
+        expect(variations, contains(QuestionVariation.howMuchPopulation));
+      },
+    );
   });
 
   group('Fact groups', () {
@@ -272,9 +385,14 @@ void main() {
         shared.putIfAbsent(question.factGroupId, () => []).add(question);
       }
 
-      final multiMode = shared.values.where((group) => group.length > 1).toList();
-      expect(multiMode.isNotEmpty, isTrue,
-          reason: 'la banque doit illustrer le regroupement de faits partagés');
+      final multiMode = shared.values
+          .where((group) => group.length > 1)
+          .toList();
+      expect(
+        multiMode.isNotEmpty,
+        isTrue,
+        reason: 'la banque doit illustrer le regroupement de faits partagés',
+      );
 
       for (final group in multiMode) {
         // Distinct questions, not duplicates.
@@ -286,7 +404,9 @@ void main() {
     });
 
     test('no two questions of the bank are identical', () {
-      final signatures = questions.map((q) => '${q.mode.name}|${q.text}').toSet();
+      final signatures = questions
+          .map((q) => '${q.mode.name}|${q.text}')
+          .toSet();
       expect(signatures.length, questions.length);
     });
 
@@ -298,8 +418,11 @@ void main() {
 
       for (final entry in shared.entries.where((e) => e.value.length > 1)) {
         final modes = entry.value.map((q) => q.mode).toSet();
-        expect(modes.length, greaterThan(1),
-            reason: 'le groupe ${entry.key} regroupe deux questions du même mode');
+        expect(
+          modes.length,
+          greaterThan(1),
+          reason: 'le groupe ${entry.key} regroupe deux questions du même mode',
+        );
       }
     });
   });
@@ -313,28 +436,43 @@ void main() {
     test('every mode holds a substantial set of questions', () {
       for (final mode in GameMode.values) {
         final count = questions.where((q) => q.mode == mode).length;
-        expect(count, greaterThanOrEqualTo(15),
-            reason: 'le mode ${mode.name} ne compte que $count questions');
+        expect(
+          count,
+          greaterThanOrEqualTo(15),
+          reason: 'le mode ${mode.name} ne compte que $count questions',
+        );
       }
     });
 
     test('every category is represented, Africa included', () {
       for (final category in QuestionCategory.values) {
         final count = questions.where((q) => q.category == category).length;
-        expect(count, greaterThanOrEqualTo(3),
-            reason: 'la catégorie ${category.name} ne compte que $count questions');
+        expect(
+          count,
+          greaterThanOrEqualTo(3),
+          reason:
+              'la catégorie ${category.name} ne compte que $count questions',
+        );
       }
-      expect(questions.any((q) => q.category == QuestionCategory.africa), isTrue);
+      expect(
+        questions.any((q) => q.category == QuestionCategory.africa),
+        isTrue,
+      );
     });
 
     test('Africa is well represented across the modes', () {
       for (final mode in GameMode.values) {
         final count = questions
-            .where((q) =>
-                q.category == QuestionCategory.africa && q.mode == mode)
+            .where(
+              (q) => q.category == QuestionCategory.africa && q.mode == mode,
+            )
             .length;
-        expect(count, greaterThanOrEqualTo(2),
-            reason: 'le mode ${mode.name} n\'a que $count question(s) africaine(s)');
+        expect(
+          count,
+          greaterThanOrEqualTo(2),
+          reason:
+              'le mode ${mode.name} n\'a que $count question(s) africaine(s)',
+        );
       }
     });
 
@@ -350,17 +488,26 @@ void main() {
     test('difficulties stay balanced', () {
       for (final difficulty in Difficulty.values) {
         final count = questions.where((q) => q.difficulty == difficulty).length;
-        expect(count, greaterThanOrEqualTo(20),
-            reason: 'la difficulté ${difficulty.name} ne compte que $count questions');
+        expect(
+          count,
+          greaterThanOrEqualTo(20),
+          reason:
+              'la difficulté ${difficulty.name} ne compte que $count questions',
+        );
       }
     });
 
     test('every mode uses at least one variation, the bank many', () {
       for (final mode in GameMode.values) {
-        final variations =
-            questions.where((q) => q.mode == mode).map((q) => q.variation).toSet();
-        expect(variations, isNotEmpty,
-            reason: 'le mode ${mode.name} n\'a aucune variation');
+        final variations = questions
+            .where((q) => q.mode == mode)
+            .map((q) => q.variation)
+            .toSet();
+        expect(
+          variations,
+          isNotEmpty,
+          reason: 'le mode ${mode.name} n\'a aucune variation',
+        );
       }
 
       // The library variation filter has something to offer in every mode.
@@ -373,8 +520,12 @@ void main() {
             .where((q) => q.mode == mode)
             .map((q) => q.variation)
             .toSet();
-        expect(variations.length, greaterThanOrEqualTo(2),
-            reason: 'le mode ${mode.name} n\'a que ${variations.length} variations');
+        expect(
+          variations.length,
+          greaterThanOrEqualTo(2),
+          reason:
+              'le mode ${mode.name} n\'a que ${variations.length} variations',
+        );
       }
       expect(
         questions.map((q) => q.variation).toSet().length,
@@ -391,15 +542,19 @@ void main() {
             .getQuestionsByMode(mode)
             .where((q) => q.category == QuestionCategory.africa)
             .toList();
-        expect(filtered, isNotEmpty,
-            reason: 'aucune question africaine dans le mode ${mode.name}');
+        expect(
+          filtered,
+          isNotEmpty,
+          reason: 'aucune question africaine dans le mode ${mode.name}',
+        );
       }
     });
 
     test('filtering by one category never returns another', () {
       for (final category in QuestionCategory.values) {
-        final filtered =
-            questions.where((q) => q.category == category).toList();
+        final filtered = questions
+            .where((q) => q.category == category)
+            .toList();
         expect(filtered.every((q) => q.category == category), isTrue);
       }
     });
@@ -423,7 +578,11 @@ void main() {
           default:
             fail('Type de question inattendu : ${question.runtimeType}');
         }
-        expect(restored, question, reason: 'aller-retour JSON impossible pour ${question.id}');
+        expect(
+          restored,
+          question,
+          reason: 'aller-retour JSON impossible pour ${question.id}',
+        );
         expect(restored.toJson(), question.toJson());
       }
     });
@@ -433,7 +592,10 @@ void main() {
     final repository = InMemoryQuestionRepository(SampleQuestionBank.questions);
 
     test('returns every question', () {
-      expect(repository.getAllQuestions().length, SampleQuestionBank.questions.length);
+      expect(
+        repository.getAllQuestions().length,
+        SampleQuestionBank.questions.length,
+      );
     });
 
     test('filters by mode', () {
@@ -445,9 +607,14 @@ void main() {
     });
 
     test('filters by category and difficulty', () {
-      final geography = repository.getQuestionsByCategory(QuestionCategory.geography);
+      final geography = repository.getQuestionsByCategory(
+        QuestionCategory.geography,
+      );
       expect(geography.isNotEmpty, isTrue);
-      expect(geography.every((q) => q.category == QuestionCategory.geography), isTrue);
+      expect(
+        geography.every((q) => q.category == QuestionCategory.geography),
+        isTrue,
+      );
 
       final hard = repository.getQuestionsByDifficulty(Difficulty.hard);
       expect(hard.isNotEmpty, isTrue);
@@ -473,7 +640,10 @@ void main() {
       final sharedGroup = groupIds.firstWhere(
         (id) => repository.getQuestionsByFactGroupId(id).length > 1,
       );
-      expect(repository.getQuestionsByFactGroupId(sharedGroup).length, greaterThan(1));
+      expect(
+        repository.getQuestionsByFactGroupId(sharedGroup).length,
+        greaterThan(1),
+      );
     });
 
     test('returns an empty list for an unknown fact group', () {
@@ -486,8 +656,10 @@ void main() {
     });
 
     test('the shared repository exposes the sample bank', () {
-      expect(sampleQuestionRepository.getAllQuestions().length,
-          SampleQuestionBank.questions.length);
+      expect(
+        sampleQuestionRepository.getAllQuestions().length,
+        SampleQuestionBank.questions.length,
+      );
     });
   });
 }

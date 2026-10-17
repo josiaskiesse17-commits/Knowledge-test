@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/repositories/asset_question_repository.dart';
 import 'package:knowledge_test/repositories/in_memory_question_repository.dart';
 
 import '../helpers/load_question_bank.dart';
+import '../helpers/sample_question_bank.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

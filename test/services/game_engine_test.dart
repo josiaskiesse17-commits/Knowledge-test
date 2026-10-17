@@ -1,27 +1,28 @@
 import 'dart:math' show Random;
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/services/game_engine.dart';
 
+import '../helpers/sample_question_bank.dart';
+
 /// Builds a small deterministic question set used by the rule tests.
 List<BaseQuestion> _testQuestions() {
   final bank = SampleQuestionBank.questions;
 
-  final whichCameFirst = bank
-      .whereType<WhichCameFirstQuestion>()
-      .firstWhere((q) => q.correctFirstIndex == 1);
+  final whichCameFirst = bank.whereType<WhichCameFirstQuestion>().firstWhere(
+    (q) => q.correctFirstIndex == 1,
+  );
   final country = bank.whereType<GuessTheCountryQuestion>().first;
   final factOrCap = bank.whereType<FactOrCapQuestion>().firstWhere(
-        (q) => q.variation == QuestionVariation.factOrCapTrueFalse,
-      );
+    (q) => q.variation == QuestionVariation.factOrCapTrueFalse,
+  );
   final ordering = bank.whereType<PutInOrderQuestion>().first;
   final howMuch = bank.whereType<HowMuchQuestion>().firstWhere(
-        (q) => q.variation == QuestionVariation.howMuchQuantity,
-      );
+    (q) => q.variation == QuestionVariation.howMuchQuantity,
+  );
 
   return [whichCameFirst, country, factOrCap, ordering, howMuch];
 }
@@ -77,7 +78,11 @@ void main() {
 
       expect(state.questions.length, 5);
       expect(state.rounds.length, 5);
-      expect(state.players.map((p) => p.name).toList(), ['Alice', 'Bob', 'Chloé']);
+      expect(state.players.map((p) => p.name).toList(), [
+        'Alice',
+        'Bob',
+        'Chloé',
+      ]);
       expect(state.players.every((p) => p.score == 0), isTrue);
       expect(state.status, GameStatus.pending);
       expect(state.isTimedSession, isFalse);
@@ -174,34 +179,37 @@ void main() {
       );
     });
 
-    test('selection keeps the selected categories even when the pool is small',
-        () {
-      final testQuestions = _testQuestions();
-      final eligible = testQuestions
-          .where((q) => q.category == QuestionCategory.geography)
-          .length;
-      expect(eligible, greaterThan(0));
-      expect(eligible, lessThan(testQuestions.length));
+    test(
+      'selection keeps the selected categories even when the pool is small',
+      () {
+        final testQuestions = _testQuestions();
+        final eligible = testQuestions
+            .where((q) => q.category == QuestionCategory.geography)
+            .length;
+        expect(eligible, greaterThan(0));
+        expect(eligible, lessThan(testQuestions.length));
 
-      final state = GameRules.buildSession(
-        config: _config(
-          questionCount: testQuestions.length,
-          categories: const [QuestionCategory.geography],
-        ),
-        availableQuestions: testQuestions,
-      );
+        final state = GameRules.buildSession(
+          config: _config(
+            questionCount: testQuestions.length,
+            categories: const [QuestionCategory.geography],
+          ),
+          availableQuestions: testQuestions,
+        );
 
-      // The session is shorter than requested rather than wider than the
-      // selected category.
-      expect(state.questions.length, eligible);
-      expect(
-        state.questions.every((q) => q.category == QuestionCategory.geography),
-        isTrue,
-      );
-    });
+        // The session is shorter than requested rather than wider than the
+        // selected category.
+        expect(state.questions.length, eligible);
+        expect(
+          state.questions.every(
+            (q) => q.category == QuestionCategory.geography,
+          ),
+          isTrue,
+        );
+      },
+    );
 
-    test('selection widens to the whole mode when no category is eligible',
-        () {
+    test('selection widens to the whole mode when no category is eligible', () {
       final state = GameRules.buildSession(
         config: _config(
           questionCount: 4,
@@ -225,9 +233,16 @@ void main() {
         _config().copyWith(playerNames: const ['Alice', 'Bob', 'Chloé']),
       );
 
-      expect(updated.players.map((p) => p.name).toList(), ['Alice', 'Bob', 'Chloé']);
+      expect(updated.players.map((p) => p.name).toList(), [
+        'Alice',
+        'Bob',
+        'Chloé',
+      ]);
       expect(updated.players.every((p) => p.score == 0), isTrue);
-      expect(updated.rounds.every((r) => r.outcome == QuestionOutcome.pending), isTrue);
+      expect(
+        updated.rounds.every((r) => r.outcome == QuestionOutcome.pending),
+        isTrue,
+      );
     });
   });
 
@@ -356,7 +371,10 @@ void main() {
       final state = orderingSession();
       final question = state.currentQuestion as PutInOrderQuestion;
 
-      expect(GameRules.isSequenceCorrect(state, question.correctOrderIds), isTrue);
+      expect(
+        GameRules.isSequenceCorrect(state, question.correctOrderIds),
+        isTrue,
+      );
 
       final outcome = GameRules.awardPoint(
         state,
@@ -374,7 +392,11 @@ void main() {
       final swapped = question.correctOrderIds.reversed.toList();
       expect(GameRules.isSequenceCorrect(state, swapped), isFalse);
 
-      final outcome = GameRules.awardPoint(state, 'p1', announcedOrder: swapped);
+      final outcome = GameRules.awardPoint(
+        state,
+        'p1',
+        announcedOrder: swapped,
+      );
       expect(outcome.result, AwardResult.wrongOrder);
       expect(outcome.state.totalScore, 0);
     });
@@ -384,7 +406,11 @@ void main() {
       final question = state.currentQuestion as PutInOrderQuestion;
       final partial = question.correctOrderIds.sublist(0, 2);
 
-      final outcome = GameRules.awardPoint(state, 'p1', announcedOrder: partial);
+      final outcome = GameRules.awardPoint(
+        state,
+        'p1',
+        announcedOrder: partial,
+      );
       expect(outcome.result, AwardResult.wrongOrder);
       expect(outcome.state.totalScore, 0);
     });
@@ -407,9 +433,11 @@ void main() {
         AwardResult.wrongOrder,
       );
 
-      state = GameRules.awardPoint(state, playerId,
-              announcedOrder: question.correctOrderIds)
-          .state;
+      state = GameRules.awardPoint(
+        state,
+        playerId,
+        announcedOrder: question.correctOrderIds,
+      ).state;
       state = GameRules.undoAward(state, playerId).state;
 
       expect(state.totalScore, 0);
@@ -522,7 +550,10 @@ void main() {
 
     test('country clues are revealed one at a time', () {
       var state = GameRules.buildSession(
-        config: _config(questionCount: 1, modes: const [GameMode.guessTheCountry]),
+        config: _config(
+          questionCount: 1,
+          modes: const [GameMode.guessTheCountry],
+        ),
         availableQuestions: _testQuestions(),
       );
       state = GameRules.start(state);
@@ -539,7 +570,10 @@ void main() {
 
     test('clue reveal stops at the number of available clues', () {
       var state = GameRules.buildSession(
-        config: _config(questionCount: 1, modes: const [GameMode.guessTheCountry]),
+        config: _config(
+          questionCount: 1,
+          modes: const [GameMode.guessTheCountry],
+        ),
         availableQuestions: _testQuestions(),
       );
       state = GameRules.start(state);
@@ -678,7 +712,11 @@ void main() {
       // Bob 2 points, Alice and Chloé 1 point each; Alice sits before Chloé.
       final rankings = GameRules.rankings(state);
 
-      expect(rankings.map((e) => e.player.name).toList(), ['Bob', 'Alice', 'Chloé']);
+      expect(rankings.map((e) => e.player.name).toList(), [
+        'Bob',
+        'Alice',
+        'Chloé',
+      ]);
       expect(rankings.first.player.score, 2);
       expect(rankings.first.rank, 1);
       expect(rankings[1].player.score, 1);
@@ -760,13 +798,17 @@ void main() {
 
   group('Session config mapping', () {
     test('config maps onto the existing GameSettings model', () {
-      final config = _config(
-        questionCount: 7,
-        durationMinutes: 20,
-        shuffle: true,
-      ).copyWith(
-        categories: const [QuestionCategory.geography, QuestionCategory.science],
-      );
+      final config =
+          _config(
+            questionCount: 7,
+            durationMinutes: 20,
+            shuffle: true,
+          ).copyWith(
+            categories: const [
+              QuestionCategory.geography,
+              QuestionCategory.science,
+            ],
+          );
 
       final settings = config.toGameSettings();
 
@@ -808,43 +850,67 @@ void main() {
 
     test('questions already played are avoided while fresh ones remain', () {
       final first = GameRules.buildSession(
-        config: _config(questionCount: 6, shuffle: false, difficulty: Difficulty.easy),
+        config: _config(
+          questionCount: 6,
+          shuffle: false,
+          difficulty: Difficulty.easy,
+        ),
         availableQuestions: bank,
       );
       final played = first.questions.map((q) => q.id).toList();
 
       final second = GameRules.buildSession(
-        config: _config(questionCount: 6, shuffle: false, difficulty: Difficulty.easy),
+        config: _config(
+          questionCount: 6,
+          shuffle: false,
+          difficulty: Difficulty.easy,
+        ),
         availableQuestions: bank,
         recentQuestionIds: played,
       );
 
-      final overlap = second.questions.map((q) => q.id).where(played.contains).toList();
+      final overlap = second.questions
+          .map((q) => q.id)
+          .where(played.contains)
+          .toList();
       expect(overlap, isEmpty);
     });
 
-    test('fresh preferred-difficulty questions are picked before stale ones', () {
-      // Build a session of 5 easy questions (there are 11 easy total).
-      final first = GameRules.buildSession(
-        config: _config(questionCount: 5, shuffle: false, difficulty: Difficulty.easy),
-        availableQuestions: bank,
-      );
-      final played = first.questions.map((q) => q.id).toList();
+    test(
+      'fresh preferred-difficulty questions are picked before stale ones',
+      () {
+        // Build a session of 5 easy questions (there are 11 easy total).
+        final first = GameRules.buildSession(
+          config: _config(
+            questionCount: 5,
+            shuffle: false,
+            difficulty: Difficulty.easy,
+          ),
+          availableQuestions: bank,
+        );
+        final played = first.questions.map((q) => q.id).toList();
 
-      // Now request 5 more easy questions. At least 6 fresh easy remain.
-      // The engine should pick from fresh preferred first.
-      final second = GameRules.buildSession(
-        config: _config(questionCount: 5, shuffle: false, difficulty: Difficulty.easy),
-        availableQuestions: bank,
-        recentQuestionIds: played,
-      );
+        // Now request 5 more easy questions. At least 6 fresh easy remain.
+        // The engine should pick from fresh preferred first.
+        final second = GameRules.buildSession(
+          config: _config(
+            questionCount: 5,
+            shuffle: false,
+            difficulty: Difficulty.easy,
+          ),
+          availableQuestions: bank,
+          recentQuestionIds: played,
+        );
 
-      // At least one fresh easy should be picked (fresh preferred > stale).
-      final freshEasyPicked = second.questions
-          .where((q) => q.difficulty == Difficulty.easy && !played.contains(q.id))
-          .length;
-      expect(freshEasyPicked, greaterThan(0));
-    });
+        // At least one fresh easy should be picked (fresh preferred > stale).
+        final freshEasyPicked = second.questions
+            .where(
+              (q) => q.difficulty == Difficulty.easy && !played.contains(q.id),
+            )
+            .length;
+        expect(freshEasyPicked, greaterThan(0));
+      },
+    );
 
     test('relaxes the cross-session rule when the pool is too small', () {
       final wcfIds = bank
@@ -859,9 +925,10 @@ void main() {
 
       final state = GameRules.buildSession(
         config: _config(
-            questionCount: requested,
-            shuffle: false,
-            modes: const [GameMode.whichCameFirst]),
+          questionCount: requested,
+          shuffle: false,
+          modes: const [GameMode.whichCameFirst],
+        ),
         availableQuestions: bank,
         recentQuestionIds: history,
       );
@@ -875,22 +942,29 @@ void main() {
       );
     });
 
-    test('never relaxes within-session uniqueness even when pool is exhausted', () {
-      final wcfIds = bank
-          .where((q) => q.mode == GameMode.whichCameFirst)
-          .map((q) => q.id)
-          .toList();
+    test(
+      'never relaxes within-session uniqueness even when pool is exhausted',
+      () {
+        final wcfIds = bank
+            .where((q) => q.mode == GameMode.whichCameFirst)
+            .map((q) => q.id)
+            .toList();
 
-      final state = GameRules.buildSession(
-        config: _config(questionCount: 6, shuffle: false, modes: const [GameMode.whichCameFirst]),
-        availableQuestions: bank,
-        recentQuestionIds: wcfIds,
-      );
+        final state = GameRules.buildSession(
+          config: _config(
+            questionCount: 6,
+            shuffle: false,
+            modes: const [GameMode.whichCameFirst],
+          ),
+          availableQuestions: bank,
+          recentQuestionIds: wcfIds,
+        );
 
-      expect(state.questions.length, 6);
-      final groups = state.questions.map((q) => q.factGroupId).toList();
-      expect(groups.toSet().length, groups.length);
-    });
+        expect(state.questions.length, 6);
+        final groups = state.questions.map((q) => q.factGroupId).toList();
+        expect(groups.toSet().length, groups.length);
+      },
+    );
   });
 
   group('Category selection', () {
@@ -900,10 +974,7 @@ void main() {
       int questionCount = 5,
       List<QuestionCategory>? categories,
     }) {
-      return _config(
-        questionCount: questionCount,
-        categories: categories,
-      );
+      return _config(questionCount: questionCount, categories: categories);
     }
 
     test('no category selected means every category is eligible', () {
@@ -930,20 +1001,23 @@ void main() {
 
     test('several selected categories are combined', () {
       final state = GameRules.buildSession(
-        config: config(categories: const [
-          QuestionCategory.geography,
-          QuestionCategory.nature,
-        ]),
+        config: config(
+          categories: const [
+            QuestionCategory.geography,
+            QuestionCategory.nature,
+          ],
+        ),
         availableQuestions: bank,
       );
 
       expect(state.questions, isNotEmpty);
       expect(
-        state.questions
-            .every((q) => const {
-                  QuestionCategory.geography,
-                  QuestionCategory.nature,
-                }.contains(q.category)),
+        state.questions.every(
+          (q) => const {
+            QuestionCategory.geography,
+            QuestionCategory.nature,
+          }.contains(q.category),
+        ),
         isTrue,
       );
     });
@@ -959,8 +1033,11 @@ void main() {
         );
 
         // Every mode has at least one African question in the bank.
-        expect(state.questions, isNotEmpty,
-            reason: 'the ${mode.name} mode has no African question');
+        expect(
+          state.questions,
+          isNotEmpty,
+          reason: 'the ${mode.name} mode has no African question',
+        );
         expect(
           state.questions.every((q) => q.category == QuestionCategory.africa),
           isTrue,
@@ -969,40 +1046,49 @@ void main() {
       }
     });
 
-    test('a short session is played when the categories hold fewer questions',
-        () {
-      // Nature holds far fewer questions than the default request of 10.
-      final natureCount = bank
-          .where((q) => q.category == QuestionCategory.nature)
-          .length;
-      expect(natureCount, greaterThan(0));
+    test(
+      'a short session is played when the categories hold fewer questions',
+      () {
+        // Nature holds far fewer questions than the default request of 10.
+        final natureCount = bank
+            .where((q) => q.category == QuestionCategory.nature)
+            .length;
+        expect(natureCount, greaterThan(0));
 
-      final state = GameRules.buildSession(
-        config: config(questionCount: 10, categories: const [QuestionCategory.nature]),
-        availableQuestions: bank,
-      );
+        final state = GameRules.buildSession(
+          config: config(
+            questionCount: 10,
+            categories: const [QuestionCategory.nature],
+          ),
+          availableQuestions: bank,
+        );
 
-      // The session starts, but never exceeds the eligible pool and never
-      // widens to another category.
-      expect(state.questions.length, natureCount);
-      expect(
-        state.questions.every((q) => q.category == QuestionCategory.nature),
-        isTrue,
-      );
-    });
+        // The session starts, but never exceeds the eligible pool and never
+        // widens to another category.
+        expect(state.questions.length, natureCount);
+        expect(
+          state.questions.every((q) => q.category == QuestionCategory.nature),
+          isTrue,
+        );
+      },
+    );
 
     test('a category with no eligible question widens instead of failing', () {
       final state = GameRules.buildSession(
-        config: config(
-          questionCount: 3,
-          categories: const [QuestionCategory.africa],
-        ).copyWith(
-          modes: const [GameMode.putInOrder],
-          difficulty: Difficulty.hard,
-        ),
+        config:
+            config(
+              questionCount: 3,
+              categories: const [QuestionCategory.africa],
+            ).copyWith(
+              modes: const [GameMode.putInOrder],
+              difficulty: Difficulty.hard,
+            ),
         availableQuestions: bank
-            .where((q) => !(q.mode == GameMode.putInOrder &&
-                q.category == QuestionCategory.africa))
+            .where(
+              (q) =>
+                  !(q.mode == GameMode.putInOrder &&
+                      q.category == QuestionCategory.africa),
+            )
             .toList(),
       );
 

@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
@@ -8,6 +7,7 @@ import 'package:knowledge_test/services/game_engine.dart';
 import 'package:knowledge_test/services/session_history_service.dart';
 
 import '../helpers/fake_session_store.dart';
+import '../helpers/sample_question_bank.dart';
 
 /// Fixed timestamp used by the hand-written stored sessions.
 final DateTime _epoch = DateTime.utc(2026, 5, 1);
@@ -40,28 +40,29 @@ void main() {
 
   group('Loading the history', () {
     test('stored sessions are exposed, newest first', () async {
-      final store = FakeSessionStore()..stored.addAll([
-            GameSession(
-              id: 'older',
-              createdAt: DateTime.utc(2026, 5, 1),
-              players: const [Player(id: 'p1', name: 'Alice', score: 1)],
-              settings: const GameSettings(),
-            ),
-            GameSession(
-              id: 'newer',
-              createdAt: DateTime.utc(2026, 5, 2),
-              players: const [Player(id: 'p1', name: 'Alice', score: 2)],
-              settings: const GameSettings(),
-            ),
-          ]);
+      final store = FakeSessionStore()
+        ..stored.addAll([
+          GameSession(
+            id: 'older',
+            createdAt: DateTime.utc(2026, 5, 1),
+            players: const [Player(id: 'p1', name: 'Alice', score: 1)],
+            settings: const GameSettings(),
+          ),
+          GameSession(
+            id: 'newer',
+            createdAt: DateTime.utc(2026, 5, 2),
+            players: const [Player(id: 'p1', name: 'Alice', score: 2)],
+            settings: const GameSettings(),
+          ),
+        ]);
       final notifier = SessionHistoryNotifier(() async => store);
 
       await notifier.load();
 
-      expect(
-        notifier.state.sessions.map((s) => s.id).toList(),
-        ['newer', 'older'],
-      );
+      expect(notifier.state.sessions.map((s) => s.id).toList(), [
+        'newer',
+        'older',
+      ]);
       expect(notifier.state.isLoading, isFalse);
       expect(notifier.state.loadFailed, isFalse);
     });
@@ -86,40 +87,41 @@ void main() {
     });
 
     test('recent question ids come from the stored sessions', () async {
-      final store = FakeSessionStore()..stored.addAll([
-            GameSession(
-              id: 'older',
-              createdAt: DateTime.utc(2026, 5, 1),
-              players: const [Player(id: 'p1', name: 'Alice')],
-              settings: const GameSettings(),
-              rounds: [
-                RoundResult(
-                  roundNumber: 1,
-                  questionId: 'wcf-001',
-                  questionText: '',
-                  answers: [],
-                  correctAnswer: '',
-                  answeredAt: _epoch,
-                ),
-              ],
-            ),
-            GameSession(
-              id: 'newer',
-              createdAt: DateTime.utc(2026, 5, 2),
-              players: const [Player(id: 'p1', name: 'Alice')],
-              settings: const GameSettings(),
-              rounds: [
-                RoundResult(
-                  roundNumber: 1,
-                  questionId: 'wcf-002',
-                  questionText: '',
-                  answers: const [],
-                  correctAnswer: '',
-                  answeredAt: DateTime.utc(2026, 5, 2),
-                ),
-              ],
-            ),
-          ]);
+      final store = FakeSessionStore()
+        ..stored.addAll([
+          GameSession(
+            id: 'older',
+            createdAt: DateTime.utc(2026, 5, 1),
+            players: const [Player(id: 'p1', name: 'Alice')],
+            settings: const GameSettings(),
+            rounds: [
+              RoundResult(
+                roundNumber: 1,
+                questionId: 'wcf-001',
+                questionText: '',
+                answers: [],
+                correctAnswer: '',
+                answeredAt: _epoch,
+              ),
+            ],
+          ),
+          GameSession(
+            id: 'newer',
+            createdAt: DateTime.utc(2026, 5, 2),
+            players: const [Player(id: 'p1', name: 'Alice')],
+            settings: const GameSettings(),
+            rounds: [
+              RoundResult(
+                roundNumber: 1,
+                questionId: 'wcf-002',
+                questionText: '',
+                answers: const [],
+                correctAnswer: '',
+                answeredAt: DateTime.utc(2026, 5, 2),
+              ),
+            ],
+          ),
+        ]);
       final notifier = SessionHistoryNotifier(() async => store);
 
       await notifier.load();
@@ -146,35 +148,41 @@ void main() {
       ]);
       expect(
         record.id,
-        SessionHistoryService.sessionIdOf(completed,
-            completedAt: completed.completedAt!),
+        SessionHistoryService.sessionIdOf(
+          completed,
+          completedAt: completed.completedAt!,
+        ),
       );
     });
 
-    test('repeated completion of the same session does not write twice',
-        () async {
-      final store = FakeSessionStore();
-      final notifier = SessionHistoryNotifier(() async => store);
+    test(
+      'repeated completion of the same session does not write twice',
+      () async {
+        final store = FakeSessionStore();
+        final notifier = SessionHistoryNotifier(() async => store);
 
-      await notifier.persistCompleted(completed);
-      await notifier.persistCompleted(completed);
+        await notifier.persistCompleted(completed);
+        await notifier.persistCompleted(completed);
 
-      expect(store.stored.length, 1);
-      expect(store.saveCalls, 1);
-    });
+        expect(store.stored.length, 1);
+        expect(store.saveCalls, 1);
+      },
+    );
 
-    test('completion and navigation close together write the session once',
-        () async {
-      final store = FakeSessionStore();
-      final notifier = SessionHistoryNotifier(() async => store);
+    test(
+      'completion and navigation close together write the session once',
+      () async {
+        final store = FakeSessionStore();
+        final notifier = SessionHistoryNotifier(() async => store);
 
-      // Both calls happen before the first one had a chance to write.
-      final first = notifier.persistCompleted(completed);
-      final second = notifier.persistCompleted(completed);
-      await Future.wait([first, second]);
+        // Both calls happen before the first one had a chance to write.
+        final first = notifier.persistCompleted(completed);
+        final second = notifier.persistCompleted(completed);
+        await Future.wait([first, second]);
 
-      expect(store.stored.length, 1);
-    });
+        expect(store.stored.length, 1);
+      },
+    );
 
     test('the saved session appears in the loaded history', () async {
       final store = FakeSessionStore();
@@ -188,14 +196,16 @@ void main() {
     test('a running session is never recorded', () async {
       final store = FakeSessionStore();
       final notifier = SessionHistoryNotifier(() async => store);
-      final running = GameRules.start(GameRules.buildSession(
-        config: SessionConfig(
-          playerNames: const ['Alice', 'Bob'],
-          modes: GameMode.values.toList(),
-          questionCount: 2,
+      final running = GameRules.start(
+        GameRules.buildSession(
+          config: SessionConfig(
+            playerNames: const ['Alice', 'Bob'],
+            modes: GameMode.values.toList(),
+            questionCount: 2,
+          ),
+          availableQuestions: SampleQuestionBank.questions,
         ),
-        availableQuestions: SampleQuestionBank.questions,
-      ));
+      );
 
       await notifier.persistCompleted(running);
 
@@ -205,16 +215,18 @@ void main() {
     test('an abandoned session is never recorded', () async {
       final store = FakeSessionStore();
       final notifier = SessionHistoryNotifier(() async => store);
-      final abandoned = GameRules.abandonSession(GameRules.start(
-        GameRules.buildSession(
-          config: SessionConfig(
-            playerNames: const ['Alice', 'Bob'],
-            modes: GameMode.values.toList(),
-            questionCount: 2,
+      final abandoned = GameRules.abandonSession(
+        GameRules.start(
+          GameRules.buildSession(
+            config: SessionConfig(
+              playerNames: const ['Alice', 'Bob'],
+              modes: GameMode.values.toList(),
+              questionCount: 2,
+            ),
+            availableQuestions: SampleQuestionBank.questions,
           ),
-          availableQuestions: SampleQuestionBank.questions,
         ),
-      ));
+      );
 
       await notifier.persistCompleted(abandoned);
 
@@ -222,20 +234,22 @@ void main() {
       expect(store.saveCalls, 0);
     });
 
-    test('a failed write is retryable and never interrupts the caller',
-        () async {
-      final store = FakeSessionStore();
-      final notifier = SessionHistoryNotifier(() async => store);
-      store.failSave = true;
+    test(
+      'a failed write is retryable and never interrupts the caller',
+      () async {
+        final store = FakeSessionStore();
+        final notifier = SessionHistoryNotifier(() async => store);
+        store.failSave = true;
 
-      await notifier.persistCompleted(completed);
-      expect(store.stored, isEmpty);
+        await notifier.persistCompleted(completed);
+        expect(store.stored, isEmpty);
 
-      store.failSave = false;
-      await notifier.persistCompleted(completed);
+        store.failSave = false;
+        await notifier.persistCompleted(completed);
 
-      expect(store.stored.length, 1);
-    });
+        expect(store.stored.length, 1);
+      },
+    );
 
     test('without a store nothing is written and nothing throws', () async {
       final notifier = SessionHistoryNotifier(() async => null);
@@ -284,12 +298,14 @@ void main() {
       final notifier = SessionHistoryNotifier(() async => store);
 
       for (var day = 1; day <= 3; day++) {
-        store.stored.add(GameSession(
-          id: 'day-$day',
-          createdAt: DateTime.utc(2026, 5, day),
-          players: const [Player(id: 'p1', name: 'Alice')],
-          settings: const GameSettings(),
-        ));
+        store.stored.add(
+          GameSession(
+            id: 'day-$day',
+            createdAt: DateTime.utc(2026, 5, day),
+            players: const [Player(id: 'p1', name: 'Alice')],
+            settings: const GameSettings(),
+          ),
+        );
       }
 
       await notifier.persistCompleted(completed);

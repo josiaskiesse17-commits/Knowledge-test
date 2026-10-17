@@ -1,19 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/services/game_engine.dart';
 import 'package:knowledge_test/services/session_history_service.dart';
 
+import '../helpers/sample_question_bank.dart';
+
 /// Plays the given session to the end: one point to the first player, except on
 /// the questions listed in [skippedIndexes] which are skipped.
-GameState _playThrough(
-  GameState state, {
-  Set<int> skippedIndexes = const {},
-}) {
+GameState _playThrough(GameState state, {Set<int> skippedIndexes = const {}}) {
   var current = GameRules.start(state);
   var index = 0;
   while (!current.isCompleted) {
@@ -38,9 +36,10 @@ GameState _builtSession({int questionCount = 3}) {
   );
 }
 
-GameState _completedSession({int questionCount = 3}) =>
-    _playThrough(_builtSession(questionCount: questionCount),
-        skippedIndexes: const {1});
+GameState _completedSession({int questionCount = 3}) => _playThrough(
+  _builtSession(questionCount: questionCount),
+  skippedIndexes: const {1},
+);
 
 GameSession _storedSession(
   String id,
@@ -154,8 +153,16 @@ void main() {
       final second = _completedSession(questionCount: 3);
 
       expect(
-        SessionHistoryService.sessionIdOf(first, completedAt: first.completedAt!),
-        isNot(SessionHistoryService.sessionIdOf(second, completedAt: second.completedAt!)),
+        SessionHistoryService.sessionIdOf(
+          first,
+          completedAt: first.completedAt!,
+        ),
+        isNot(
+          SessionHistoryService.sessionIdOf(
+            second,
+            completedAt: second.completedAt!,
+          ),
+        ),
       );
     });
 
@@ -167,43 +174,71 @@ void main() {
           state,
           completedAt: DateTime.utc(2026, 5, 4, 10),
         ),
-        isNot(SessionHistoryService.sessionIdOf(
-          state,
-          completedAt: DateTime.utc(2026, 5, 4, 11),
-        )),
+        isNot(
+          SessionHistoryService.sessionIdOf(
+            state,
+            completedAt: DateTime.utc(2026, 5, 4, 11),
+          ),
+        ),
       );
     });
   });
 
   group('Recently played questions', () {
-    test('lists the newest session first, last question of a session first', () {
-      final older = _storedSession('s1', DateTime.utc(2026, 5, 1), ['q1', 'q2']);
-      final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), ['q3', 'q4']);
+    test(
+      'lists the newest session first, last question of a session first',
+      () {
+        final older = _storedSession('s1', DateTime.utc(2026, 5, 1), [
+          'q1',
+          'q2',
+        ]);
+        final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), [
+          'q3',
+          'q4',
+        ]);
 
-      expect(
-        SessionHistoryService.recentQuestionIdsOf([older, newer]),
-        ['q4', 'q3', 'q2', 'q1'],
-      );
-    });
+        expect(SessionHistoryService.recentQuestionIdsOf([older, newer]), [
+          'q4',
+          'q3',
+          'q2',
+          'q1',
+        ]);
+      },
+    );
 
     test('ignores the order of the given sessions', () {
-      final older = _storedSession('s1', DateTime.utc(2026, 5, 1), ['q1', 'q2']);
-      final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), ['q3', 'q4']);
+      final older = _storedSession('s1', DateTime.utc(2026, 5, 1), [
+        'q1',
+        'q2',
+      ]);
+      final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), [
+        'q3',
+        'q4',
+      ]);
 
-      expect(
-        SessionHistoryService.recentQuestionIdsOf([newer, older]),
-        ['q4', 'q3', 'q2', 'q1'],
-      );
+      expect(SessionHistoryService.recentQuestionIdsOf([newer, older]), [
+        'q4',
+        'q3',
+        'q2',
+        'q1',
+      ]);
     });
 
     test('keeps each question once, at its most recent position', () {
-      final older = _storedSession('s1', DateTime.utc(2026, 5, 1), ['q1', 'q2']);
-      final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), ['q2', 'q3']);
+      final older = _storedSession('s1', DateTime.utc(2026, 5, 1), [
+        'q1',
+        'q2',
+      ]);
+      final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), [
+        'q2',
+        'q3',
+      ]);
 
-      expect(
-        SessionHistoryService.recentQuestionIdsOf([older, newer]),
-        ['q3', 'q2', 'q1'],
-      );
+      expect(SessionHistoryService.recentQuestionIdsOf([older, newer]), [
+        'q3',
+        'q2',
+        'q1',
+      ]);
     });
 
     test('limits the number of inspected sessions', () {
@@ -211,19 +246,26 @@ void main() {
       final newer = _storedSession('s2', DateTime.utc(2026, 5, 2), ['q2']);
 
       expect(
-        SessionHistoryService.recentQuestionIdsOf([older, newer], maxSessions: 1),
+        SessionHistoryService.recentQuestionIdsOf([
+          older,
+          newer,
+        ], maxSessions: 1),
         ['q2'],
       );
     });
 
     test('limits the number of remembered ids', () {
-      final session = _storedSession('s1', DateTime.utc(2026, 5, 1),
-          ['q1', 'q2', 'q3', 'q4']);
+      final session = _storedSession('s1', DateTime.utc(2026, 5, 1), [
+        'q1',
+        'q2',
+        'q3',
+        'q4',
+      ]);
 
-      expect(
-        SessionHistoryService.recentQuestionIdsOf([session], maxIds: 2),
-        ['q4', 'q3'],
-      );
+      expect(SessionHistoryService.recentQuestionIdsOf([session], maxIds: 2), [
+        'q4',
+        'q3',
+      ]);
     });
 
     test('returns nothing without stored sessions', () {
@@ -244,8 +286,9 @@ void main() {
     test('a stored record decodes back to the same session', () {
       final record = SessionHistoryService.recordOf(_completedSession());
 
-      final decoded =
-          GameSession.fromJson(jsonDecode(jsonEncode(record.toJson())));
+      final decoded = GameSession.fromJson(
+        jsonDecode(jsonEncode(record.toJson())),
+      );
 
       expect(decoded, record);
     });

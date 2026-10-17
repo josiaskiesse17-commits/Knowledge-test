@@ -1,4 +1,3 @@
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/repositories/question_repository.dart';
 
@@ -66,7 +65,3 @@ class InMemoryQuestionRepository implements QuestionRepository {
   List<BaseQuestion> getQuestionsByFactGroupId(String factGroupId) =>
       List.unmodifiable(_byFactGroupId[factGroupId] ?? const []);
 }
-
-/// Shared sample-bank repository instance for the app.
-final QuestionRepository sampleQuestionRepository =
-    InMemoryQuestionRepository(SampleQuestionBank.questions);

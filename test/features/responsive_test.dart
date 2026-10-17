@@ -12,6 +12,8 @@ import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
+import '../helpers/test_question_repository.dart';
+
 /// Window sizes the app has to work on, from a small Android phone to a wide
 /// desktop browser window.
 const _sizes = <Size>[
@@ -31,7 +33,10 @@ Future<void> pumpAt(WidgetTester tester, Widget screen, Size size) async {
   addTearDown(tester.view.reset);
 
   await tester.pumpWidget(
-    ProviderScope(child: MaterialApp(home: screen)),
+    ProviderScope(
+      overrides: [testQuestionRepositoryOverride],
+      child: MaterialApp(home: screen),
+    ),
   );
   await tester.pumpAndSettle();
 }
@@ -39,8 +44,9 @@ Future<void> pumpAt(WidgetTester tester, Widget screen, Size size) async {
 void main() {
   group('Screens fit every window size', () {
     for (final size in _sizes) {
-      testWidgets('the home screen at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the home screen at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         await pumpAt(tester, const HomeScreen(), size);
 
         expect(find.text('Bienvenue'), findsOneWidget);
@@ -48,24 +54,27 @@ void main() {
         expect(find.text('Paramètres'), findsOneWidget);
       });
 
-      testWidgets('the question library at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the question library at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         await pumpAt(tester, const QuestionLibraryScreen(), size);
 
         expect(find.text('Bibliothèque de questions'), findsOneWidget);
         expect(find.byType(TextField), findsOneWidget);
       });
 
-      testWidgets('the settings screen at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the settings screen at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         await pumpAt(tester, const SettingsScreen(), size);
 
         expect(find.text('Paramètres'), findsOneWidget);
         expect(find.text('Apparence'), findsOneWidget);
       });
 
-      testWidgets('the session history at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the session history at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         await pumpAt(tester, const SessionHistoryScreen(), size);
 
         expect(find.text('Historique des sessions'), findsOneWidget);
@@ -75,13 +84,16 @@ void main() {
   });
   group('Gameplay fits every window size', () {
     for (final size in _sizes) {
-      testWidgets('the game screen at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the game screen at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         tester.view.physicalSize = size;
         tester.view.devicePixelRatio = 1.0;
         addTearDown(tester.view.reset);
 
-        final container = ProviderContainer();
+        final container = ProviderContainer(
+          overrides: [testQuestionRepositoryOverride],
+        );
         addTearDown(container.dispose);
 
         await tester.pumpWidget(
@@ -116,8 +128,9 @@ void main() {
 
   group('Game setup fits every window size', () {
     for (final size in _sizes) {
-      testWidgets('the setup screen at ${size.width}x${size.height}',
-          (tester) async {
+      testWidgets('the setup screen at ${size.width}x${size.height}', (
+        tester,
+      ) async {
         await pumpAt(tester, const GameSetupScreen(), size);
 
         expect(find.text('Joueurs'), findsOneWidget);
@@ -129,7 +142,9 @@ void main() {
   });
 
   group('Layouts change with the window size', () {
-    testWidgets('the home screen is a grid on a desktop window', (tester) async {
+    testWidgets('the home screen is a grid on a desktop window', (
+      tester,
+    ) async {
       await pumpAt(tester, const HomeScreen(), const Size(1280, 900));
 
       // The description under a menu entry only exists in the wide layout.
@@ -145,8 +160,9 @@ void main() {
       expect(find.byIcon(Icons.chevron_right), findsNWidgets(3));
     });
 
-    testWidgets('the library shows its details pane on a desktop window',
-        (tester) async {
+    testWidgets('the library shows its details pane on a desktop window', (
+      tester,
+    ) async {
       await pumpAt(
         tester,
         const QuestionLibraryScreen(),
@@ -156,17 +172,17 @@ void main() {
       expect(find.text('Sélectionnez une question'), findsOneWidget);
     });
 
-    testWidgets('the library opens a question sheet on a phone', (tester) async {
-      await pumpAt(
-        tester,
-        const QuestionLibraryScreen(),
-        const Size(395, 845),
-      );
+    testWidgets('the library opens a question sheet on a phone', (
+      tester,
+    ) async {
+      await pumpAt(tester, const QuestionLibraryScreen(), const Size(395, 845));
 
       expect(find.text('Sélectionnez une question'), findsNothing);
 
       // Tapping a question opens the detail sheet.
-      await tester.tap(find.textContaining('Lequel est arrivé en premier').first);
+      await tester.tap(
+        find.textContaining('Lequel est arrivé en premier').first,
+      );
       await tester.pumpAndSettle();
       expect(find.text('Bonne réponse'), findsOneWidget);
     });
@@ -178,49 +194,55 @@ void main() {
       expect(find.byType(SegmentedButton<ThemeMode>), findsNothing);
     });
 
-    testWidgets('the settings screen uses a segmented button on desktop',
-        (tester) async {
+    testWidgets('the settings screen uses a segmented button on desktop', (
+      tester,
+    ) async {
       await pumpAt(tester, const SettingsScreen(), const Size(1280, 900));
 
       expect(find.byType(SegmentedButton<ThemeMode>), findsOneWidget);
       expect(find.byType(RadioListTile<ThemeMode>), findsNothing);
     });
 
-    testWidgets('the game screen shows its scores beside the question on desktop',
-        (tester) async {
-      tester.view.physicalSize = const Size(1280, 900);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.reset);
+    testWidgets(
+      'the game screen shows its scores beside the question on desktop',
+      (tester) async {
+        tester.view.physicalSize = const Size(1280, 900);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
 
-      final container = ProviderContainer();
-      addTearDown(container.dispose);
+        final container = ProviderContainer(
+          overrides: [testQuestionRepositoryOverride],
+        );
+        addTearDown(container.dispose);
 
-      await tester.pumpWidget(
-        UncontrolledProviderScope(
-          container: container,
-          child: const MaterialApp(home: GameScreen()),
-        ),
-      );
-      final controller = container.read(gameControllerProvider.notifier);
-      controller.prepare(
-        const SessionConfig(
-          playerNames: ['Alice', 'Bob'],
-          modes: GameMode.values,
-          questionCount: 3,
-          difficulty: Difficulty.easy,
-        ),
-      );
-      controller.start();
-      await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          UncontrolledProviderScope(
+            container: container,
+            child: const MaterialApp(home: GameScreen()),
+          ),
+        );
+        final controller = container.read(gameControllerProvider.notifier);
+        controller.prepare(
+          const SessionConfig(
+            playerNames: ['Alice', 'Bob'],
+            modes: GameMode.values,
+            questionCount: 3,
+            difficulty: Difficulty.easy,
+          ),
+        );
+        controller.start();
+        await tester.pumpAndSettle();
 
-      // The quizmaster bar is only used on a narrow window.
-      expect(find.byIcon(Icons.skip_next_outlined), findsOneWidget);
-      expect(find.text('Point'), findsNWidgets(2));
-      expect(tester.takeException(), isNull);
-    });
+        // The quizmaster bar is only used on a narrow window.
+        expect(find.byIcon(Icons.skip_next_outlined), findsOneWidget);
+        expect(find.text('Point'), findsNWidgets(2));
+        expect(tester.takeException(), isNull);
+      },
+    );
 
-    testWidgets('the setup screen uses two columns on a desktop window',
-        (tester) async {
+    testWidgets('the setup screen uses two columns on a desktop window', (
+      tester,
+    ) async {
       await pumpAt(tester, const GameSetupScreen(), const Size(1280, 900));
 
       // Both columns are laid out side by side: the players list and the

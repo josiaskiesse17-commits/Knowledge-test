@@ -1,7 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/features/question_library/question_filter.dart';
 import 'package:knowledge_test/models/questions/index.dart';
+
+import '../helpers/sample_question_bank.dart';
 
 void main() {
   final bank = SampleQuestionBank.questions;
@@ -60,10 +61,8 @@ void main() {
       final result = filter.apply(bank);
 
       expect(result, isNotEmpty);
-      expect(
-        result.every((q) => q.mode == GameMode.whichCameFirst), isTrue);
-      expect(
-        result.every((q) => q.difficulty == Difficulty.easy), isTrue);
+      expect(result.every((q) => q.mode == GameMode.whichCameFirst), isTrue);
+      expect(result.every((q) => q.difficulty == Difficulty.easy), isTrue);
     });
 
     test('a search with no match returns nothing', () {
@@ -117,7 +116,9 @@ void main() {
 
   group('Afrique category', () {
     test('the Africa category is part of the filters', () {
-      final filter = const QuestionFilter().toggleCategory(QuestionCategory.africa);
+      final filter = const QuestionFilter().toggleCategory(
+        QuestionCategory.africa,
+      );
       expect(filter.categories, {QuestionCategory.africa});
       expect(QuestionCategory.africa.displayNameFr, 'Afrique');
     });

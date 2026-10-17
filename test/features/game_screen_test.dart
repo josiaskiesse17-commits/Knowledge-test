@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knowledge_test/app/router.dart';
-import 'package:knowledge_test/data/sample_question_bank.dart';
 import 'package:knowledge_test/features/game/final_ranking_screen.dart';
 import 'package:knowledge_test/features/game/game_screen.dart';
 import 'package:knowledge_test/features/game/widgets/question_body.dart';
@@ -12,13 +11,18 @@ import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
+import '../helpers/sample_question_bank.dart';
+import '../helpers/test_question_repository.dart';
+
 /// Starts a session containing one question of a single mode.
 Future<(GameController, ProviderContainer)> pumpMode(
   WidgetTester tester, {
   required GameMode mode,
   int questionCount = 1,
 }) async {
-  final container = ProviderContainer();
+  final container = ProviderContainer(
+    overrides: [testQuestionRepositoryOverride],
+  );
   addTearDown(container.dispose);
 
   await tester.pumpWidget(
@@ -61,8 +65,9 @@ void main() {
       expect(find.text('B'), findsOne);
     });
 
-    testWidgets('renders guess the country with progressive clues',
-        (tester) async {
+    testWidgets('renders guess the country with progressive clues', (
+      tester,
+    ) async {
       await pumpMode(tester, mode: GameMode.guessTheCountry);
 
       expect(find.textContaining('Indices révélés : 0 /'), findsOne);
@@ -83,8 +88,9 @@ void main() {
       expect(find.text('Bonne réponse'), findsNothing);
     });
 
-    testWidgets('renders ordering items and the sequence on reveal',
-        (tester) async {
+    testWidgets('renders ordering items and the sequence on reveal', (
+      tester,
+    ) async {
       await pumpMode(tester, mode: GameMode.putInOrder);
 
       expect(find.text('Éléments à classer'), findsOne);
@@ -98,8 +104,9 @@ void main() {
       expect(find.text('Classement complet attendu'), findsOne);
     });
 
-    testWidgets('renders the estimation answer with its unit and range',
-        (tester) async {
+    testWidgets('renders the estimation answer with its unit and range', (
+      tester,
+    ) async {
       await pumpMode(tester, mode: GameMode.howMuch);
 
       expect(find.textContaining('Règle de score'), findsOne);
@@ -129,8 +136,9 @@ void main() {
       expect(controller.state.currentRound!.outcome, QuestionOutcome.pending);
     });
 
-    testWidgets('acts on the question with the bottom controls',
-        (tester) async {
+    testWidgets('acts on the question with the bottom controls', (
+      tester,
+    ) async {
       final (controller, container) = await pumpMode(
         tester,
         mode: GameMode.howMuch,
@@ -149,8 +157,9 @@ void main() {
       container.dispose();
     });
 
-    testWidgets('completes the session from the bottom controls',
-        (tester) async {
+    testWidgets('completes the session from the bottom controls', (
+      tester,
+    ) async {
       final (controller, container) = await pumpMode(
         tester,
         mode: GameMode.howMuch,
@@ -167,7 +176,9 @@ void main() {
     });
 
     testWidgets('shows the remaining time for a timed session', (tester) async {
-      final container = ProviderContainer();
+      final container = ProviderContainer(
+        overrides: [testQuestionRepositoryOverride],
+      );
       addTearDown(container.dispose);
 
       await tester.pumpWidget(
@@ -196,10 +207,12 @@ void main() {
   });
 
   group('QuestionBody', () {
-    testWidgets('shows the explanation only after it is revealed',
-        (tester) async {
-      final question =
-          SampleQuestionBank.questions.whereType<HowMuchQuestion>().first;
+    testWidgets('shows the explanation only after it is revealed', (
+      tester,
+    ) async {
+      final question = SampleQuestionBank.questions
+          .whereType<HowMuchQuestion>()
+          .first;
       var revealedAnswer = false;
       var revealedExplanation = false;
 
@@ -215,10 +228,10 @@ void main() {
                     answerRevealed: revealedAnswer,
                     explanationRevealed: revealedExplanation,
                   ),
-                  onRevealAnswer: () =>
-                      setState(() => revealedAnswer = true),
-                  onToggleExplanation: () =>
-                      setState(() => revealedExplanation = !revealedExplanation),
+                  onRevealAnswer: () => setState(() => revealedAnswer = true),
+                  onToggleExplanation: () => setState(
+                    () => revealedExplanation = !revealedExplanation,
+                  ),
                 ),
               ),
             ),
@@ -241,7 +254,9 @@ void main() {
 
   group('Final ranking screen', () {
     testWidgets('marks tied players and ranks by score', (tester) async {
-      final container = ProviderContainer();
+      final container = ProviderContainer(
+        overrides: [testQuestionRepositoryOverride],
+      );
       addTearDown(container.dispose);
 
       await tester.pumpWidget(
@@ -290,7 +305,10 @@ void main() {
   group('Game setup screen', () {
     testWidgets('shows players, modes and the start button', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(child: MaterialApp(home: GameSetupScreen())),
+        ProviderScope(
+          overrides: [testQuestionRepositoryOverride],
+          child: const MaterialApp(home: GameSetupScreen()),
+        ),
       );
 
       expect(find.text('Joueurs'), findsOne);
@@ -312,7 +330,10 @@ void main() {
 
     testWidgets('refuses to start with empty player names', (tester) async {
       await tester.pumpWidget(
-        const ProviderScope(child: MaterialApp(home: GameSetupScreen())),
+        ProviderScope(
+          overrides: [testQuestionRepositoryOverride],
+          child: const MaterialApp(home: GameSetupScreen()),
+        ),
       );
 
       await tester.tap(find.text('Commencer la partie'));
@@ -326,6 +347,7 @@ void main() {
       // A real router so the screen can navigate to the game.
       await tester.pumpWidget(
         ProviderScope(
+          overrides: [testQuestionRepositoryOverride],
           child: MaterialApp.router(routerConfig: appRouter),
         ),
       );
@@ -335,9 +357,13 @@ void main() {
       expect(find.byType(GameSetupScreen), findsOne);
 
       await tester.enterText(
-          find.widgetWithText(TextField, 'Nom du joueur 1'), 'Alice');
+        find.widgetWithText(TextField, 'Nom du joueur 1'),
+        'Alice',
+      );
       await tester.enterText(
-          find.widgetWithText(TextField, 'Nom du joueur 2'), 'Bob');
+        find.widgetWithText(TextField, 'Nom du joueur 2'),
+        'Bob',
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Commencer la partie'));
@@ -350,8 +376,9 @@ void main() {
   });
 
   group('Scoreboard and QuestionStatusBadge', () {
-    testWidgets('the status badge reports the outcome of the question',
-        (tester) async {
+    testWidgets('the status badge reports the outcome of the question', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -374,9 +401,13 @@ void main() {
       expect(find.textContaining('Temps restant'), findsNothing);
     });
 
-    testWidgets('the scoreboard lists every player with its score',
-        (tester) async {
-      final (controller, container) = await pumpMode(tester, mode: GameMode.howMuch);
+    testWidgets('the scoreboard lists every player with its score', (
+      tester,
+    ) async {
+      final (controller, container) = await pumpMode(
+        tester,
+        mode: GameMode.howMuch,
+      );
       controller.awardPoint('p1');
       await tester.pump();
 

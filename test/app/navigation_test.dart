@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:knowledge_test/features/game_setup/game_setup_screen.dart';
 import 'package:knowledge_test/features/question_library/question_library_screen.dart';
 import 'package:knowledge_test/features/session_history/session_history_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
-import 'package:knowledge_test/features/game_setup/game_setup_screen.dart';
 import 'package:knowledge_test/main.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
@@ -12,6 +12,7 @@ import 'package:knowledge_test/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/fake_session_store.dart';
+import '../helpers/test_question_repository.dart';
 
 /// Pumps the real app with the router, at the given window size.
 ///
@@ -33,8 +34,10 @@ Future<void> pumpApp(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        testQuestionRepositoryOverride,
         storageServiceProvider.overrideWith((ref) async => storage),
-        if (store != null) sessionStoreProvider.overrideWith((ref) async => store),
+        if (store != null)
+          sessionStoreProvider.overrideWith((ref) async => store),
       ],
       child: const MainApp(),
     ),
@@ -137,8 +140,9 @@ void main() {
   });
 
   group('History navigation', () {
-    testWidgets('a stored session is listed with its date and winner',
-        (tester) async {
+    testWidgets('a stored session is listed with its date and winner', (
+      tester,
+    ) async {
       await pumpApp(
         tester,
         const Size(395, 845),
@@ -163,8 +167,9 @@ void main() {
       expect(find.text('Aucune session enregistrée'), findsOneWidget);
     });
 
-    testWidgets('a stored session opens its details and returns',
-        (tester) async {
+    testWidgets('a stored session opens its details and returns', (
+      tester,
+    ) async {
       await pumpApp(
         tester,
         const Size(395, 845),

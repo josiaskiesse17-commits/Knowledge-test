@@ -5,9 +5,13 @@ import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
+import '../helpers/test_question_repository.dart';
+
 void main() {
   ProviderContainer makeContainer() {
-    final container = ProviderContainer();
+    final container = ProviderContainer(
+      overrides: [testQuestionRepositoryOverride],
+    );
     addTearDown(container.dispose);
     return container;
   }
@@ -47,7 +51,9 @@ void main() {
     controller.endSession();
   });
 
-  testWidgets('pause stops the countdown and resume restarts it', (tester) async {
+  testWidgets('pause stops the countdown and resume restarts it', (
+    tester,
+  ) async {
     final container = makeContainer();
     startTimedSession(container, minutes: 1);
 
@@ -93,7 +99,9 @@ void main() {
     controller.endSession();
   });
 
-  testWidgets('the countdown keeps running when the question changes', (tester) async {
+  testWidgets('the countdown keeps running when the question changes', (
+    tester,
+  ) async {
     final container = makeContainer();
     startTimedSession(container, minutes: 1, questionCount: 2);
 
@@ -110,7 +118,9 @@ void main() {
     controller.endSession();
   });
 
-  testWidgets('the countdown stops on completion and is disposed', (tester) async {
+  testWidgets('the countdown stops on completion and is disposed', (
+    tester,
+  ) async {
     final container = makeContainer();
     startTimedSession(container, minutes: 1);
 
@@ -130,26 +140,28 @@ void main() {
     await tester.pump(const Duration(seconds: 5));
   });
 
-  testWidgets('an expired session does not end before the question is resolved',
-      (tester) async {
-    final container = makeContainer();
-    startTimedSession(container, minutes: 1, questionCount: 3);
+  testWidgets(
+    'an expired session does not end before the question is resolved',
+    (tester) async {
+      final container = makeContainer();
+      startTimedSession(container, minutes: 1, questionCount: 3);
 
-    final controller = container.read(gameControllerProvider.notifier);
+      final controller = container.read(gameControllerProvider.notifier);
 
-    await tester.pump(const Duration(seconds: 60));
-    expect(controller.state.timeExpired, isTrue);
-    expect(controller.state.isActive, isTrue);
-    expect(controller.state.currentIndex, 0);
+      await tester.pump(const Duration(seconds: 60));
+      expect(controller.state.timeExpired, isTrue);
+      expect(controller.state.isActive, isTrue);
+      expect(controller.state.currentIndex, 0);
 
-    // The current question must be resolved first.
-    expect(controller.next(), NextResult.roundIncomplete);
-    expect(controller.state.isCompleted, isFalse);
+      // The current question must be resolved first.
+      expect(controller.next(), NextResult.roundIncomplete);
+      expect(controller.state.isCompleted, isFalse);
 
-    controller.skip();
-    expect(controller.next(), NextResult.sessionCompleted);
-    expect(controller.state.isCompleted, isTrue);
-  });
+      controller.skip();
+      expect(controller.next(), NextResult.sessionCompleted);
+      expect(controller.state.isCompleted, isTrue);
+    },
+  );
 
   testWidgets('a question-count session has no countdown', (tester) async {
     final container = makeContainer();
@@ -242,9 +254,15 @@ void main() {
     );
     controller.start();
 
-    expect(controller.isSequenceCorrect(controller.state.questions.isEmpty
-        ? const []
-        : (controller.state.currentQuestion as PutInOrderQuestion).correctOrderIds), isTrue);
+    expect(
+      controller.isSequenceCorrect(
+        controller.state.questions.isEmpty
+            ? const []
+            : (controller.state.currentQuestion as PutInOrderQuestion)
+                  .correctOrderIds,
+      ),
+      isTrue,
+    );
 
     expect(controller.awardPoint('p1'), isA<AwardResult>());
     expect(controller.next(), NextResult.roundIncomplete);
@@ -330,15 +348,22 @@ void main() {
       final notifier = container.read(sessionSetupProvider.notifier);
 
       notifier.toggleMode(GameMode.howMuch);
-      expect(container.read(sessionSetupProvider).modes, isNot(contains(GameMode.howMuch)));
+      expect(
+        container.read(sessionSetupProvider).modes,
+        isNot(contains(GameMode.howMuch)),
+      );
 
       notifier.toggleCategory(QuestionCategory.science);
-      expect(container.read(sessionSetupProvider).categories,
-          contains(QuestionCategory.science));
+      expect(
+        container.read(sessionSetupProvider).categories,
+        contains(QuestionCategory.science),
+      );
 
       notifier.toggleCategory(QuestionCategory.science);
-      expect(container.read(sessionSetupProvider).categories,
-          isNot(contains(QuestionCategory.science)));
+      expect(
+        container.read(sessionSetupProvider).categories,
+        isNot(contains(QuestionCategory.science)),
+      );
     });
 
     test('switches between question count and duration', () {
