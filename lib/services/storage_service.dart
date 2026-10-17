@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show ThemeMode;
+import 'package:flutter/material.dart' show Locale, ThemeMode;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:knowledge_test/models/game_models.dart';
@@ -13,6 +13,7 @@ class StorageService {
   static const String _keySettings = 'game_settings';
   static const String _keyPlayerNames = 'recent_player_names';
   static const String _keyThemeMode = 'theme_mode';
+  static const String _keyLocale = 'app_locale';
 
   final SharedPreferences _prefs;
 
@@ -135,6 +136,21 @@ class StorageService {
       if (mode.name == value) return mode;
     }
     return ThemeMode.system;
+  }
+
+  /// Saves the user's language preference (fr, en).
+  Future<void> saveLocale(Locale locale) async {
+    await _prefs.setString(_keyLocale, locale.languageCode);
+  }
+
+  /// Loads the user's language preference, defaulting to French.
+  ///
+  /// A language the app does not support, or a corrupted value, falls back to
+  /// French instead of throwing.
+  Future<Locale> getLocale() async {
+    final value = _prefs.getString(_keyLocale);
+    if (value == 'en') return const Locale('en');
+    return const Locale('fr');
   }
 
   /// Decodes one stored session, returning null when the entry is unreadable.
