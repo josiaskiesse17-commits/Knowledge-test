@@ -104,6 +104,7 @@ class GuessTheCountryQuestion extends BaseQuestion {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'type': 'guessTheCountry',
       'id': id,
       'mode': mode.name,
       'variation': variation.name,

@@ -1,0 +1,1298 @@
+[
+  {
+    "type": "putInOrder",
+    "id": "pio-001",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "technology",
+    "difficulty": "medium",
+    "text": "Range ces étapes de la communication à distance de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre chronologique est : le télégraphe électrique de Morse (1837), le brevet du téléphone (1876), les premières démonstrations de télégraphie sans fil de Marconi (1895), la première démonstration de télévision par Baird (1926) puis l'ouverture du Web au public au CERN (1991).",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, histoire des télécommunications",
+    "factGroupId": "fg-communication-milestones",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-001-i1",
+        "label": "Télégraphe électrique de Samuel Morse",
+        "description": null,
+        "referenceValue": 1837.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-001-i2",
+        "label": "Brevet du téléphone (Alexander Graham Bell)",
+        "description": null,
+        "referenceValue": 1876.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-001-i3",
+        "label": "Premières démonstrations de télégraphie sans fil (Marconi)",
+        "description": null,
+        "referenceValue": 1895.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-001-i4",
+        "label": "Première démonstration de télévision (John Logie Baird)",
+        "description": null,
+        "referenceValue": 1926.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-001-i5",
+        "label": "Ouverture du Web au public (CERN)",
+        "description": null,
+        "referenceValue": 1991.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-001-i1",
+      "pio-001-i2",
+      "pio-001-i3",
+      "pio-001-i4",
+      "pio-001-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-002",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "history",
+    "difficulty": "medium",
+    "text": "Range ces événements du plus ancien au plus récent.",
+    "explanationFr": "L'ordre est : chute de Constantinople (1453), arrivée de Christophe Colomb aux Amériques (1492), prise de la Bastille (1789), bataille de Waterloo (1815) puis armistice de 1918.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles historiques correspondants",
+    "factGroupId": "fg-historical-timeline",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-002-i1",
+        "label": "Prise de la Bastille",
+        "description": null,
+        "referenceValue": 1789.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-002-i2",
+        "label": "Chute de Constantinople",
+        "description": null,
+        "referenceValue": 1453.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-002-i3",
+        "label": "Christophe Colomb atteint les Amériques",
+        "description": null,
+        "referenceValue": 1492.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-002-i4",
+        "label": "Bataille de Waterloo",
+        "description": null,
+        "referenceValue": 1815.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-002-i5",
+        "label": "Armistice de la Première Guerre mondiale",
+        "description": null,
+        "referenceValue": 1918.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-002-i2",
+      "pio-002-i3",
+      "pio-002-i1",
+      "pio-002-i4",
+      "pio-002-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-003",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "science",
+    "difficulty": "easy",
+    "text": "Range ces planètes de la plus proche à la plus éloignée du Soleil.",
+    "explanationFr": "L'ordre des distances moyennes au Soleil est : Mercure (57,9 millions de km), Vénus (108,2), Terre (149,6), Mars (227,9) puis Jupiter (778,5 millions de km).",
+    "imageUrl": null,
+    "sourceReference": "NASA, fiches planétaires du Système solaire",
+    "factGroupId": "fg-planet-distances",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-003-i1",
+        "label": "Mercure",
+        "description": null,
+        "referenceValue": 57.9,
+        "unit": "millions de km"
+      },
+      {
+        "id": "pio-003-i2",
+        "label": "Vénus",
+        "description": null,
+        "referenceValue": 108.2,
+        "unit": "millions de km"
+      },
+      {
+        "id": "pio-003-i3",
+        "label": "Terre",
+        "description": null,
+        "referenceValue": 149.6,
+        "unit": "millions de km"
+      },
+      {
+        "id": "pio-003-i4",
+        "label": "Mars",
+        "description": null,
+        "referenceValue": 227.9,
+        "unit": "millions de km"
+      },
+      {
+        "id": "pio-003-i5",
+        "label": "Jupiter",
+        "description": null,
+        "referenceValue": 778.5,
+        "unit": "millions de km"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-003-i1",
+      "pio-003-i2",
+      "pio-003-i3",
+      "pio-003-i4",
+      "pio-003-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-004",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Range ces sommets du moins élevé au plus élevé.",
+    "explanationFr": "L'ordre des altitudes est : Eiger (3 967 m), Matterhorn (4 478 m), Mont Blanc (4 806 m), Kilimandjaro (5 895 m) puis Everest (8 849 m), point culminant de la Terre.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles de chaque sommet",
+    "factGroupId": "fg-mountain-heights",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-004-i1",
+        "label": "Eiger",
+        "description": null,
+        "referenceValue": 3967.0,
+        "unit": "m"
+      },
+      {
+        "id": "pio-004-i2",
+        "label": "Matterhorn",
+        "description": null,
+        "referenceValue": 4478.0,
+        "unit": "m"
+      },
+      {
+        "id": "pio-004-i3",
+        "label": "Mont Blanc",
+        "description": null,
+        "referenceValue": 4806.0,
+        "unit": "m"
+      },
+      {
+        "id": "pio-004-i4",
+        "label": "Kilimandjaro",
+        "description": null,
+        "referenceValue": 5895.0,
+        "unit": "m"
+      },
+      {
+        "id": "pio-004-i5",
+        "label": "Everest",
+        "description": null,
+        "referenceValue": 8849.0,
+        "unit": "m"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-004-i1",
+      "pio-004-i2",
+      "pio-004-i3",
+      "pio-004-i4",
+      "pio-004-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-005",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "geography",
+    "difficulty": "hard",
+    "text": "Range ces plans d'eau du plus petit au plus grand par leur superficie.",
+    "explanationFr": "L'ordre des superficies est : lac Léman (environ 580 km²), lac Baïkal (31 722 km²), lac Victoria (68 870 km²), lac Supérieur (82 100 km²) puis mer Caspienne (environ 371 000 km²), considérée comme le plus grand lac du monde.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles de chaque plan d'eau",
+    "factGroupId": "fg-lake-areas",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-005-i1",
+        "label": "Lac Léman",
+        "description": null,
+        "referenceValue": 580.0,
+        "unit": "km²"
+      },
+      {
+        "id": "pio-005-i2",
+        "label": "Lac Baïkal",
+        "description": null,
+        "referenceValue": 31722.0,
+        "unit": "km²"
+      },
+      {
+        "id": "pio-005-i3",
+        "label": "Lac Victoria",
+        "description": null,
+        "referenceValue": 68870.0,
+        "unit": "km²"
+      },
+      {
+        "id": "pio-005-i4",
+        "label": "Lac Supérieur",
+        "description": null,
+        "referenceValue": 82100.0,
+        "unit": "km²"
+      },
+      {
+        "id": "pio-005-i5",
+        "label": "Mer Caspienne",
+        "description": null,
+        "referenceValue": 371000.0,
+        "unit": "km²"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-005-i1",
+      "pio-005-i2",
+      "pio-005-i3",
+      "pio-005-i4",
+      "pio-005-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-006",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "science",
+    "difficulty": "hard",
+    "text": "Range ces étapes de la conquête de l'air et de l'espace de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : premier vol motorisé des frères Wright (1903), lancement de Spoutnik 1 (1957), premier vol spatial habité (1961), premier pas sur la Lune (1969) puis arrivée du premier équipage de la Station spatiale internationale (2000).",
+    "imageUrl": null,
+    "sourceReference": "NASA, histoire de l'aviation et des vols spatiaux habités",
+    "factGroupId": "fg-aviation-space-milestones",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-006-i1",
+        "label": "Premier vol motorisé des frères Wright",
+        "description": null,
+        "referenceValue": 1903.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-006-i2",
+        "label": "Lancement de Spoutnik 1",
+        "description": null,
+        "referenceValue": 1957.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-006-i3",
+        "label": "Premier vol spatial habité (Gagarine)",
+        "description": null,
+        "referenceValue": 1961.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-006-i4",
+        "label": "Premier pas sur la Lune",
+        "description": null,
+        "referenceValue": 1969.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-006-i5",
+        "label": "Premier équipage de la Station spatiale internationale",
+        "description": null,
+        "referenceValue": 2000.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-006-i1",
+      "pio-006-i2",
+      "pio-006-i3",
+      "pio-006-i4",
+      "pio-006-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-007",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "technology",
+    "difficulty": "medium",
+    "text": "Range ces étapes de l'informatique personnelle de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : l'Apple I (1976), l'IBM PC (1981), Windows 1.0 (1985), l'ouverture du Web au public par le CERN (1991) puis l'iPhone (2007).",
+    "imageUrl": null,
+    "sourceReference": "Apple, chronologie des produits ; IBM, histoire du premier PC ; Microsoft, historique de Windows ; CERN, naissance du Web",
+    "factGroupId": "fg-personal-computing-timeline",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-007-i1",
+        "label": "Commercialisation de l'Apple I",
+        "description": null,
+        "referenceValue": 1976.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-007-i2",
+        "label": "Sortie de l'IBM PC",
+        "description": null,
+        "referenceValue": 1981.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-007-i3",
+        "label": "Sortie de Windows 1.0",
+        "description": null,
+        "referenceValue": 1985.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-007-i4",
+        "label": "Ouverture du Web au public (CERN)",
+        "description": null,
+        "referenceValue": 1991.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-007-i5",
+        "label": "Sortie du premier iPhone",
+        "description": null,
+        "referenceValue": 2007.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-007-i1",
+      "pio-007-i2",
+      "pio-007-i3",
+      "pio-007-i4",
+      "pio-007-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-008",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Range ces indépendances africaines de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : le Ghana en 1957, le Nigeria en 1960, l'Algérie en 1962, le Kenya en 1963 et la Namibie en 1990.",
+    "imageUrl": null,
+    "sourceReference": "Nations unies, chronologie de la décolonisation",
+    "factGroupId": "fg-african-independence-timeline",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-008-i1",
+        "label": "Indépendance du Ghana",
+        "description": null,
+        "referenceValue": 1957.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-008-i2",
+        "label": "Indépendance du Nigeria",
+        "description": null,
+        "referenceValue": 1960.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-008-i3",
+        "label": "Indépendance de l'Algérie",
+        "description": null,
+        "referenceValue": 1962.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-008-i4",
+        "label": "Indépendance du Kenya",
+        "description": null,
+        "referenceValue": 1963.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-008-i5",
+        "label": "Indépendance de la Namibie",
+        "description": null,
+        "referenceValue": 1990.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-008-i1",
+      "pio-008-i2",
+      "pio-008-i3",
+      "pio-008-i4",
+      "pio-008-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-009",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Range ces étapes de l'histoire de la médecine et de la génétique de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : le premier vaccin contre la variole par Jenner (1796), la découverte de la pénicilline par Fleming (1928), la structure de l'ADN publiée par Watson et Crick (1953), la naissance de la brebis Dolly (1996) puis l'achèvement du séquençage du génome humain (2003).",
+    "imageUrl": null,
+    "sourceReference": "Organisation mondiale de la santé, histoire de la vaccination ; Human Genome Project, chronologie",
+    "factGroupId": "fg-medicine-milestones",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-009-i1",
+        "label": "Premier vaccin contre la variole (Edward Jenner)",
+        "description": null,
+        "referenceValue": 1796.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-009-i2",
+        "label": "Découverte de la pénicilline (Alexander Fleming)",
+        "description": null,
+        "referenceValue": 1928.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-009-i3",
+        "label": "Publication de la structure de l'ADN",
+        "description": null,
+        "referenceValue": 1953.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-009-i4",
+        "label": "Naissance de la brebis Dolly",
+        "description": null,
+        "referenceValue": 1996.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-009-i5",
+        "label": "Achèvement du séquençage du génome humain",
+        "description": null,
+        "referenceValue": 2003.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-009-i1",
+      "pio-009-i2",
+      "pio-009-i3",
+      "pio-009-i4",
+      "pio-009-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-010",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "history",
+    "difficulty": "medium",
+    "text": "Range ces moments de l'histoire diplomatique du plus ancien au plus récent.",
+    "explanationFr": "L'ordre est : les traités de Westphalie (1648), le congrès de Vienne (1815), le traité de Versailles (1919), la signature de la Charte des Nations unies (1945) puis l'accord de Paris sur le climat (2015).",
+    "imageUrl": null,
+    "sourceReference": "Nations unies, Histoire de la Charte ; CCNUCC, accord de Paris ; Encyclopaedia Britannica, articles historiques correspondants",
+    "factGroupId": "fg-diplomacy-milestones",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-010-i1",
+        "label": "Traités de Westphalie",
+        "description": null,
+        "referenceValue": 1648.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-010-i2",
+        "label": "Congrès de Vienne",
+        "description": null,
+        "referenceValue": 1815.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-010-i3",
+        "label": "Traité de Versailles",
+        "description": null,
+        "referenceValue": 1919.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-010-i4",
+        "label": "Signature de la Charte des Nations unies",
+        "description": null,
+        "referenceValue": 1945.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-010-i5",
+        "label": "Accord de Paris sur le climat",
+        "description": null,
+        "referenceValue": 2015.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-010-i1",
+      "pio-010-i2",
+      "pio-010-i3",
+      "pio-010-i4",
+      "pio-010-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-011",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "sports",
+    "difficulty": "easy",
+    "text": "Range ces compétitions sportives par leur création, de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : les Jeux olympiques modernes (1896), le Tour de France (1903), le Super Bowl (1967), la première Coupe du monde de rugby (1987) puis le Tournoi des Six Nations sous sa forme actuelle (2000).",
+    "imageUrl": null,
+    "sourceReference": "Comité international olympique ; Tour de France, archives ; NFL ; World Rugby ; Six Nations Rugby",
+    "factGroupId": "fg-sport-events-creation",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-011-i1",
+        "label": "Premiers Jeux olympiques modernes",
+        "description": null,
+        "referenceValue": 1896.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-011-i2",
+        "label": "Premier Tour de France",
+        "description": null,
+        "referenceValue": 1903.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-011-i3",
+        "label": "Premier Super Bowl",
+        "description": null,
+        "referenceValue": 1967.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-011-i4",
+        "label": "Première Coupe du monde de rugby",
+        "description": null,
+        "referenceValue": 1987.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-011-i5",
+        "label": "Premier Tournoi des Six Nations sous sa forme actuelle",
+        "description": null,
+        "referenceValue": 2000.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-011-i1",
+      "pio-011-i2",
+      "pio-011-i3",
+      "pio-011-i4",
+      "pio-011-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-012",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Range ces groupes du vivant du plus récent au plus ancien.",
+    "explanationFr": "L'ordre, du plus récent au plus ancien, est : Homo sapiens (il y a environ 300 000 ans), les mammouths (il y a environ 5 millions d'années) puis les dinosaures (il y a environ 230 millions d'années).",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Dinosaur », « Mammoth » et « Homo sapiens » ; Smithsonian, programme « Human Origins »",
+    "factGroupId": "fg-life-forms-appearance",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-012-i1",
+        "label": "Apparition des dinosaures",
+        "description": null,
+        "referenceValue": 230000000.0,
+        "unit": "années avant aujourd'hui"
+      },
+      {
+        "id": "pio-012-i2",
+        "label": "Apparition des mammouths",
+        "description": null,
+        "referenceValue": 5000000.0,
+        "unit": "années avant aujourd'hui"
+      },
+      {
+        "id": "pio-012-i3",
+        "label": "Apparition d'Homo sapiens",
+        "description": null,
+        "referenceValue": 300000.0,
+        "unit": "années avant aujourd'hui"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-012-i3",
+      "pio-012-i2",
+      "pio-012-i1"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-013",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "arts",
+    "difficulty": "medium",
+    "text": "Range ces mouvements artistiques de leur émergence la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : la Renaissance italienne (XVe siècle), le baroque (début du XVIIe siècle), le romantisme (début du XIXe siècle), l'impressionnisme (années 1870) puis le cubisme (à partir de 1907).",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Renaissance », « Baroque », « Romanticism », « Impressionism » et « Cubism »",
+    "factGroupId": "fg-art-movements-timeline",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-013-i1",
+        "label": "Renaissance italienne",
+        "description": null,
+        "referenceValue": 1400.0,
+        "unit": "année (début du mouvement)"
+      },
+      {
+        "id": "pio-013-i2",
+        "label": "Baroque",
+        "description": null,
+        "referenceValue": 1600.0,
+        "unit": "année (début du mouvement)"
+      },
+      {
+        "id": "pio-013-i3",
+        "label": "Romantisme",
+        "description": null,
+        "referenceValue": 1800.0,
+        "unit": "année (début du mouvement)"
+      },
+      {
+        "id": "pio-013-i4",
+        "label": "Impressionnisme",
+        "description": null,
+        "referenceValue": 1870.0,
+        "unit": "année (début du mouvement)"
+      },
+      {
+        "id": "pio-013-i5",
+        "label": "Cubisme",
+        "description": null,
+        "referenceValue": 1907.0,
+        "unit": "année (début du mouvement)"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-013-i1",
+      "pio-013-i2",
+      "pio-013-i3",
+      "pio-013-i4",
+      "pio-013-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-014",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Range ces capitales africaines de la plus méridionale à la plus septentrionale.",
+    "explanationFr": "L'ordre, du sud au nord, est : Pretoria (environ 25,7° de latitude sud), Antananarivo (environ 18,9° sud), Nairobi (environ 1,3° sud), Dakar (environ 14,7° nord) puis Le Caire (environ 30° nord). La latitude est comptée négativement vers le sud.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles correspondants ; National Geographic, atlas",
+    "factGroupId": "fg-african-capitals-latitude",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-014-i1",
+        "label": "Pretoria",
+        "description": null,
+        "referenceValue": -25.7,
+        "unit": "degrés de latitude"
+      },
+      {
+        "id": "pio-014-i2",
+        "label": "Antananarivo",
+        "description": null,
+        "referenceValue": -18.9,
+        "unit": "degrés de latitude"
+      },
+      {
+        "id": "pio-014-i3",
+        "label": "Nairobi",
+        "description": null,
+        "referenceValue": -1.3,
+        "unit": "degrés de latitude"
+      },
+      {
+        "id": "pio-014-i4",
+        "label": "Dakar",
+        "description": null,
+        "referenceValue": 14.7,
+        "unit": "degrés de latitude"
+      },
+      {
+        "id": "pio-014-i5",
+        "label": "Le Caire",
+        "description": null,
+        "referenceValue": 30.0,
+        "unit": "degrés de latitude"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-014-i1",
+      "pio-014-i2",
+      "pio-014-i3",
+      "pio-014-i4",
+      "pio-014-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-015",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "geography",
+    "difficulty": "hard",
+    "text": "Range ces pays du moins peuplé au plus peuplé.",
+    "explanationFr": "L'ordre est : le Vatican (moins d'un millier d'habitants), Nauru (environ 12 000), l'Islande (environ 390 000), la Suisse (environ 9 millions) puis le Nigeria (plus de 220 millions).",
+    "imageUrl": null,
+    "sourceReference": "Nations unies, World Population Prospects ; Saint-Siège, statistiques",
+    "factGroupId": "fg-country-populations-scale",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-015-i1",
+        "label": "Vatican",
+        "description": null,
+        "referenceValue": 500.0,
+        "unit": "habitants"
+      },
+      {
+        "id": "pio-015-i2",
+        "label": "Nauru",
+        "description": null,
+        "referenceValue": 12000.0,
+        "unit": "habitants"
+      },
+      {
+        "id": "pio-015-i3",
+        "label": "Islande",
+        "description": null,
+        "referenceValue": 390000.0,
+        "unit": "habitants"
+      },
+      {
+        "id": "pio-015-i4",
+        "label": "Suisse",
+        "description": null,
+        "referenceValue": 8900000.0,
+        "unit": "habitants"
+      },
+      {
+        "id": "pio-015-i5",
+        "label": "Nigeria",
+        "description": null,
+        "referenceValue": 223000000.0,
+        "unit": "habitants"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-015-i1",
+      "pio-015-i2",
+      "pio-015-i3",
+      "pio-015-i4",
+      "pio-015-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-016",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "science",
+    "difficulty": "easy",
+    "text": "Range ces planètes du Système solaire de la plus proche du Soleil à la plus éloignée.",
+    "explanationFr": "L'ordre est : Mercure (0,39 unité astronomique du Soleil), Vénus (0,72), la Terre (1), Mars (1,52) puis Jupiter (5,2). Une unité astronomique vaut environ 150 millions de kilomètres.",
+    "imageUrl": null,
+    "sourceReference": "NASA, fiche des distances planétaires",
+    "factGroupId": "fg-planets-distance",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-016-i1",
+        "label": "Mercure",
+        "description": null,
+        "referenceValue": 0.39,
+        "unit": "unités astronomiques"
+      },
+      {
+        "id": "pio-016-i2",
+        "label": "Vénus",
+        "description": null,
+        "referenceValue": 0.72,
+        "unit": "unités astronomiques"
+      },
+      {
+        "id": "pio-016-i3",
+        "label": "Terre",
+        "description": null,
+        "referenceValue": 1.0,
+        "unit": "unités astronomiques"
+      },
+      {
+        "id": "pio-016-i4",
+        "label": "Mars",
+        "description": null,
+        "referenceValue": 1.52,
+        "unit": "unités astronomiques"
+      },
+      {
+        "id": "pio-016-i5",
+        "label": "Jupiter",
+        "description": null,
+        "referenceValue": 5.2,
+        "unit": "unités astronomiques"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-016-i1",
+      "pio-016-i2",
+      "pio-016-i3",
+      "pio-016-i4",
+      "pio-016-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-017",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "history",
+    "difficulty": "easy",
+    "text": "Range ces dirigeants par leur arrivée au pouvoir, de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : Napoléon Ier, couronné empereur en 1804, Abraham Lincoln en 1861, Winston Churchill en 1940, Nelson Mandela en 1994 puis Angela Merkel en 2005.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles biographiques correspondants",
+    "factGroupId": "fg-leaders-rise",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-017-i1",
+        "label": "Napoléon Ier, empereur des Français",
+        "description": null,
+        "referenceValue": 1804.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-017-i2",
+        "label": "Abraham Lincoln, président des États-Unis",
+        "description": null,
+        "referenceValue": 1861.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-017-i3",
+        "label": "Winston Churchill, Premier ministre britannique",
+        "description": null,
+        "referenceValue": 1940.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-017-i4",
+        "label": "Nelson Mandela, président de l'Afrique du Sud",
+        "description": null,
+        "referenceValue": 1994.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-017-i5",
+        "label": "Angela Merkel, chancelière allemande",
+        "description": null,
+        "referenceValue": 2005.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-017-i1",
+      "pio-017-i2",
+      "pio-017-i3",
+      "pio-017-i4",
+      "pio-017-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-018",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "africa",
+    "difficulty": "easy",
+    "text": "Range ces animaux africains du plus petit au plus grand (hauteur au garrot).",
+    "explanationFr": "L'ordre, du plus petit au plus grand, est : le suricate (environ 30 cm), le zèbre (environ 1,4 m), l'éléphant de savane (environ 3,2 m au garrot) puis la girafe (jusqu'à environ 5,3 m).",
+    "imageUrl": null,
+    "sourceReference": "San Diego Zoo, fiches animales ; Encyclopaedia Britannica, articles correspondants",
+    "factGroupId": "fg-african-animals-size",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-018-i1",
+        "label": "Suricate",
+        "description": null,
+        "referenceValue": 0.3,
+        "unit": "mètre au garrot"
+      },
+      {
+        "id": "pio-018-i2",
+        "label": "Zèbre",
+        "description": null,
+        "referenceValue": 1.4,
+        "unit": "mètre au garrot"
+      },
+      {
+        "id": "pio-018-i3",
+        "label": "Éléphant de savane",
+        "description": null,
+        "referenceValue": 3.2,
+        "unit": "mètre au garrot"
+      },
+      {
+        "id": "pio-018-i4",
+        "label": "Girafe",
+        "description": null,
+        "referenceValue": 5.3,
+        "unit": "mètre au garrot"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-018-i1",
+      "pio-018-i2",
+      "pio-018-i3",
+      "pio-018-i4"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-019",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "arts",
+    "difficulty": "easy",
+    "text": "Range ces musées par leur ouverture au public, de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : le British Museum, ouvert en 1759, le Louvre en 1793, le Museum of Modern Art de New York en 1929, le Centre Pompidou en 1977 puis le Louvre Abu Dhabi en 2017.",
+    "imageUrl": null,
+    "sourceReference": "British Museum, histoire du musée ; Louvre ; MoMA ; Centre Pompidou ; Louvre Abu Dhabi",
+    "factGroupId": "fg-museums-opening",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-019-i1",
+        "label": "British Museum (Londres)",
+        "description": null,
+        "referenceValue": 1759.0,
+        "unit": "année d'ouverture"
+      },
+      {
+        "id": "pio-019-i2",
+        "label": "Musée du Louvre (Paris)",
+        "description": null,
+        "referenceValue": 1793.0,
+        "unit": "année d'ouverture"
+      },
+      {
+        "id": "pio-019-i3",
+        "label": "Museum of Modern Art (New York)",
+        "description": null,
+        "referenceValue": 1929.0,
+        "unit": "année d'ouverture"
+      },
+      {
+        "id": "pio-019-i4",
+        "label": "Centre Pompidou (Paris)",
+        "description": null,
+        "referenceValue": 1977.0,
+        "unit": "année d'ouverture"
+      },
+      {
+        "id": "pio-019-i5",
+        "label": "Louvre Abu Dhabi",
+        "description": null,
+        "referenceValue": 2017.0,
+        "unit": "année d'ouverture"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-019-i1",
+      "pio-019-i2",
+      "pio-019-i3",
+      "pio-019-i4",
+      "pio-019-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-020",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "technology",
+    "difficulty": "medium",
+    "text": "Range ces étapes de l'exploration spatiale de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : Spoutnik 1 (1957), le premier vol habité de Gagarine (1961), les premiers pas sur la Lune d'Apollo 11 (1969), le lancement de Voyager 1 (1977) puis l'atterrissage du rover Curiosity sur Mars (2012).",
+    "imageUrl": null,
+    "sourceReference": "NASA, chronologie des missions",
+    "factGroupId": "fg-space-exploration-timeline",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-020-i1",
+        "label": "Lancement du satellite Spoutnik 1",
+        "description": null,
+        "referenceValue": 1957.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-020-i2",
+        "label": "Premier vol habité (Youri Gagarine)",
+        "description": null,
+        "referenceValue": 1961.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-020-i3",
+        "label": "Premiers pas sur la Lune (Apollo 11)",
+        "description": null,
+        "referenceValue": 1969.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-020-i4",
+        "label": "Lancement de la sonde Voyager 1",
+        "description": null,
+        "referenceValue": 1977.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-020-i5",
+        "label": "Atterrissage du rover Curiosity sur Mars",
+        "description": null,
+        "referenceValue": 2012.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-020-i1",
+      "pio-020-i2",
+      "pio-020-i3",
+      "pio-020-i4",
+      "pio-020-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-021",
+    "mode": "putInOrder",
+    "variation": "putInOrderByProperty",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Range ces déplacements du plus lent au plus rapide.",
+    "explanationFr": "L'ordre est : la tortue terrestre (environ 0,3 km/h), l'autruche (environ 70 km/h), le guépard (environ 110 km/h), le faucon pèlerin en piqué (plus de 300 km/h) puis un avion de ligne (environ 900 km/h).",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Cheetah » et « Peregrine falcon » ; San Diego Zoo",
+    "factGroupId": "fg-speed-records",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-021-i1",
+        "label": "Tortue terrestre",
+        "description": null,
+        "referenceValue": 0.3,
+        "unit": "km/h"
+      },
+      {
+        "id": "pio-021-i2",
+        "label": "Autruche",
+        "description": null,
+        "referenceValue": 70.0,
+        "unit": "km/h"
+      },
+      {
+        "id": "pio-021-i3",
+        "label": "Guépard",
+        "description": null,
+        "referenceValue": 110.0,
+        "unit": "km/h"
+      },
+      {
+        "id": "pio-021-i4",
+        "label": "Faucon pèlerin en piqué",
+        "description": null,
+        "referenceValue": 300.0,
+        "unit": "km/h"
+      },
+      {
+        "id": "pio-021-i5",
+        "label": "Avion de ligne long-courrier",
+        "description": null,
+        "referenceValue": 900.0,
+        "unit": "km/h"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-021-i1",
+      "pio-021-i2",
+      "pio-021-i3",
+      "pio-021-i4",
+      "pio-021-i5"
+    ]
+  },
+  {
+    "type": "putInOrder",
+    "id": "pio-022",
+    "mode": "putInOrder",
+    "variation": "putInOrderChronological",
+    "category": "sports",
+    "difficulty": "medium",
+    "text": "Range ces événements sportifs par leur première édition, de la plus ancienne à la plus récente.",
+    "explanationFr": "L'ordre est : les Jeux olympiques modernes d'Athènes (1896), le premier Tour de France (1903), le premier Super Bowl (1967), la première Coupe du monde de rugby (1987) puis la première Coupe du monde féminine de football (1991).",
+    "imageUrl": null,
+    "sourceReference": "Comité international olympique ; Tour de France, archives ; NFL ; World Rugby ; FIFA",
+    "factGroupId": "fg-sport-events-first-edition",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "items": [
+      {
+        "id": "pio-022-i1",
+        "label": "Jeux olympiques modernes d'Athènes",
+        "description": null,
+        "referenceValue": 1896.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-022-i2",
+        "label": "Premier Tour de France",
+        "description": null,
+        "referenceValue": 1903.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-022-i3",
+        "label": "Premier Super Bowl",
+        "description": null,
+        "referenceValue": 1967.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-022-i4",
+        "label": "Première Coupe du monde de rugby",
+        "description": null,
+        "referenceValue": 1987.0,
+        "unit": "année"
+      },
+      {
+        "id": "pio-022-i5",
+        "label": "Première Coupe du monde féminine de football",
+        "description": null,
+        "referenceValue": 1991.0,
+        "unit": "année"
+      }
+    ],
+    "correctOrderIds": [
+      "pio-022-i1",
+      "pio-022-i2",
+      "pio-022-i3",
+      "pio-022-i4",
+      "pio-022-i5"
+    ]
+  }
+]

@@ -131,6 +131,7 @@ class HowMuchQuestion extends BaseQuestion {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'type': 'howMuch',
       'id': id,
       'mode': mode.name,
       'variation': variation.name,

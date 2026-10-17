@@ -88,6 +88,7 @@ class WhichCameFirstQuestion extends BaseQuestion {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'type': 'whichCameFirst',
       'id': id,
       'mode': mode.name,
       'variation': variation.name,

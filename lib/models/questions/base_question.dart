@@ -1,4 +1,10 @@
+import 'package:knowledge_test/models/json_parsing.dart';
 import 'enums.dart';
+import 'fact_or_cap.dart';
+import 'guess_the_country.dart';
+import 'how_much.dart';
+import 'put_in_order.dart';
+import 'which_came_first.dart';
 
 /// Shared metadata for every question, whatever the game mode.
 ///
@@ -36,6 +42,29 @@ abstract class BaseQuestion {
   });
 
   Map<String, dynamic> toJson();
+
+  /// Rebuilds a question from its stored [json], using its `type` discriminator.
+  ///
+  /// [GameMode] is used as a fallback for entries written before the `type`
+  /// field existed, so a question bank saved by an older version still loads.
+  factory BaseQuestion.fromJson(Map<String, dynamic> json) {
+    final type = enumByNameOrNull(QuestionType.values, json['type'] ??
+        json['mode'] as String? ??
+        GameMode.values.first.name);
+
+    switch (type!) {
+      case QuestionType.whichCameFirst:
+        return WhichCameFirstQuestion.fromJson(json);
+      case QuestionType.guessTheCountry:
+        return GuessTheCountryQuestion.fromJson(json);
+      case QuestionType.factOrCap:
+        return FactOrCapQuestion.fromJson(json);
+      case QuestionType.putInOrder:
+        return PutInOrderQuestion.fromJson(json);
+      case QuestionType.howMuch:
+        return HowMuchQuestion.fromJson(json);
+    }
+  }
 
   /// True when the question can be played: every subclass validates its own
   /// answer structure and that at least one answer is available.

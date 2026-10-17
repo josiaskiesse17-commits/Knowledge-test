@@ -53,6 +53,20 @@ enum QuestionVariation {
   howMuchPopulation,
 }
 
+/// JSON discriminator of a question: the `type` field of a stored question
+/// selects which [BaseQuestion] subclass decodes it.
+///
+/// [GameMode] cannot serve that purpose: several variations of one mode are
+/// stored in the same file, and a future mode could keep questions of two
+/// different shapes.
+enum QuestionType {
+  whichCameFirst,
+  guessTheCountry,
+  factOrCap,
+  putInOrder,
+  howMuch,
+}
+
 extension GameModeExtension on GameMode {
   String get displayNameFr {
     switch (this) {

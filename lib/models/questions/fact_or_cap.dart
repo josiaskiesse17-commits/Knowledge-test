@@ -102,6 +102,7 @@ class FactOrCapQuestion extends BaseQuestion {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'type': 'factOrCap',
       'id': id,
       'mode': mode.name,
       'variation': variation.name,

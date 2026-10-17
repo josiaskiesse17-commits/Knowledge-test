@@ -102,6 +102,7 @@ class PutInOrderQuestion extends BaseQuestion {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'type': 'putInOrder',
       'id': id,
       'mode': mode.name,
       'variation': variation.name,

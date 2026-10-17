@@ -1,0 +1,706 @@
+[
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-001",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : le premier pas de l'Homme sur la Lune ou le premier vol spatial habité par une femme ?",
+    "explanationFr": "Valentina Alekseevna Tereshkova est devenue la première femme dans l'espace le 16 juin 1963 à bord de Vostok 6, soit environ six ans avant le premier pas sur la Lune d'Apollo 11 le 20 juillet 1969.",
+    "imageUrl": null,
+    "sourceReference": "NASA, fiches de mission Apollo 11 et Vostok 6",
+    "factGroupId": "fg-moon-landing-1969",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-001-e1",
+        "label": "Premier pas de l'Homme sur la Lune (Apollo 11)",
+        "date": "1969-07-20T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-001-e2",
+        "label": "Premier vol spatial habité par une femme (Vostok 6)",
+        "date": "1963-06-16T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-002",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "technology",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : l'imprimerie à caractères mobiles de Gutenberg ou le brevet du téléphone de Bell ?",
+    "explanationFr": "L'imprimerie moderne de Johannes Gutenberg est datée d'environ 1450 en Europe centrale, tandis que le brevet du téléphone d'Alexander Graham Bell date du 7 mars 1876, soit plus de quatre siècles plus tard.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Printing press » et « Telephone »",
+    "factGroupId": "fg-gutenberg-press-1450",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-002-e1",
+        "label": "Imprimerie à caractères mobiles de Gutenberg",
+        "date": "1450-01-01T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-002-e2",
+        "label": "Brevet du téléphone (Alexander Graham Bell)",
+        "date": "1876-03-07T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-003",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la découverte de la pénicilline par Fleming ou la publication de la structure en double hélice de l'ADN ?",
+    "explanationFr": "Alexander Fleming observe l'action antibiotique de la pénicilline en septembre 1928. La description de la structure en double hélice de l'ADN par Watson et Crick est publiée en avril 1953.",
+    "imageUrl": null,
+    "sourceReference": "Nature 171 (1953), article de Watson et Crick ; Nobel Prize, Fleming 1945",
+    "factGroupId": "fg-penicillin-1928",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-003-e1",
+        "label": "Découverte de la pénicilline (Alexander Fleming)",
+        "date": "1928-09-01T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-003-e2",
+        "label": "Publication de la structure en double hélice de l'ADN",
+        "date": "1953-04-25T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-004",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "history",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : la chute du mur de Berlin ou la dissolution officielle de l'URSS ?",
+    "explanationFr": "Le mur de Berlin est ouvert le 9 novembre 1989. L'URSS est officiellement dissoute le 26 décembre 1991, soit plus de deux ans plus tard.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Berlin Wall » et « Soviet Union »",
+    "factGroupId": "fg-berlin-wall-1989",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-004-e1",
+        "label": "Chute du mur de Berlin",
+        "date": "1989-11-09T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-004-e2",
+        "label": "Dissolution officielle de l'URSS",
+        "date": "1991-12-26T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-005",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "sports",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : les premiers Jeux olympiques de l'ère moderne ou la première Coupe du monde de football ?",
+    "explanationFr": "Les premiers Jeux olympiques de l'ère moderne ont lieu à Athènes en avril 1896. La première Coupe du monde de football est organisée en Uruguay en 1930.",
+    "imageUrl": null,
+    "sourceReference": "Comité international olympique ; FIFA, coupes du monde 1930",
+    "factGroupId": "fg-modern-olympics-1896",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-005-e1",
+        "label": "Jeux olympiques de l'ère moderne à Athènes",
+        "date": "1896-04-06T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-005-e2",
+        "label": "Première Coupe du monde de football (Uruguay)",
+        "date": "1930-07-13T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-006",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : le lancement de Spoutnik 1 ou le premier vol spatial habité de Youri Gagarine ?",
+    "explanationFr": "Spoutnik 1, premier satellite artificiel, est lancé le 4 octobre 1957. Le vol de Gagarine à bord de Vostok 1 a lieu le 12 avril 1961, soit trois ans et demi plus tard.",
+    "imageUrl": null,
+    "sourceReference": "NASA, historique des débuts de l'ère spatiale",
+    "factGroupId": "fg-sputnik-1957",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-006-e1",
+        "label": "Lancement de Spoutnik 1",
+        "date": "1957-10-04T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-006-e2",
+        "label": "Premier vol spatial habité (Vostok 1)",
+        "date": "1961-04-12T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-007",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la publication de la structure en double hélice de l'ADN ou la naissance de la brebis Dolly ?",
+    "explanationFr": "Watson et Crick ont publié la structure en double hélice de l'ADN dans la revue Nature le 25 avril 1953. La brebis Dolly, premier mammifère cloné à partir d'une cellule adulte, est née bien plus tard, le 5 juillet 1996, à l'institut Roslin.",
+    "imageUrl": null,
+    "sourceReference": "Nature, article de Watson et Crick (1953) ; Roslin Institute, dossier Dolly",
+    "factGroupId": "fg-dna-helix-1953",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-007-e2",
+        "label": "Naissance de la brebis Dolly, premier mammifère cloné",
+        "date": "1996-07-05T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-007-e1",
+        "label": "Publication de la structure en double hélice de l'ADN (Nature)",
+        "date": "1953-04-25T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-008",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "history",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la déclaration d'indépendance des États-Unis ou la prise de la Bastille ?",
+    "explanationFr": "Le Congrès des États-Unis a adopté la Déclaration d'indépendance le 4 juillet 1776, treize ans avant la prise de la Bastille du 14 juillet 1789, qui marque le début de la Révolution française.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Declaration of Independence » et « Storming of the Bastille »",
+    "factGroupId": "fg-us-independence-1776",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-008-e2",
+        "label": "Prise de la Bastille, début de la Révolution française",
+        "date": "1789-07-14T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-008-e1",
+        "label": "Déclaration d'indépendance des États-Unis",
+        "date": "1776-07-04T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-009",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "technology",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : le premier vol motorisé des frères Wright ou le début de la Première Guerre mondiale ?",
+    "explanationFr": "Le Flyer des frères Wright a effectué son premier vol à Kitty Hawk le 17 décembre 1903, plus de dix ans avant le début de la Première Guerre mondiale, le 28 juillet 1914.",
+    "imageUrl": null,
+    "sourceReference": "Smithsonian National Air and Space Museum ; Encyclopaedia Britannica, article « World War I »",
+    "factGroupId": "fg-wright-flight-1903",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-009-e1",
+        "label": "Premier vol motorisé des frères Wright",
+        "date": "1903-12-17T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-009-e2",
+        "label": "Début de la Première Guerre mondiale",
+        "date": "1914-07-28T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-010",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "history",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : le couronnement de Charlemagne comme empereur d'Occident ou la signature de la Magna Carta ?",
+    "explanationFr": "Charlemagne a été couronné empereur d'Occident par le pape Léon III le 25 décembre 800. La Magna Carta anglaise, charte arrachée au roi Jean sans Terre, date de juin 1215.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Charlemagne » et « Magna Carta »",
+    "factGroupId": "fg-charlemagne-800",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-010-e2",
+        "label": "Signature de la Magna Carta en Angleterre",
+        "date": "1215-06-15T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-010-e1",
+        "label": "Couronnement de Charlemagne, empereur d'Occident",
+        "date": "0800-12-25T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-011",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "africa",
+    "difficulty": "hard",
+    "text": "Lequel est arrivé en premier : l'indépendance du Ghana ou celle de l'Algérie ?",
+    "explanationFr": "Le Ghana, ancienne Côte-de-l'Or britannique, est devenu indépendant le 6 mars 1957, sous la conduite de Kwame Nkrumah. L'Algérie a proclamé son indépendance le 5 juillet 1962, après la guerre d'Algérie.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Ghana » et « Algeria » ; Nations unies, liste des décolonisations",
+    "factGroupId": "fg-ghana-independence-1957",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-011-e2",
+        "label": "Indépendance de l'Algérie",
+        "date": "1962-07-05T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-011-e1",
+        "label": "Indépendance du Ghana",
+        "date": "1957-03-06T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-012",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la découverte de la pénicilline par Fleming ou la première greffe de cœur humaine ?",
+    "explanationFr": "Alexander Fleming a observé l'action antibiotique de la pénicilline en septembre 1928. La première greffe de cœur humain, réalisée par Christiaan Barnard à Cape Town, date du 3 décembre 1967.",
+    "imageUrl": null,
+    "sourceReference": "Nobel Prize, dossier Fleming ; Encyclopaedia Britannica, article « Heart transplant »",
+    "factGroupId": "fg-penicillin-vs-hearttransplant-1928-1967",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-012-e1",
+        "label": "Découverte de la pénicilline par Alexander Fleming",
+        "date": "1928-09-01T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-012-e2",
+        "label": "Première greffe de cœur humaine (Christiaan Barnard)",
+        "date": "1967-12-03T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-013",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "geography",
+    "difficulty": "hard",
+    "text": "Lequel est arrivé en premier : l'inauguration du canal de Suez ou l'achèvement du canal de Panama ?",
+    "explanationFr": "Le canal de Suez, qui relie la Méditerranée à la mer Rouge, a été inauguré le 17 novembre 1869. Le canal de Panama a été ouvert à la navigation le 15 août 1914, après une reprise des travaux par les États-Unis.",
+    "imageUrl": null,
+    "sourceReference": "Suez Canal Authority ; Autorité du canal de Panama, chronologie officielle",
+    "factGroupId": "fg-suez-canal-1869",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-013-e2",
+        "label": "Achèvement du canal de Panama",
+        "date": "1914-08-15T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-013-e1",
+        "label": "Inauguration du canal de Suez",
+        "date": "1869-11-17T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-014",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la création du parc de Yellowstone, premier parc national du monde, ou celle du parc de Banff au Canada ?",
+    "explanationFr": "Le parc national de Yellowstone, aux États-Unis, a été créé par une loi du 1er mars 1872 et est généralement considéré comme le premier parc national. Le parc de Banff au Canada, né d'une réserve de sources chaudes, date de 1885.",
+    "imageUrl": null,
+    "sourceReference": "National Park Service, histoire de Yellowstone ; Parcs Canada, histoire de Banff",
+    "factGroupId": "fg-yellowstone-1872",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-014-e2",
+        "label": "Création du parc national de Banff (Canada)",
+        "date": "1885-11-25T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-014-e1",
+        "label": "Création du parc national de Yellowstone (États-Unis)",
+        "date": "1872-03-01T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-015",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "sports",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : la fondation du Comité international olympique ou le premier Tour de France ?",
+    "explanationFr": "Le Comité international olympique a été fondé à Paris le 23 juin 1894, à l'initiative de Pierre de Coubertin. La première édition du Tour de France cycliste a eu lieu en 1903.",
+    "imageUrl": null,
+    "sourceReference": "Comité international olympique, histoire du CIO ; Tour de France, archives",
+    "factGroupId": "fg-ioc-foundation-1894",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-015-e2",
+        "label": "Premier Tour de France",
+        "date": "1903-07-01T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-015-e1",
+        "label": "Fondation du Comité international olympique",
+        "date": "1894-06-23T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-016",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "arts",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : la création de la neuvième symphonie de Beethoven ou celle du Sacre du printemps de Stravinsky ?",
+    "explanationFr": "La neuvième symphonie de Beethoven, avec l'Ode à la joie, a été créée à Vienne le 7 mai 1824. Le Sacre du printemps d'Igor Stravinsky a été créé à Paris le 29 mai 1913, dans un concert resté célèbre pour son scandale.",
+    "imageUrl": null,
+    "sourceReference": "Orchestre philharmonique de Vienne ; Encyclopaedia Britannica, article « The Rite of Spring »",
+    "factGroupId": "fg-beethoven-ninth-1824",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-016-e1",
+        "label": "Création de la neuvième symphonie de Beethoven",
+        "date": "1824-05-07T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-016-e2",
+        "label": "Création du Sacre du printemps de Stravinsky (Paris)",
+        "date": "1913-05-29T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-017",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "technology",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : le lancement du satellite Spoutnik 1 ou les premiers pas de l'homme sur la Lune ?",
+    "explanationFr": "Spoutnik 1, premier satellite artificiel de la Terre, a été lancé le 4 octobre 1957. Les premiers pas de Neil Armstrong sur la Lune ont eu lieu le 20 juillet 1969, lors de la mission Apollo 11.",
+    "imageUrl": null,
+    "sourceReference": "NASA, dossiers Spoutnik et Apollo 11",
+    "factGroupId": "fg-sputnik-apollo-1957-1969",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-017-e1",
+        "label": "Lancement du satellite Spoutnik 1",
+        "date": "1957-10-04T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-017-e2",
+        "label": "Premiers pas de l'homme sur la Lune (Apollo 11)",
+        "date": "1969-07-20T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-018",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "history",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : le début de la guerre de Cent Ans entre l'Angleterre et la France ou l'arrivée de la peste noire en Europe ?",
+    "explanationFr": "La guerre de Cent Ans a débuté en 1337. La peste noire, partie d'Asie centrale, a atteint l'Europe par la mer Noire en 1347 et s'y est propagée jusqu'en 1353.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Hundred Years' War » et « Black Death »",
+    "factGroupId": "fg-hundred-years-war-1337",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-018-e1",
+        "label": "Début de la guerre de Cent Ans",
+        "date": "1337-05-24T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-018-e2",
+        "label": "Arrivée de la peste noire en Europe",
+        "date": "1347-10-01T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-019",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "science",
+    "difficulty": "hard",
+    "text": "Lequel est arrivé en premier : le premier homme dans l'espace ou la première sortie dans l'espace ?",
+    "explanationFr": "Youri Gagarine est devenu le premier homme dans l'espace le 12 avril 1961 à bord de Vostok 1. La première sortie extravéhiculaire a été effectuée par Alexeï Leonov le 18 mars 1965, depuis Voskhod 2.",
+    "imageUrl": null,
+    "sourceReference": "NASA, dossiers Vostok 1 et Voskhod 2 ; Encyclopaedia Britannica, article « Spacewalk »",
+    "factGroupId": "fg-gagarin-1961",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-019-e2",
+        "label": "Première sortie dans l'espace (Alexeï Leonov)",
+        "date": "1965-03-18T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-019-e1",
+        "label": "Premier homme dans l'espace (Youri Gagarine)",
+        "date": "1961-04-12T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-020",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "nature",
+    "difficulty": "easy",
+    "text": "Lequel est arrivé en premier : l'éruption du Krakatoa en Indonésie ou celle du mont Saint Helens aux États-Unis ?",
+    "explanationFr": "Le Krakatoa est entré en éruption les 26 et 27 août 1883, avec une explosion entendue à des milliers de kilomètres. Le mont Saint Helens, dans l'État de Washington, est entré en éruption le 18 mai 1980.",
+    "imageUrl": null,
+    "sourceReference": "Smithsonian Institution, Global Volcanism Program",
+    "factGroupId": "fg-krakatoa-1883",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-020-e2",
+        "label": "Éruption du mont Saint Helens (États-Unis)",
+        "date": "1980-05-18T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-020-e1",
+        "label": "Éruption du Krakatoa (Indonésie)",
+        "date": "1883-08-27T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-021",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Lequel est arrivé en premier : l'abolition de l'esclavage dans l'Empire britannique ou aux États-Unis ?",
+    "explanationFr": "Le Slavery Abolition Act britannique a été adopté le 28 août 1833 et est entré en vigueur le 1er août 1834. Aux États-Unis, le treizième amendement abolissant l'esclavage a été ratifié le 6 décembre 1865, après la guerre de Sécession.",
+    "imageUrl": null,
+    "sourceReference": "The National Archives (Royaume-Uni) ; Archives nationales des États-Unis, Constitution",
+    "factGroupId": "fg-uk-slavery-abolition-1833",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-021-e1",
+        "label": "Slavery Abolition Act dans l'Empire britannique",
+        "date": "1833-08-28T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-021-e2",
+        "label": "Treizième amendement abolissant l'esclavage aux États-Unis",
+        "date": "1865-12-06T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 0,
+    "correctSecondIndex": 1
+  },
+  {
+    "type": "whichCameFirst",
+    "id": "wcf-022",
+    "mode": "whichCameFirst",
+    "variation": "whichCameFirst",
+    "category": "technology",
+    "difficulty": "hard",
+    "text": "Lequel est arrivé en premier : la première connexion établie sur le réseau ARPANET ou l'envoi du premier courriel entre deux machines distinctes ?",
+    "explanationFr": "La première liaison d'ARPANET, réseau ancêtre de l'internet, a été établie entre l'UCLA et le Stanford Research Institute le 29 octobre 1969. Ray Tomlinson a envoyé le premier courriel entre deux machines distinctes en 1971.",
+    "imageUrl": null,
+    "sourceReference": "Internet Society, chronologie d'ARPANET ; Smithsonian Institution, dossier Ray Tomlinson",
+    "factGroupId": "fg-arpanet-1969",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "events": [
+      {
+        "id": "wcf-022-e2",
+        "label": "Premier courriel entre deux machines distinctes (1971)",
+        "date": "1971-01-01T00:00:00.000Z",
+        "description": null
+      },
+      {
+        "id": "wcf-022-e1",
+        "label": "Première connexion sur le réseau ARPANET",
+        "date": "1969-10-29T00:00:00.000Z",
+        "description": null
+      }
+    ],
+    "correctFirstIndex": 1,
+    "correctSecondIndex": 0
+  }
+]

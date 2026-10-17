@@ -1,0 +1,778 @@
+[
+  {
+    "type": "factOrCap",
+    "id": "foc-001",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Fait ou fake : le plus grand océan du monde est l'océan Pacifique.",
+    "explanationFr": "L'océan Pacifique couvre environ 165 millions de km², soit plus que la superficie terrestre totale de tous les continents réunis, ce qui en fait bien le plus grand océan.",
+    "imageUrl": null,
+    "sourceReference": "NOAA, National Ocean Service ; Encyclopaedia Britannica",
+    "factGroupId": "fg-pacific-largest",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-001-s1",
+        "text": "L'océan Pacifique est le plus grand océan du monde.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-002",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Fait ou fake : la Grande Muraille de Chine est visible à l'œil nu depuis la Lune.",
+    "explanationFr": "C'est une légende : avec ses quelques mètres de large, la Grande Muraille est bien trop étroite pour être distinguée à l'œil nu depuis la Lune, distante d'environ 384 000 km.",
+    "imageUrl": null,
+    "sourceReference": "NASA, questions fréquentes sur la Lune",
+    "factGroupId": "fg-great-wall-myth",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-002-s1",
+        "text": "La Grande Muraille de Chine est visible à l'œil nu depuis la Lune.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-003",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Deux vérités et un mensonge sur le climat et les déserts : identifie le mensonge.",
+    "explanationFr": "L'Antarctique est bien le plus grand désert du monde au sens climatologique (précipitations inférieures à 250 mm par an), et le pôle Sud est plus froid que le pôle Nord. En revanche le Sahara n'est que le plus grand désert chaud, l'Antarctique étant plus vaste.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Desert » et « Sahara »",
+    "factGroupId": "fg-desert-records",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-003-s1",
+        "text": "Le pôle Sud est plus froid que le pôle Nord.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-003-s2",
+        "text": "L'Antarctique est le plus grand désert du monde.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-003-s3",
+        "text": "Le Sahara est le plus grand désert du monde.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-004",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Deux vérités et un mensonge sur les îles et les continents : identifie le mensonge.",
+    "explanationFr": "Le Groenland est bien la plus grande île du monde (hors continents) et l'Australie est le plus petit continent. En revanche Bornéo, avec environ 748 000 km², est bien plus petite que l'Australie et ses 7,7 millions de km².",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Greenland » et « Borneo »",
+    "factGroupId": "fg-island-continent",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-004-s1",
+        "text": "Le Groenland est la plus grande île du monde.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-004-s2",
+        "text": "L'Australie est le plus petit continent.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-004-s3",
+        "text": "Bornéo est plus grande que l'Australie.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-005",
+    "mode": "factOrCap",
+    "variation": "factOrCapIdentifyFalse",
+    "category": "arts",
+    "difficulty": "medium",
+    "text": "Une seule affirmation est fausse sur les musées : laquelle ?",
+    "explanationFr": "Le Cri d'Edvard Munch est conservé dans les musées d'Oslo (Nasjonalmuseet et Munchmuseet), et non au British Museum de Londres. Les trois autres affirmations sont exactes.",
+    "imageUrl": null,
+    "sourceReference": "Musée du Louvre ; Museo Reina Sofía ; MoMA ; Nasjonalmuseet",
+    "factGroupId": "fg-art-museums",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-005-s1",
+        "text": "La Joconde est exposée au Louvre, à Paris.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-005-s2",
+        "text": "Le Guernica de Picasso est conservé au musée Reina Sofía, à Madrid.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-005-s3",
+        "text": "La Nuit étoilée de Van Gogh est conservée au Museum of Modern Art de New York.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-005-s4",
+        "text": "Le Cri de Munch est conservé au British Museum, à Londres.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": 3,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-006",
+    "mode": "factOrCap",
+    "variation": "factOrCapIdentifyFalse",
+    "category": "science",
+    "difficulty": "hard",
+    "text": "Une seule affirmation est fausse sur les métaux : laquelle ?",
+    "explanationFr": "Le métal le plus dense est l'osmium (environ 22,6 g/cm³), et non le plomb (11,3 g/cm³). L'or a bien pour symbole Au, le tungstène possède le point de fusion le plus élevé des métaux et le mercure est liquide à température ambiante.",
+    "imageUrl": null,
+    "sourceReference": "Royal Society of Chemistry, tableau périodique",
+    "factGroupId": "fg-metal-records",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-006-s1",
+        "text": "Le symbole chimique de l'or est Au.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-006-s2",
+        "text": "Le tungstène possède le point de fusion le plus élevé des métaux.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-006-s3",
+        "text": "Le mercure est liquide à température ambiante.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-006-s4",
+        "text": "Le plomb est le métal le plus dense.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": 3,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-007",
+    "mode": "factOrCap",
+    "variation": "factOrCapIdentifyFalse",
+    "category": "science",
+    "difficulty": "hard",
+    "text": "Une seule affirmation est fausse sur les étoiles : laquelle ?",
+    "explanationFr": "Proxima Centauri, bien qu'elle soit l'étoile la plus proche du Soleil, a une magnitude apparente d'environ 11 : elle est bien trop faible pour être vue à l'œil nu, contrairement à Sirius ou Véga.",
+    "imageUrl": null,
+    "sourceReference": "ESA, données sur Proxima Centauri",
+    "factGroupId": "fg-star-distances",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-007-s1",
+        "text": "La lumière du Soleil met environ 8 minutes à parvenir à la Terre.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-007-s2",
+        "text": "Le Soleil est l'étoile la plus proche de la Terre.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-007-s3",
+        "text": "Proxima Centauri est visible à l'œil nu depuis la Terre.",
+        "isTrue": false,
+        "explanation": null
+      },
+      {
+        "id": "foc-007-s4",
+        "text": "La Voie lactée est la galaxie qui contient le Système solaire.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": 2,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-008",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "science",
+    "difficulty": "easy",
+    "text": "Fait ou fake : la lumière du Soleil met environ huit minutes pour atteindre la Terre.",
+    "explanationFr": "La distance moyenne Terre-Soleil est d'environ 150 millions de kilomètres. À la vitesse de la lumière, soit près de 300 000 km/s, le trajet dure environ 8 minutes et 20 secondes.",
+    "imageUrl": null,
+    "sourceReference": "NASA, fiche sur la vitesse de la lumière et les distances du Système solaire",
+    "factGroupId": "fg-light-travel-time",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-008-s1",
+        "text": "La lumière du Soleil met environ huit minutes pour atteindre la Terre.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-009",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Fait ou fake : le grand dauphin est un poisson.",
+    "explanationFr": "Le dauphin est un mammifère marin : il respire par des poumons, allaite ses petits et possède des poils à l'état embryonnaire. Il n'est donc pas un poisson, contrairement à ce que sa silhouette pourrait laisser croire.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Dolphin »",
+    "factGroupId": "fg-dolphin-mammal",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-009-s1",
+        "text": "Le grand dauphin est un poisson.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-010",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Fait ou fake : le lac Victoria est bordé par la Tanzanie, l'Ouganda et le Kenya.",
+    "explanationFr": "Le lac Victoria, plus grand lac d'Afrique, est bien partagé entre ces trois pays. C'est la source du Nil Blanc, qui quitte le lac à Jinja, en Ouganda.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Lake Victoria » ; UNESCO, programme du lac Victoria",
+    "factGroupId": "fg-lake-victoria-borders",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-010-s1",
+        "text": "Le lac Victoria est bordé par la Tanzanie, l'Ouganda et le Kenya.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-011",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "africa",
+    "difficulty": "easy",
+    "text": "Fait ou fake : le Kilimandjaro est le plus haut sommet d'Afrique.",
+    "explanationFr": "Le Kilimandjaro, en Tanzanie, culmine à 5 895 mètres et est le plus haut sommet d'Afrique ainsi que le point culminant isolé le plus élevé du monde.",
+    "imageUrl": null,
+    "sourceReference": "UNESCO, parc national du Kilimandjaro ; Encyclopaedia Britannica, article « Kilimanjaro »",
+    "factGroupId": "fg-kilimanjaro-highest",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-011-s1",
+        "text": "Le Kilimandjaro est le plus haut sommet d'Afrique.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-012",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Fait ou fake : la Grande Barrière de corail se trouve au large des côtes du Kenya.",
+    "explanationFr": "La Grande Barrière de corail borde la côte nord-est de l'Australie, dans la mer de Corail. Le Kenya possède des récifs coralliens, notamment à Watamu, mais bien plus petits.",
+    "imageUrl": null,
+    "sourceReference": "UNESCO, Grande Barrière de corail ; Encyclopaedia Britannica, article « Great Barrier Reef »",
+    "factGroupId": "fg-great-barrier-reef-location",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-012-s1",
+        "text": "La Grande Barrière de corail se trouve au large des côtes du Kenya.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-013",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "africa",
+    "difficulty": "easy",
+    "text": "Deux vérités et un mensonge sur l'Afrique : identifie le mensonge.",
+    "explanationFr": "Le fleuve Niger prend bien sa source en Guinée, dans les hauts plateaux du Fouta-Djalon, et Zanzibar appartient bien à la Tanzanie. En revanche le Sahara couvre une grande partie de l'Afrique du Nord, de la Mauritanie à l'Égypte, et pas seulement l'Égypte.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Niger River », « Zanzibar » et « Sahara »",
+    "factGroupId": "fg-africa-geography-mix",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-013-s1",
+        "text": "Le fleuve Niger prend sa source en Guinée.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-013-s2",
+        "text": "L'archipel de Zanzibar appartient à la Tanzanie.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-013-s3",
+        "text": "Le Sahara s'étend uniquement en Égypte.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-014",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "history",
+    "difficulty": "medium",
+    "text": "Fait ou fake : la Première Guerre mondiale a commencé en 1914.",
+    "explanationFr": "L'Autriche-Hongrie a déclaré la guerre à la Serbie le 28 juillet 1914, ce qui a entraîné les autres puissances européennes dans le conflit jusqu'en 1918.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « World War I »",
+    "factGroupId": "fg-wwi-start-1914",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-014-s1",
+        "text": "La Première Guerre mondiale a commencé en 1914.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-015",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "history",
+    "difficulty": "hard",
+    "text": "Fait ou fake : l'Empire romain d'Occident a pris fin en 476.",
+    "explanationFr": "En 476, le chef germanique Odoacre dépose le dernier empereur d'Occident, Romulus Augustule, et envoie les insignes impériaux à Constantinople. Cette date marque traditionnellement la fin de l'Empire romain d'Occident.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Romulus Augustulus » et « Odoacer »",
+    "factGroupId": "fg-western-rome-end-476",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-015-s1",
+        "text": "L'Empire romain d'Occident a pris fin en 476.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-016",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "technology",
+    "difficulty": "medium",
+    "text": "Fait ou fake : le premier iPhone est sorti en 2007.",
+    "explanationFr": "Steve Jobs a présenté le premier iPhone le 9 janvier 2007, et l'appareil est mis en vente aux États-Unis le 29 juin 2007. Il ne disposait alors ni de l'App Store ni de la 3G.",
+    "imageUrl": null,
+    "sourceReference": "Apple, communiqué de presse de 2007",
+    "factGroupId": "fg-iphone-2007",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-016-s1",
+        "text": "Le premier iPhone est sorti en 2007.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-017",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "nature",
+    "difficulty": "medium",
+    "text": "Deux vérités et un mensonge sur les animaux : identifie le mensonge.",
+    "explanationFr": "Le panda mange effectivement presque exclusivement du bambou, et le colibri est bien le seul oiseau capable de voler en arrière et vers le haut. En revanche les chauves-souris sont des mammifères volants, pas des oiseaux.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Giant panda » et « Hummingbird » ; Smithsonian Institution, chauves-souris",
+    "factGroupId": "fg-animal-traits-mix",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-017-s1",
+        "text": "Le panda se nourrit principalement de bambou.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-017-s2",
+        "text": "Le colibri est le seul oiseau capable de voler en arrière.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-017-s3",
+        "text": "Les chauves-souris sont des oiseaux.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-018",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "science",
+    "difficulty": "hard",
+    "text": "Fait ou fake : l'eau pure bout à 100 °C au niveau de la mer.",
+    "explanationFr": "À la pression atmosphérique normale de 1 013 hPa, soit le niveau de la mer, l'eau pure bout à 100 °C. La température d'ébullition diminue avec l'altitude, ce qui rend la cuisson des aliments plus difficile en montagne.",
+    "imageUrl": null,
+    "sourceReference": "Organisation météorologique mondiale, propriétés de l'eau ; Encyclopaedia Britannica, article « Boiling point »",
+    "factGroupId": "fg-water-boiling-point",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-018-s1",
+        "text": "L'eau pure bout à 100 °C au niveau de la mer.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-019",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "africa",
+    "difficulty": "hard",
+    "text": "Fait ou fake : l'Empire du Mali avait pour capitale la ville de Gao.",
+    "explanationFr": "Gao a été la capitale de l'Empire songhaï, à partir du XVe siècle. La capitale de l'Empire du Mali, qui atteint son apogée sous Mansa Moussa au XIVe siècle, est généralement située à Niani, près de la frontière actuelle avec la Guinée.",
+    "imageUrl": null,
+    "sourceReference": "UNESCO, dossier Tombouctou ; Encyclopaedia Britannica, articles « Mali empire » et « Songhai empire »",
+    "factGroupId": "fg-mali-empire-capital",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-019-s1",
+        "text": "L'Empire du Mali avait pour capitale la ville de Gao.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-020",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "arts",
+    "difficulty": "medium",
+    "text": "Fait ou fake : la Joconde est exposée au musée du Louvre, à Paris.",
+    "explanationFr": "La Joconde, peinte par Léonard de Vinci entre 1503 et 1519, est bien conservée au musée du Louvre à Paris, où elle est exposée derrière un vitrage pare-balles.",
+    "imageUrl": null,
+    "sourceReference": "Musée du Louvre, collection des peintures",
+    "factGroupId": "fg-mona-lisa-louvre",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-020-s1",
+        "text": "La Joconde est exposée au musée du Louvre, à Paris.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-021",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "sports",
+    "difficulty": "easy",
+    "text": "Fait ou fake : une équipe de football aligne onze joueurs sur le terrain.",
+    "explanationFr": "Une équipe de football compte onze joueurs, dont le gardien de but. Jouer à moins de sept joueurs met fin au match selon les Lois du jeu de l'IFAB.",
+    "imageUrl": null,
+    "sourceReference": "IFAB, Lois du jeu de la FIFA",
+    "factGroupId": "fg-football-eleven",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-021-s1",
+        "text": "Une équipe de football aligne onze joueurs sur le terrain.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-022",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Deux vérités et un mensonge sur la géographie : identifie le mensonge.",
+    "explanationFr": "Le détroit de Gibraltar sépare bien l'Espagne du Maroc, et le lac Baïkal, en Sibérie, est bien le lac le plus profond du monde avec ses 1 642 mètres. En revanche le mont Blanc, point culminant de l'Europe occidentale, se trouve dans les Alpes, pas en Afrique.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Strait of Gibraltar » et « Lake Baikal »",
+    "factGroupId": "fg-geography-records-mix",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-022-s1",
+        "text": "Le détroit de Gibraltar sépare l'Espagne du Maroc.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-022-s2",
+        "text": "Le lac Baïkal est le lac le plus profond du monde.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-022-s3",
+        "text": "Le mont Blanc est le plus haut sommet d'Afrique.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-023",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Fait ou fake : la vallée du Grand Rift traverse l'Afrique de l'Est.",
+    "explanationFr": "La vallée du Grand Rift s'étend du Moyen-Orient jusqu'au Mozambique, en traversant l'Éthiopie, le Kenya, la Tanzanie et l'Ouganda. Elle est le théâtre d'importantes découvertes paléontologiques et d'une activité volcanique notable.",
+    "imageUrl": null,
+    "sourceReference": "UNESCO, sites de la vallée du Grand Rift ; Encyclopaedia Britannica, article « Great Rift Valley »",
+    "factGroupId": "fg-great-rift-valley",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-023-s1",
+        "text": "La vallée du Grand Rift traverse l'Afrique de l'Est.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-024",
+    "mode": "factOrCap",
+    "variation": "factOrCapTwoTruthsOneLie",
+    "category": "science",
+    "difficulty": "medium",
+    "text": "Deux vérités et un mensonge sur l'atmosphère : identifie le mensonge.",
+    "explanationFr": "Le son se propage effectivement plus vite dans l'eau que dans l'air, et le tonnerre est bien causé par la dilatation violente de l'air chauffé par la foudre. En revanche la foudre peut frapper plusieurs fois le même point, comme l'a montré l'Empire State Building de New York une vingtaine de fois par an.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Lightning » et « Thunder » ; Empire State Realty Trust, foudre sur l'Empire State Building",
+    "factGroupId": "fg-atmospheric-mix",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-024-s1",
+        "text": "Le son se propage plus vite dans l'eau que dans l'air.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-024-s2",
+        "text": "Le tonnerre est produit par la dilatation violente de l'air chauffé par la foudre.",
+        "isTrue": true,
+        "explanation": null
+      },
+      {
+        "id": "foc-024-s3",
+        "text": "La foudre ne frappe jamais deux fois au même endroit.",
+        "isTrue": false,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": 2
+  },
+  {
+    "type": "factOrCap",
+    "id": "foc-025",
+    "mode": "factOrCap",
+    "variation": "factOrCapTrueFalse",
+    "category": "technology",
+    "difficulty": "hard",
+    "text": "Fait ou fake : Alan Turing a décrit en 1936 un modèle de calcul appelé machine de Turing.",
+    "explanationFr": "Dans son article de 1936, « On Computable Numbers », Alan Turing présente un modèle abstrait de machine capable d'effectuer tout calcul, connu aujourd'hui sous le nom de machine de Turing, fondement théorique de l'informatique.",
+    "imageUrl": null,
+    "sourceReference": "Proceedings of the London Mathematical Society, article de Turing (1936)",
+    "factGroupId": "fg-turing-machine-1936",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "statements": [
+      {
+        "id": "foc-025-s1",
+        "text": "Alan Turing a décrit en 1936 un modèle de calcul appelé machine de Turing.",
+        "isTrue": true,
+        "explanation": null
+      }
+    ],
+    "falseStatementIndex": null,
+    "lieStatementIndex": null
+  }
+]

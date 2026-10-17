@@ -1,0 +1,981 @@
+[
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-001",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Devine ce pays d'Asie de l'Est à partir des indices.",
+    "explanationFr": "Le Japon est un archipel de l'Asie de l'Est dont la capitale est Tokyo, qui abrite le mont Fuji et dont la monnaie est le yen.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Japan »",
+    "factGroupId": "fg-country-japan",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Japon",
+    "targetCountryCode": "JP",
+    "acceptedAnswers": [
+      "Japon",
+      "japon",
+      "Japan",
+      "Nippon",
+      "Nihon"
+    ],
+    "clues": [
+      {
+        "text": "C'est un archipel composé de milliers d'îles.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est l'une des plus peuplées du monde.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Le mont Fuji, un volcan emblématique, s'y trouve.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa monnaie est le yen.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Tokyo",
+    "continent": "Asie"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-002",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays d'Amérique du Sud à partir des indices.",
+    "explanationFr": "Le Brésil est le plus grand pays d'Amérique du Sud. Sa capitale Brasília a été construite pour devenir capitale fédérale, la langue officielle est le portugais et la majeure partie de la forêt amazonienne se trouve sur son territoire.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Brazil »",
+    "factGroupId": "fg-country-brazil",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Brésil",
+    "targetCountryCode": "BR",
+    "acceptedAnswers": [
+      "Brésil",
+      "Brésil",
+      "Brazil",
+      "Bresil"
+    ],
+    "clues": [
+      {
+        "text": "C'est le plus grand pays d'Amérique du Sud par sa superficie.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale actuelle a été construite exprès pour ce rôle.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "La langue officielle y est le portugais.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Une grande partie de la forêt amazonienne s'y trouve.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Brasília",
+    "continent": "Amérique du Sud"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-003",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Devine ce pays d'Afrique du Nord-Est à partir des indices.",
+    "explanationFr": "L'Égypte est située au nord-est de l'Afrique, traversée par le Nil. Les pyramides de Gizeh se trouvent près de sa capitale, Le Caire.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Egypt »",
+    "factGroupId": "fg-country-egypt",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Égypte",
+    "targetCountryCode": "EG",
+    "acceptedAnswers": [
+      "Égypte",
+      "Egypte",
+      "Egypt",
+      "Egipto"
+    ],
+    "clues": [
+      {
+        "text": "Ce pays est situé au nord-est de l'Afrique.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Un très long fleuve le traverse du sud au nord.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Les pyramides de Gizeh se trouvent sur son territoire.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Le Caire.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Le Caire",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-004",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays d'Amérique du Nord à partir des indices.",
+    "explanationFr": "Le Canada est le deuxième pays du monde par sa superficie derrière la Russie, possède le plus long littoral du monde, a pour capitale Ottawa et un drapeau orné d'une feuille d'érable.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Canada »",
+    "factGroupId": "fg-country-canada",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Canada",
+    "targetCountryCode": "CA",
+    "acceptedAnswers": [
+      "Canada"
+    ],
+    "clues": [
+      {
+        "text": "C'est le deuxième plus grand pays du monde par sa superficie.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Son littoral est le plus long du monde.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Ottawa.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Son drapeau porte une feuille d'érable.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Ottawa",
+    "continent": "Amérique du Nord"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-005",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Devine ce pays-continent à partir des indices.",
+    "explanationFr": "L'Australie est à la fois un pays et un continent. Sa capitale est Canberra, la Grande Barrière de corail borde ses côtes et l'Opéra de Sydney est l'un de ses monuments les plus connus.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Australia »",
+    "factGroupId": "fg-country-australia",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Australie",
+    "targetCountryCode": "AU",
+    "acceptedAnswers": [
+      "Australie",
+      "Australia"
+    ],
+    "clues": [
+      {
+        "text": "C'est à la fois un pays et un continent.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale n'est ni Sydney ni Melbourne.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "La plus grande structure vivante du monde borde ses côtes.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "L'Opéra de Sydney s'y trouve.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Canberra",
+    "continent": "Océanie"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-006",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "hard",
+    "text": "Devine ce pays d'Afrique de l'Est à partir des indices.",
+    "explanationFr": "Le Kenya est traversé par l'équateur, a pour langues officielles le swahili et l'anglais, pour capitale Nairobi et abrite la réserve nationale du Masai Mara.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Kenya »",
+    "factGroupId": "fg-country-kenya",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Kenya",
+    "targetCountryCode": "KE",
+    "acceptedAnswers": [
+      "Kenya"
+    ],
+    "clues": [
+      {
+        "text": "L'équateur traverse ce pays.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le swahili et l'anglais y sont langues officielles.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Nairobi.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "La réserve du Masai Mara s'y trouve.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Nairobi",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-007",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Devine ce pays d'Afrique de l'Ouest à partir des indices.",
+    "explanationFr": "Le Nigeria est le pays le plus peuplé d'Afrique, avec plus de 200 millions d'habitants. Sa capitale est Abuja, mais Lagos reste la plus grande ville, et son industrie cinématographique, surnommée Nollywood, est l'une des plus productives au monde.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Nigeria » ; Banque mondiale, données démographiques",
+    "factGroupId": "fg-country-nigeria",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Nigeria",
+    "targetCountryCode": "NG",
+    "acceptedAnswers": [
+      "Nigeria",
+      "Nigéria",
+      "nigeria"
+    ],
+    "clues": [
+      {
+        "text": "C'est le pays le plus peuplé d'Afrique.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Abuja, mais Lagos est sa plus grande ville.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "On y parle plus de 500 langues.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Son cinéma est surnommé Nollywood.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Abuja",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-008",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "easy",
+    "text": "Devine ce pays d'Afrique australe à partir des indices.",
+    "explanationFr": "L'Afrique du Sud possède trois capitales : Pretoria (administrative), Le Cap (législative) et Bloemfontein (judiciaire). L'apartheid y a pris fin avec les premières élections multiraciales de 1994, qui ont porté Nelson Mandela à la présidence.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « South Africa »",
+    "factGroupId": "fg-country-southafrica",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Afrique du Sud",
+    "targetCountryCode": "ZA",
+    "acceptedAnswers": [
+      "Afrique du Sud",
+      "afrique du sud",
+      "South Africa"
+    ],
+    "clues": [
+      {
+        "text": "Il possède trois capitales.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Nelson Mandela y est devenu président en 1994.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "La montagne de la Table surplombe l'une de ses villes.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Le cap de Bonne-Espérance se trouve sur ses côtes.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Pretoria",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-009",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Devine ce pays du Maghreb à partir des indices.",
+    "explanationFr": "Le Maroc est un royaume situé au nord-ouest de l'Afrique, dont la capitale est Rabat. Le détroit de Gibraltar le sépare de l'Espagne, et le massif de l'Atlas traverse le pays du sud-ouest au nord-est.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Morocco »",
+    "factGroupId": "fg-country-morocco",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Maroc",
+    "targetCountryCode": "MA",
+    "acceptedAnswers": [
+      "Maroc",
+      "maroc",
+      "Morocco"
+    ],
+    "clues": [
+      {
+        "text": "C'est un royaume du nord-ouest de l'Afrique.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le détroit de Gibraltar le sépare de l'Espagne.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Rabat.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Le massif de l'Atlas le traverse.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Rabat",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-010",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "easy",
+    "text": "Devine ce pays africain où siège l'Union africaine à partir des indices.",
+    "explanationFr": "L'Éthiopie a pour capitale Addis-Abeba, siège de l'Union africaine. C'est le berceau du café, le pays utilise son propre calendrier, et son alphabet, le guèze, est encore en usage.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Ethiopia » ; Union africaine, siège d'Addis-Abeba",
+    "factGroupId": "fg-country-ethiopia",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Éthiopie",
+    "targetCountryCode": "ET",
+    "acceptedAnswers": [
+      "Éthiopie",
+      "Ethiopie",
+      "Ethiopia",
+      "ethiopie"
+    ],
+    "clues": [
+      {
+        "text": "L'Union africaine a son siège dans sa capitale.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Il est considéré comme le berceau du café.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Son écriture traditionnelle est l'alphabet guèze.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Addis-Abeba.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Addis-Abeba",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-011",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "hard",
+    "text": "Devine ce pays dont la capitale est à la pointe ouest de l'Afrique.",
+    "explanationFr": "Le Sénégal a pour capitale Dakar, située sur la presqu'île la plus occidentale de l'Afrique continentale. L'île de Gorée, au large de Dakar, est inscrite au patrimoine mondial de l'UNESCO, et le lac Retba, rose, se trouve au nord du pays.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Senegal » ; UNESCO, Île de Gorée",
+    "factGroupId": "fg-country-senegal",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Sénégal",
+    "targetCountryCode": "SN",
+    "acceptedAnswers": [
+      "Sénégal",
+      "Senegal",
+      "senegal"
+    ],
+    "clues": [
+      {
+        "text": "Sa capitale occupe la pointe la plus occidentale de l'Afrique continentale.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "L'île de Gorée se trouve au large de sa capitale.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Le lac Retba, rose, se trouve sur son territoire.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Dakar.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Dakar",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-012",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "medium",
+    "text": "Devine le pays du Kilimandjaro et du Serengeti à partir des indices.",
+    "explanationFr": "La Tanzanie abrite le Kilimandjaro, plus haut sommet d'Afrique, et le parc du Serengeti, théâtre de la grande migration des gnous. Sa capitale est Dodoma, tandis que Dar es Salam reste sa plus grande ville, et l'archipel de Zanzibar borde ses côtes.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Tanzania » et « Serengeti National Park »",
+    "factGroupId": "fg-country-tanzania",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Tanzanie",
+    "targetCountryCode": "TZ",
+    "acceptedAnswers": [
+      "Tanzanie",
+      "tanzanie",
+      "Tanzania"
+    ],
+    "clues": [
+      {
+        "text": "Le plus haut sommet d'Afrique s'y trouve.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le parc du Serengeti et sa grande migration s'y trouvent.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale politique est Dodoma.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "L'archipel de Zanzibar borde ses côtes.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Dodoma",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-013",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Devine ce pays d'Europe du Sud dont le drapeau cache deux enclaves.",
+    "explanationFr": "L'Italie forme une péninsule en forme de botte qui avance en Méditerranée. Les deux plus petits États du monde, le Vatican et Saint-Marin, sont enclavés sur son territoire, et sa capitale est Rome.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Italy »",
+    "factGroupId": "fg-country-italy",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Italie",
+    "targetCountryCode": "IT",
+    "acceptedAnswers": [
+      "Italie",
+      "italie",
+      "Italy"
+    ],
+    "clues": [
+      {
+        "text": "Sa forme évoque une botte en Méditerranée.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le Vatican et Saint-Marin sont enclavés sur son territoire.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Rome.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "La tour de Pise s'y trouve.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Rome",
+    "continent": "Europe"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-014",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays d'Asie du Sud à partir des indices.",
+    "explanationFr": "L'Inde est le pays le plus peuplé du monde depuis 2023. Sa capitale est New Delhi, le Taj Mahal se trouve à Agra et le tigre du Bengale est son animal emblématique.",
+    "imageUrl": null,
+    "sourceReference": "Nations unies, World Population Prospects ; Encyclopaedia Britannica, article « India »",
+    "factGroupId": "fg-country-india",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Inde",
+    "targetCountryCode": "IN",
+    "acceptedAnswers": [
+      "Inde",
+      "inde",
+      "India"
+    ],
+    "clues": [
+      {
+        "text": "C'est le pays le plus peuplé du monde.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est New Delhi.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Le Taj Mahal s'y trouve, à Agra.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Le tigre du Bengale en est l'animal emblématique.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "New Delhi",
+    "continent": "Asie"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-015",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "hard",
+    "text": "Devine ce pays andin et pacifique d'Amérique du Sud à partir des indices.",
+    "explanationFr": "Le Pérou est bordé par le Pacifique et partage avec la Bolivie le lac Titicaca, le plus haut lac navigable du monde. Le site inca du Machu Picchu se trouve près de Cuzco, et sa capitale est Lima.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, articles « Peru » et « Lake Titicaca »",
+    "factGroupId": "fg-country-peru",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Pérou",
+    "targetCountryCode": "PE",
+    "acceptedAnswers": [
+      "Pérou",
+      "Perou",
+      "Peru"
+    ],
+    "clues": [
+      {
+        "text": "Il partage avec la Bolivie le lac Titicaca.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le Machu Picchu, cité inca, s'y trouve.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Lima, sur la côte pacifique.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "L'une des lignes de Nazca s'y trouve sur son désert.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Lima",
+    "continent": "Amérique du Sud"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-016",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays d'Europe du Nord à partir des indices.",
+    "explanationFr": "La Norvège est célèbre pour ses fjords, ses aurores boréales et son littoral découpé. Sa capitale est Oslo, et l'archipel du Svalbard, dans l'Arctique, fait partie de son territoire.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Norway »",
+    "factGroupId": "fg-country-norway",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Norvège",
+    "targetCountryCode": "NO",
+    "acceptedAnswers": [
+      "Norvège",
+      "Norvege",
+      "norvege"
+    ],
+    "clues": [
+      {
+        "text": "Ce pays est connu pour ses fjords.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Les aurores boréales y sont fréquentes en hiver.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Oslo.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "L'archipel arctique du Svalbard lui appartient.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Oslo",
+    "continent": "Europe"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-017",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays de la péninsule coréenne à partir des indices.",
+    "explanationFr": "La Corée du Sud occupe la moitié sud de la péninsule coréenne, séparée du Nord par une zone démilitarisée depuis 1953. Sa capitale est Séoul, son écriture est le hangeul et la fermentation du chou, le kimchi, est un symbole national.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « South Korea »",
+    "factGroupId": "fg-country-southkorea",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Corée du Sud",
+    "targetCountryCode": "KR",
+    "acceptedAnswers": [
+      "Corée du Sud",
+      "coree du sud",
+      "South Korea"
+    ],
+    "clues": [
+      {
+        "text": "Elle occupe la moitié sud d'une péninsule.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Une zone démilitarisée la sépare de son voisin du Nord.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Séoul.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Son alphabet national s'appelle le hangeul.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Séoul",
+    "continent": "Asie"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-018",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "africa",
+    "difficulty": "hard",
+    "text": "Devine ce pays enclavé d'Afrique de l'Ouest à partir des indices.",
+    "explanationFr": "Le Mali est un pays enclavé d'Afrique de l'Ouest dont la capitale est Bamako. Le fleuve Niger y décrit un large coude intérieur, le fleuve Sénégal borde l'ouest du pays, et la grande mosquée de terre de Djenné, la plus grande construction en terre crue du monde, est inscrite au patrimoine mondial.",
+    "imageUrl": null,
+    "sourceReference": "UNESCO, grande mosquée de Djenné ; Encyclopaedia Britannica, article « Mali »",
+    "factGroupId": "fg-country-mali",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Mali",
+    "targetCountryCode": "ML",
+    "acceptedAnswers": [
+      "Mali",
+      "mali"
+    ],
+    "clues": [
+      {
+        "text": "C'est un pays enclavé d'Afrique de l'Ouest.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Le fleuve Niger y décrit un grand coude.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "La grande mosquée de terre de Djenné s'y trouve.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Bamako.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Bamako",
+    "continent": "Afrique"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-019",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "medium",
+    "text": "Devine ce pays hispanophone d'Amérique du Nord à partir des indices.",
+    "explanationFr": "Le Mexique est bordé par le golfe du Mexique et le Pacifique, et la péninsule du Yucatán s'avance dans la mer des Caraïbes. Sa capitale, Mexico, est bâtie sur l'ancien lac de Texcoco, et les cénotes y sont fréquents.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « Mexico »",
+    "factGroupId": "fg-country-mexico",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Mexique",
+    "targetCountryCode": "MX",
+    "acceptedAnswers": [
+      "Mexique",
+      "mexique",
+      "Mexico"
+    ],
+    "clues": [
+      {
+        "text": "La péninsule du Yucatán s'avance dans la mer des Caraïbes.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Des puits naturels appelés cénotes s'y trouvent.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est bâtie sur un ancien lac.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Il est bordé au sud-est par le Guatemala et le Belize.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Mexico",
+    "continent": "Amérique du Nord"
+  },
+  {
+    "type": "guessTheCountry",
+    "id": "gtc-020",
+    "mode": "guessTheCountry",
+    "variation": "guessTheCountryCapital",
+    "category": "geography",
+    "difficulty": "easy",
+    "text": "Devine ce pays d'Océanie à partir des indices.",
+    "explanationFr": "La Nouvelle-Zélande est formée de deux îles principales dans le Pacifique sud. Sa capitale est Wellington, son nom maori est Aotearoa et le kiwi, un oiseau incapable de voler, en est l'emblème.",
+    "imageUrl": null,
+    "sourceReference": "Encyclopaedia Britannica, article « New Zealand » ; Te Puni Kōkiri, ministère du Développement maori",
+    "factGroupId": "fg-country-newzealand",
+    "language": "french",
+    "reviewStatus": "approved",
+    "createdAt": "2025-01-01T00:00:00.000Z",
+    "targetCountry": "Nouvelle-Zélande",
+    "targetCountryCode": "NZ",
+    "acceptedAnswers": [
+      "Nouvelle-Zélande",
+      "nouvelle-zélande",
+      "New Zealand"
+    ],
+    "clues": [
+      {
+        "text": "Il est formé de deux îles principales.",
+        "order": 1,
+        "imageUrl": null
+      },
+      {
+        "text": "Son nom maori est Aotearoa.",
+        "order": 2,
+        "imageUrl": null
+      },
+      {
+        "text": "Sa capitale est Wellington.",
+        "order": 3,
+        "imageUrl": null
+      },
+      {
+        "text": "Le kiwi, oiseau qui ne vole pas, en est l'emblème.",
+        "order": 4,
+        "imageUrl": null
+      }
+    ],
+    "flagImageUrl": null,
+    "silhouetteImageUrl": null,
+    "capital": "Wellington",
+    "continent": "Océanie"
+  }
+]
