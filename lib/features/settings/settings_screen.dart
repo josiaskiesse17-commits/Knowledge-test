@@ -6,6 +6,7 @@ import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/providers/locale_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/theme_providers.dart';
 import 'package:knowledge_test/services/session_history_service.dart';
@@ -22,8 +23,10 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(localeProvider);
     final history = ref.watch(sessionHistoryProvider);
     final notifier = ref.read(themeModeProvider.notifier);
+    final localeNotifier = ref.read(localeProvider.notifier);
     final width = MediaQuery.sizeOf(context).width;
     final maxWidth = AppBreakpoints.contentMaxWidth(
       AppBreakpoints.sizeOf(width),
@@ -53,6 +56,16 @@ class SettingsScreen extends ConsumerWidget {
                 _ThemeSelector(
                   current: themeMode,
                   onChanged: notifier.setThemeMode,
+                ),
+                const SizedBox(height: AppDimensions.spacingLg),
+                _SectionTitle(
+                  title: l10n.settingsLanguageTitle,
+                  subtitle: l10n.settingsLanguageSubtitle,
+                  leadingIcon: Icons.translate_outlined,
+                ),
+                _LanguageSelector(
+                  current: locale,
+                  onChanged: localeNotifier.setLocale,
                 ),
                 const SizedBox(height: AppDimensions.spacingLg),
                 _SectionTitle(
@@ -208,6 +221,59 @@ class _ThemeSelector extends StatelessWidget {
             value: option.$1,
             label: Text(option.$2),
             icon: Icon(option.$3),
+          ),
+      ],
+      selected: {current},
+      onSelectionChanged: (selection) => onChanged(selection.first),
+    );
+  }
+}
+
+/// Language choice: French or English.
+///
+/// The two labels are shown as native names on purpose, so the user can find
+/// their language back even when the screen is in the other language; they are
+/// therefore not translated.
+class _LanguageSelector extends StatelessWidget {
+  final Locale current;
+  final ValueChanged<Locale> onChanged;
+
+  const _LanguageSelector({required this.current, required this.onChanged});
+
+  static const _options = <(Locale, String)>[
+    (Locale('fr'), 'Français'),
+    (Locale('en'), 'English'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final isNarrow = MediaQuery.sizeOf(context).width < 600;
+
+    if (isNarrow) {
+      // A single column keeps every label readable on a phone.
+      return RadioGroup<Locale>(
+        groupValue: current,
+        onChanged: (locale) {
+          if (locale != null) onChanged(locale);
+        },
+        child: Column(
+          children: [
+            for (final option in _options)
+              RadioListTile<Locale>(
+                value: option.$1,
+                title: Text(option.$2),
+              ),
+          ],
+        ),
+      );
+    }
+
+    return SegmentedButton<Locale>(
+      segments: [
+        for (final option in _options)
+          ButtonSegment<Locale>(
+            value: option.$1,
+            label: Text(option.$2),
           ),
       ],
       selected: {current},
