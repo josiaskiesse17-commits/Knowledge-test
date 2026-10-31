@@ -4,6 +4,7 @@ import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/features/game/widgets/question_body.dart';
 import 'package:knowledge_test/features/game/widgets/session_notices.dart';
 import 'package:knowledge_test/features/game/widgets/scoreboard.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/services/game_engine.dart';
@@ -42,8 +43,10 @@ class QuestionColumn extends StatelessWidget {
             round.revealedClues < question.clues.length) ...[
           const SizedBox(height: AppDimensions.spacingMd),
           SecondaryButton(
-            label: 'Indice suivant (${round.revealedClues + 1}'
-                '/${question.clues.length})',
+            label: AppLocalizations.of(context)!.gameColumnNextClue(
+              round.revealedClues + 1,
+              question.clues.length,
+            ),
             icon: Icons.lightbulb_outline,
             onPressed: controller.revealNextClue,
           ),

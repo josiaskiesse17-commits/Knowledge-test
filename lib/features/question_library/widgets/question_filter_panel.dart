@@ -179,7 +179,7 @@ class _QuestionFilterPanelState extends State<QuestionFilterPanel> {
               if (filter.isActive)
                 TextButton(
                   onPressed: () => widget.onFilterChanged(filter.cleared),
-                  child: const Text('Réinitialiser'),
+                  child: Text(_l10n.questionFilterReset),
                 ),
               IconButton(
                 visualDensity: VisualDensity.compact,

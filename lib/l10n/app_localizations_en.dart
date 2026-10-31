@@ -751,4 +751,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get routerBackToHome => 'Back to home';
+
+  @override
+  String gameBarScoresTotal(Object total) {
+    return 'Scores — total $total';
+  }
+
+  @override
+  String gameBarQuestionsResolved(Object resolved, Object total) {
+    return '$resolved of $total scored';
+  }
+
+  @override
+  String get gameBarUndoAward => 'Undo';
+
+  @override
+  String get gameBarAwardPoint => 'Point';
+
+  @override
+  String get gameBarSkip => 'Skip';
+
+  @override
+  String get gameBarInvalidate => 'Invalidate';
+
+  @override
+  String get gameBarEndSession => 'End session';
+
+  @override
+  String get gameBarNextQuestion => 'Next question';
+
+  @override
+  String get gameBarSnackBarRoundIncomplete =>
+      'Score, skip or invalidate this question before continuing.';
+
+  @override
+  String get gameBoardHeaderTitle => 'Scores';
+
+  @override
+  String gameBoardHeaderSubtitle(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# points awarded for this question',
+      one: '1 point awarded for this question',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gameBoardUndoTooltip => 'Undo point';
+
+  @override
+  String get gameBoardAwardOrdering => 'Correct order';
+
+  @override
+  String get gameBoardInvalidatedMessage =>
+      'Question invalidated: no points can be awarded.';
+
+  @override
+  String get gameBoardOrderExactMessage =>
+      'Order must be exact to get the point.';
+
+  @override
+  String get gameBoardStatusPending => 'In progress';
+
+  @override
+  String gameBoardTimeRemaining(Object time) {
+    return 'Time remaining: $time';
+  }
+
+  @override
+  String get gameOrderDialogTitle => 'Announced order';
+
+  @override
+  String get gameOrderDialogInstruction =>
+      'Select items in the order announced by players.';
+
+  @override
+  String get gameOrderDialogSelectedTitle => 'Selected order';
+
+  @override
+  String get gameOrderDialogNoSelection => 'No item selected.';
+
+  @override
+  String get gameOrderDialogRemainingTitle => 'Remaining items';
+
+  @override
+  String get gameOrderDialogRemoveTooltip => 'Remove';
+
+  @override
+  String get gameOrderDialogCancel => 'Cancel';
+
+  @override
+  String get gameOrderDialogConfirm => 'Validate';
+
+  @override
+  String get gameNoticePausedTimer => 'Session paused. The timer is stopped.';
+
+  @override
+  String get gameNoticePaused => 'Session paused.';
+
+  @override
+  String get gameNoticeTimeExpired =>
+      'Time\'s up. Finish this question, then the session will end.';
+
+  @override
+  String gameColumnNextClue(Object current, Object total) {
+    return 'Next clue ($current/$total)';
+  }
+
+  @override
+  String gameBoardQuestionNumber(Object number, Object total) {
+    return 'Question $number / $total';
+  }
+
+  @override
+  String get questionFilterReset => 'Reset';
 }

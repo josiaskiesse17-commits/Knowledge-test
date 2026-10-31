@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/services/game_engine.dart';
 
 /// Session notices shown above the question.
@@ -12,6 +13,7 @@ class SessionNotices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.spacingMd),
@@ -19,14 +21,16 @@ class SessionNotices extends StatelessWidget {
         color: colorScheme.tertiaryContainer,
         child: Row(
           children: [
-            Icon(Icons.pause_circle_outlined,
-                color: colorScheme.onTertiaryContainer),
+            Icon(
+              Icons.pause_circle_outlined,
+              color: colorScheme.onTertiaryContainer,
+            ),
             const SizedBox(width: AppDimensions.spacingSm),
             Expanded(
               child: Text(
                 state.isTimedSession
-                    ? 'Session en pause. Le chronomètre est arrêté.'
-                    : 'Session en pause.',
+                    ? l10n.gameNoticePausedTimer
+                    : l10n.gameNoticePaused,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
@@ -44,6 +48,7 @@ class TimeExpiredNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.spacingMd),
@@ -51,12 +56,11 @@ class TimeExpiredNotice extends StatelessWidget {
         color: colorScheme.errorContainer,
         child: Row(
           children: [
-            Icon(Icons.timer_off_outlined,
-                color: colorScheme.onErrorContainer),
+            Icon(Icons.timer_off_outlined, color: colorScheme.onErrorContainer),
             const SizedBox(width: AppDimensions.spacingSm),
             Expanded(
               child: Text(
-                'Temps écoulé. Terminez cette question, puis la session s\'arrêtera.',
+                l10n.gameNoticeTimeExpired,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

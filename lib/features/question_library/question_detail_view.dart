@@ -4,7 +4,6 @@ import 'package:knowledge_test/core/constants/app_colors.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/features/game/widgets/question_body.dart';
-import 'package:knowledge_test/features/question_library/question_filter.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
@@ -236,7 +235,7 @@ class _QuestionPayload extends StatelessWidget {
               const SizedBox(width: AppDimensions.spacingSm),
               Expanded(
                 child: Text(
-                  '${l10n.questionDetailEstimation} ${question.variation.labelFr.toLowerCase()}',
+                  '${l10n.questionDetailEstimation} ${question.variation.localizedName(l10n)}',
                   style: textTheme.bodyLarge,
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/features/game/widgets/scoreboard.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
@@ -23,6 +24,7 @@ class QuizmasterPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final round = state.currentRound;
     final resolved = round?.isComplete ?? false;
     final isCompleted = state.isCompleted;
@@ -42,14 +44,17 @@ class QuizmasterPanel extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'Scores — total ${state.totalScore}',
+                  l10n.gameBarScoresTotal(state.totalScore),
                   style: textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               Text(
-                '${state.resolvedQuestionCount}/${state.questions.length} notées',
+                l10n.gameBarQuestionsResolved(
+                  state.resolvedQuestionCount,
+                  state.questions.length,
+                ),
                 style: textTheme.labelMedium?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -74,16 +79,17 @@ class QuizmasterPanel extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.skip_next_outlined),
-                      label: const Text('Passer'),
-                      onPressed:
-                          (resolved || isCompleted) ? null : controller.skip,
+                      label: Text(l10n.gameBarSkip),
+                      onPressed: (resolved || isCompleted)
+                          ? null
+                          : controller.skip,
                     ),
                   ),
                   const SizedBox(width: AppDimensions.spacingSm),
                   Expanded(
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.block_outlined),
-                      label: const Text('Invalider'),
+                      label: Text(l10n.gameBarInvalidate),
                       onPressed: isCompleted ? null : controller.invalidate,
                     ),
                   ),
@@ -92,9 +98,11 @@ class QuizmasterPanel extends StatelessWidget {
               const SizedBox(height: AppDimensions.spacingSm),
               PrimaryButton(
                 label: state.canEndSession
-                    ? 'Terminer la session'
-                    : 'Question suivante',
-                icon: state.canEndSession ? Icons.flag_outlined : Icons.arrow_forward,
+                    ? l10n.gameBarEndSession
+                    : l10n.gameBarNextQuestion,
+                icon: state.canEndSession
+                    ? Icons.flag_outlined
+                    : Icons.arrow_forward,
                 onPressed: isCompleted
                     ? null
                     : () {
@@ -103,9 +111,8 @@ class QuizmasterPanel extends StatelessWidget {
                             context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: const Text(
-                                'Notez, passez ou invalidez cette question '
-                                'avant de continuer.',
+                              content: Text(
+                                l10n.gameBarSnackBarRoundIncomplete,
                               ),
                               backgroundColor: colorScheme.error,
                             ),

@@ -48,7 +48,8 @@ class QuestionFilter {
       if (categories.isNotEmpty && !categories.contains(question.category)) {
         return false;
       }
-      if (difficulties.isNotEmpty && !difficulties.contains(question.difficulty)) {
+      if (difficulties.isNotEmpty &&
+          !difficulties.contains(question.difficulty)) {
         return false;
       }
       if (variations.isNotEmpty && !variations.contains(question.variation)) {
@@ -77,11 +78,11 @@ class QuestionFilter {
 
   /// Adds or removes [mode] from the selection.
   QuestionFilter toggleMode(GameMode mode) => copyWith(
-        modes: _toggled(modes, mode),
-        // A mode change can make the variation selection inconsistent, so it
-        // is cleared to keep the badge counts meaningful.
-        variations: _consistentVariations(_toggled(modes, mode), variations),
-      );
+    modes: _toggled(modes, mode),
+    // A mode change can make the variation selection inconsistent, so it
+    // is cleared to keep the badge counts meaningful.
+    variations: _consistentVariations(_toggled(modes, mode), variations),
+  );
 
   QuestionFilter toggleCategory(QuestionCategory category) =>
       copyWith(categories: _toggled(categories, category));
@@ -110,9 +111,7 @@ class QuestionFilter {
     Set<QuestionVariation> variations,
   ) {
     if (modes.isEmpty || variations.isEmpty) return variations;
-    return variations
-        .where((v) => modes.contains(v.mode))
-        .toSet();
+    return variations.where((v) => modes.contains(v.mode)).toSet();
   }
 
   static bool _matches(BaseQuestion question, String needle) =>
@@ -124,12 +123,30 @@ class QuestionFilter {
   /// Accent-insensitive comparison, so "decouverte" finds "découverte" and
   /// "combien" finds "Combien ?".
   static const _accentMap = {
-    'á': 'a', 'à': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a',
+    'á': 'a',
+    'à': 'a',
+    'â': 'a',
+    'ä': 'a',
+    'ã': 'a',
+    'å': 'a',
     'ç': 'c',
-    'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
-    'í': 'i', 'ì': 'i', 'î': 'i', 'ï': 'i',
-    'ó': 'o', 'ò': 'o', 'ô': 'o', 'ö': 'o', 'õ': 'o',
-    'ú': 'u', 'ù': 'u', 'û': 'u', 'ü': 'u',
+    'é': 'e',
+    'è': 'e',
+    'ê': 'e',
+    'ë': 'e',
+    'í': 'i',
+    'ì': 'i',
+    'î': 'i',
+    'ï': 'i',
+    'ó': 'o',
+    'ò': 'o',
+    'ô': 'o',
+    'ö': 'o',
+    'õ': 'o',
+    'ú': 'u',
+    'ù': 'u',
+    'û': 'u',
+    'ü': 'u',
     'ñ': 'n',
     'ý': 'y',
   };
@@ -147,41 +164,37 @@ class QuestionFilter {
 /// Game mode a question variation belongs to.
 extension QuestionVariationMode on QuestionVariation {
   GameMode get mode => switch (this) {
-        QuestionVariation.whichCameFirst => GameMode.whichCameFirst,
-        QuestionVariation.guessTheCountryProgressive ||
-        QuestionVariation.guessTheCountryFlag ||
-        QuestionVariation.guessTheCountryCapital ||
-        QuestionVariation.guessTheCountrySilhouette =>
-          GameMode.guessTheCountry,
-        QuestionVariation.factOrCapTrueFalse ||
-        QuestionVariation.factOrCapTwoTruthsOneLie ||
-        QuestionVariation.factOrCapIdentifyFalse =>
-          GameMode.factOrCap,
-        QuestionVariation.putInOrderChronological ||
-        QuestionVariation.putInOrderByProperty =>
-          GameMode.putInOrder,
-        QuestionVariation.howMuchQuantity ||
-        QuestionVariation.howMuchDate ||
-        QuestionVariation.howMuchDistance ||
-        QuestionVariation.howMuchPopulation =>
-          GameMode.howMuch,
-      };
+    QuestionVariation.whichCameFirst => GameMode.whichCameFirst,
+    QuestionVariation.guessTheCountryProgressive ||
+    QuestionVariation.guessTheCountryFlag ||
+    QuestionVariation.guessTheCountryCapital ||
+    QuestionVariation.guessTheCountrySilhouette => GameMode.guessTheCountry,
+    QuestionVariation.factOrCapTrueFalse ||
+    QuestionVariation.factOrCapTwoTruthsOneLie ||
+    QuestionVariation.factOrCapIdentifyFalse => GameMode.factOrCap,
+    QuestionVariation.putInOrderChronological ||
+    QuestionVariation.putInOrderByProperty => GameMode.putInOrder,
+    QuestionVariation.howMuchQuantity ||
+    QuestionVariation.howMuchDate ||
+    QuestionVariation.howMuchDistance ||
+    QuestionVariation.howMuchPopulation => GameMode.howMuch,
+  };
 
   /// Short French label of the variation, as shown in the question body.
   String get labelFr => switch (this) {
-        QuestionVariation.whichCameFirst => 'Chronologie',
-        QuestionVariation.guessTheCountryProgressive => 'Indices',
-        QuestionVariation.guessTheCountryFlag => 'Drapeau',
-        QuestionVariation.guessTheCountryCapital => 'Capitale',
-        QuestionVariation.guessTheCountrySilhouette => 'Silhouette',
-        QuestionVariation.factOrCapTrueFalse => 'Vrai ou faux',
-        QuestionVariation.factOrCapTwoTruthsOneLie => 'Deux vérités, un mensonge',
-        QuestionVariation.factOrCapIdentifyFalse => 'Trouve la fausse affirmation',
-        QuestionVariation.putInOrderChronological => 'Chronologie',
-        QuestionVariation.putInOrderByProperty => 'Par propriété',
-        QuestionVariation.howMuchQuantity => 'Quantité',
-        QuestionVariation.howMuchDate => 'Date',
-        QuestionVariation.howMuchDistance => 'Distance',
-        QuestionVariation.howMuchPopulation => 'Population',
-      };
+    QuestionVariation.whichCameFirst => 'Chronologie',
+    QuestionVariation.guessTheCountryProgressive => 'Indices',
+    QuestionVariation.guessTheCountryFlag => 'Drapeau',
+    QuestionVariation.guessTheCountryCapital => 'Capitale',
+    QuestionVariation.guessTheCountrySilhouette => 'Silhouette',
+    QuestionVariation.factOrCapTrueFalse => 'Vrai ou faux',
+    QuestionVariation.factOrCapTwoTruthsOneLie => 'Deux vérités, un mensonge',
+    QuestionVariation.factOrCapIdentifyFalse => 'Trouve la fausse affirmation',
+    QuestionVariation.putInOrderChronological => 'Chronologie',
+    QuestionVariation.putInOrderByProperty => 'Par propriété',
+    QuestionVariation.howMuchQuantity => 'Quantité',
+    QuestionVariation.howMuchDate => 'Date',
+    QuestionVariation.howMuchDistance => 'Distance',
+    QuestionVariation.howMuchPopulation => 'Population',
+  };
 }

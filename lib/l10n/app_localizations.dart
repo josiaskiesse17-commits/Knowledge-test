@@ -1345,6 +1345,192 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Retour à l\'accueil'**
   String get routerBackToHome;
+
+  /// No description provided for @gameBarScoresTotal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scores — total {total}'**
+  String gameBarScoresTotal(Object total);
+
+  /// No description provided for @gameBarQuestionsResolved.
+  ///
+  /// In fr, this message translates to:
+  /// **'{resolved}/{total} notées'**
+  String gameBarQuestionsResolved(Object resolved, Object total);
+
+  /// No description provided for @gameBarUndoAward.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get gameBarUndoAward;
+
+  /// No description provided for @gameBarAwardPoint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Point'**
+  String get gameBarAwardPoint;
+
+  /// No description provided for @gameBarSkip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Passer'**
+  String get gameBarSkip;
+
+  /// No description provided for @gameBarInvalidate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Invalider'**
+  String get gameBarInvalidate;
+
+  /// No description provided for @gameBarEndSession.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminer la session'**
+  String get gameBarEndSession;
+
+  /// No description provided for @gameBarNextQuestion.
+  ///
+  /// In fr, this message translates to:
+  /// **'Question suivante'**
+  String get gameBarNextQuestion;
+
+  /// No description provided for @gameBarSnackBarRoundIncomplete.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notez, passez ou invalidez cette question avant de continuer.'**
+  String get gameBarSnackBarRoundIncomplete;
+
+  /// No description provided for @gameBoardHeaderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Scores'**
+  String get gameBoardHeaderTitle;
+
+  /// No description provided for @gameBoardHeaderSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1 {1 point attribué pour cette question} other {# points attribués pour cette question}}'**
+  String gameBoardHeaderSubtitle(num count);
+
+  /// No description provided for @gameBoardUndoTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler le point'**
+  String get gameBoardUndoTooltip;
+
+  /// No description provided for @gameBoardAwardOrdering.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bon classement'**
+  String get gameBoardAwardOrdering;
+
+  /// No description provided for @gameBoardInvalidatedMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Question invalidée : aucun point ne peut être attribué.'**
+  String get gameBoardInvalidatedMessage;
+
+  /// No description provided for @gameBoardOrderExactMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le classement doit être exact pour obtenir le point.'**
+  String get gameBoardOrderExactMessage;
+
+  /// No description provided for @gameBoardStatusPending.
+  ///
+  /// In fr, this message translates to:
+  /// **'En cours'**
+  String get gameBoardStatusPending;
+
+  /// No description provided for @gameBoardTimeRemaining.
+  ///
+  /// In fr, this message translates to:
+  /// **'Temps restant : {time}'**
+  String gameBoardTimeRemaining(Object time);
+
+  /// No description provided for @gameOrderDialogTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Classement annoncé'**
+  String get gameOrderDialogTitle;
+
+  /// No description provided for @gameOrderDialogInstruction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez les éléments dans l\'ordre annoncé par les joueurs.'**
+  String get gameOrderDialogInstruction;
+
+  /// No description provided for @gameOrderDialogSelectedTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ordre choisi'**
+  String get gameOrderDialogSelectedTitle;
+
+  /// No description provided for @gameOrderDialogNoSelection.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun élément sélectionné.'**
+  String get gameOrderDialogNoSelection;
+
+  /// No description provided for @gameOrderDialogRemainingTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éléments restants'**
+  String get gameOrderDialogRemainingTitle;
+
+  /// No description provided for @gameOrderDialogRemoveTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer'**
+  String get gameOrderDialogRemoveTooltip;
+
+  /// No description provided for @gameOrderDialogCancel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get gameOrderDialogCancel;
+
+  /// No description provided for @gameOrderDialogConfirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valider'**
+  String get gameOrderDialogConfirm;
+
+  /// No description provided for @gameNoticePausedTimer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Session en pause. Le chronomètre est arrêté.'**
+  String get gameNoticePausedTimer;
+
+  /// No description provided for @gameNoticePaused.
+  ///
+  /// In fr, this message translates to:
+  /// **'Session en pause.'**
+  String get gameNoticePaused;
+
+  /// No description provided for @gameNoticeTimeExpired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Temps écoulé. Terminez cette question, puis la session s\'arrêtera.'**
+  String get gameNoticeTimeExpired;
+
+  /// No description provided for @gameColumnNextClue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Indice suivant ({current}/{total})'**
+  String gameColumnNextClue(Object current, Object total);
+
+  /// No description provided for @gameBoardQuestionNumber.
+  ///
+  /// In fr, this message translates to:
+  /// **'Question {number} / {total}'**
+  String gameBoardQuestionNumber(Object number, Object total);
+
+  /// No description provided for @questionFilterReset.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réinitialiser'**
+  String get questionFilterReset;
 }
 
 class _AppLocalizationsDelegate

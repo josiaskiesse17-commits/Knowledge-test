@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_colors.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/services/game_engine.dart';
@@ -23,6 +24,7 @@ class Scoreboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final round = state.currentRound;
     final question = state.currentQuestion;
     final isOrdering = question is PutInOrderQuestion;
@@ -32,10 +34,10 @@ class Scoreboard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AppCardHeader(
-          title: 'Scores',
+          title: l10n.gameBoardHeaderTitle,
           subtitle: round == null
               ? null
-              : '${round.awardedPlayerIds.length} point(s) attribué(s) pour cette question',
+              : l10n.gameBoardHeaderSubtitle(round.awardedPlayerIds.length),
           leadingIcon: Icons.leaderboard_outlined,
         ),
         const SizedBox(height: AppDimensions.spacingSm),
@@ -63,7 +65,9 @@ class Scoreboard extends StatelessWidget {
                   const SizedBox(width: AppDimensions.spacingSm),
                   Expanded(
                     child: Text(
-                      player.name.isEmpty ? 'Joueur' : player.name,
+                      player.name.isEmpty
+                          ? l10n.sessionHistoryPlayerFallback
+                          : player.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyLarge?.copyWith(
@@ -84,7 +88,7 @@ class Scoreboard extends StatelessWidget {
                     IconButton(
                       visualDensity: VisualDensity.compact,
                       icon: const Icon(Icons.undo),
-                      tooltip: 'Annuler le point',
+                      tooltip: l10n.gameBoardUndoTooltip,
                       onPressed: () => onUndo(player.id),
                     )
                   else
@@ -92,7 +96,9 @@ class Scoreboard extends StatelessWidget {
                       child: FilledButton.icon(
                         icon: const Icon(Icons.add, size: AppDimensions.iconSm),
                         label: Text(
-                          isOrdering ? 'Bon classement' : 'Point',
+                          isOrdering
+                              ? l10n.gameBoardAwardOrdering
+                              : l10n.gameBarAwardPoint,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -116,7 +122,7 @@ class Scoreboard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: AppDimensions.spacingXs),
             child: Text(
-              'Question invalidée : aucun point ne peut être attribué.',
+              l10n.gameBoardInvalidatedMessage,
               style: textTheme.bodySmall?.copyWith(color: colorScheme.error),
             ),
           ),
@@ -124,8 +130,10 @@ class Scoreboard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: AppDimensions.spacingXs),
             child: Text(
-              'Le classement doit être exact pour obtenir le point.',
-              style: textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+              l10n.gameBoardOrderExactMessage,
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
       ],
@@ -137,7 +145,8 @@ class Scoreboard extends StatelessWidget {
     if (trimmed.isEmpty) return '?';
     final parts = trimmed.split(' ').where((p) => p.isNotEmpty).toList();
     if (parts.length == 1) return parts.first.characters.first.toUpperCase();
-    return (parts.first.characters.first + parts.last.characters.first).toUpperCase();
+    return (parts.first.characters.first + parts.last.characters.first)
+        .toUpperCase();
   }
 }
 
@@ -162,15 +171,19 @@ class QuestionStatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
-    final (String label, Color color, IconData icon) =
-        _resolveStatus(round?.outcome, colorScheme);
+    final (String label, Color color, IconData icon) = _resolveStatus(
+      round?.outcome,
+      l10n,
+      colorScheme,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Question $questionNumber / $questionCount',
+          l10n.gameBoardQuestionNumber(questionNumber, questionCount),
           style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: AppDimensions.spacingXs),
@@ -182,7 +195,7 @@ class QuestionStatusBadge extends StatelessWidget {
             _StatusPill(label: label, color: color, icon: icon),
             if (isTimed)
               _StatusPill(
-                label: 'Temps restant : $remainingTime',
+                label: l10n.gameBoardTimeRemaining(remainingTime),
                 color: colorScheme.secondary,
                 icon: Icons.timer_outlined,
               ),
@@ -194,17 +207,34 @@ class QuestionStatusBadge extends StatelessWidget {
 
   static (String, Color, IconData) _resolveStatus(
     QuestionOutcome? outcome,
+    AppLocalizations l10n,
     ColorScheme colorScheme,
   ) {
     switch (outcome) {
       case QuestionOutcome.scored:
-        return ('Notée', AppColors.success, Icons.check_circle_outline);
+        return (
+          l10n.sessionOutcomeScored,
+          AppColors.success,
+          Icons.check_circle_outline,
+        );
       case QuestionOutcome.skipped:
-        return ('Passée', AppColors.warning, Icons.skip_next_outlined);
+        return (
+          l10n.sessionOutcomeSkipped,
+          AppColors.warning,
+          Icons.skip_next_outlined,
+        );
       case QuestionOutcome.invalidated:
-        return ('Invalidée', colorScheme.error, Icons.block_outlined);
+        return (
+          l10n.sessionOutcomeInvalidated,
+          colorScheme.error,
+          Icons.block_outlined,
+        );
       default:
-        return ('En cours', colorScheme.primary, Icons.play_circle_outline);
+        return (
+          l10n.gameBoardStatusPending,
+          colorScheme.primary,
+          Icons.play_circle_outline,
+        );
     }
   }
 }
@@ -214,7 +244,11 @@ class _StatusPill extends StatelessWidget {
   final Color color;
   final IconData icon;
 
-  const _StatusPill({required this.label, required this.color, required this.icon});
+  const _StatusPill({
+    required this.label,
+    required this.color,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -234,10 +268,8 @@ class _StatusPill extends StatelessWidget {
           const SizedBox(width: AppDimensions.spacingXs),
           Text(
             label,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(context).textTheme.labelSmall
+                ?.copyWith(color: color, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -263,7 +295,8 @@ class OrderVerificationDialog extends StatefulWidget {
   }
 
   @override
-  State<OrderVerificationDialog> createState() => _OrderVerificationDialogState();
+  State<OrderVerificationDialog> createState() =>
+      _OrderVerificationDialogState();
 }
 
 class _OrderVerificationDialogState extends State<OrderVerificationDialog> {
@@ -277,9 +310,10 @@ class _OrderVerificationDialogState extends State<OrderVerificationDialog> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: const Text('Classement annoncé'),
+      title: Text(l10n.gameOrderDialogTitle),
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
@@ -288,48 +322,63 @@ class _OrderVerificationDialogState extends State<OrderVerificationDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Sélectionnez les éléments dans l\'ordre annoncé par les joueurs.',
+                l10n.gameOrderDialogInstruction,
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: AppDimensions.spacingMd),
-              Text('Ordre choisi', style: textTheme.labelLarge),
+              Text(
+                l10n.gameOrderDialogSelectedTitle,
+                style: textTheme.labelLarge,
+              ),
               const SizedBox(height: AppDimensions.spacingSm),
               if (_picked.isEmpty)
                 Text(
-                  'Aucun élément sélectionné.',
+                  l10n.gameOrderDialogNoSelection,
                   style: textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               for (var i = 0; i < _picked.length; i++)
-                Builder(builder: (context) {
-                  final item = widget.items.firstWhere((it) => it.id == _picked[i]);
-                  return ListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    leading: Text(
-                      '${i + 1}',
-                      style: textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: colorScheme.primary,
+                Builder(
+                  builder: (context) {
+                    final item = widget.items.firstWhere(
+                      (it) => it.id == _picked[i],
+                    );
+                    return ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      leading: Text(
+                        '${i + 1}',
+                        style: textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: colorScheme.primary,
+                        ),
                       ),
-                    ),
-                    title: Text(item.label),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.close, size: AppDimensions.iconSm),
-                      tooltip: 'Retirer',
-                      onPressed: () => setState(() => _picked.removeAt(i)),
-                    ),
-                  );
-                }),
+                      title: Text(item.label),
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          size: AppDimensions.iconSm,
+                        ),
+                        tooltip: l10n.gameOrderDialogRemoveTooltip,
+                        onPressed: () => setState(() => _picked.removeAt(i)),
+                      ),
+                    );
+                  },
+                ),
               const SizedBox(height: AppDimensions.spacingSm),
-              Text('Éléments restants', style: textTheme.labelLarge),
+              Text(
+                l10n.gameOrderDialogRemainingTitle,
+                style: textTheme.labelLarge,
+              ),
               const SizedBox(height: AppDimensions.spacingSm),
               for (final item in _remaining)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: AppDimensions.spacingXs),
+                  padding: const EdgeInsets.only(
+                    bottom: AppDimensions.spacingXs,
+                  ),
                   child: OutlinedButton(
                     onPressed: () => setState(() => _picked.add(item.id)),
                     child: Align(
@@ -345,13 +394,13 @@ class _OrderVerificationDialogState extends State<OrderVerificationDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Annuler'),
+          child: Text(l10n.gameOrderDialogCancel),
         ),
         FilledButton(
           onPressed: _picked.length == widget.items.length
               ? () => Navigator.of(context).pop(_picked)
               : null,
-          child: const Text('Valider'),
+          child: Text(l10n.gameOrderDialogConfirm),
         ),
       ],
     );
