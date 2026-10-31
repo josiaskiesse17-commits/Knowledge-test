@@ -245,6 +245,26 @@ void main() {
         isTrue,
       );
     });
+
+    test(
+      'updateConfig rejects a config with fewer than minPlayers players',
+      () {
+        final state = _startedSession();
+        final updated = GameRules.updateConfig(
+          state,
+          _config().copyWith(playerNames: const ['Solo']),
+        );
+        // The update must be rejected: keep the previous state unchanged.
+        expect(updated, state);
+      },
+    );
+
+    test('updateConfig cannot increase questionCount beyond current pool', () {
+      final state = _startedSession(questionCount: 2);
+      final updated = GameRules.updateConfig(state, _config(questionCount: 5));
+      // Currently limited to the current pool: no new questions are drawn.
+      expect(updated.questions.length, 2);
+    });
   });
 
   group('Scoring', () {

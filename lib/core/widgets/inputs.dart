@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
-import 'package:knowledge_test/core/constants/app_strings.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 
 class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -53,9 +53,9 @@ class AppTextField extends StatelessWidget {
           Text(
             label!,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: colorScheme.onSurface,
-                ),
+              fontWeight: FontWeight.w500,
+              color: colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: AppDimensions.spacingXs),
         ],
@@ -72,14 +72,17 @@ class AppTextField extends StatelessWidget {
           onTap: onTap,
           onFieldSubmitted: onFieldSubmitted,
           validator: validator,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurface,
-              ),
+          style: Theme.of(context).textTheme.bodyLarge
+              ?.copyWith(color: colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: hint,
             errorText: errorText,
             prefixIcon: prefixIcon != null
-                ? Icon(prefixIcon, size: AppDimensions.iconMd, color: colorScheme.onSurfaceVariant)
+                ? Icon(
+                    prefixIcon,
+                    size: AppDimensions.iconMd,
+                    color: colorScheme.onSurfaceVariant,
+                  )
                 : null,
             suffixIcon: suffixIcon,
             filled: true,
@@ -90,11 +93,15 @@ class AppTextField extends StatelessWidget {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: colorScheme.outline.withValues(alpha: 0.3)),
+              borderSide: BorderSide(
+                color: colorScheme.outline.withValues(alpha: 0.3),
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: colorScheme.outline.withValues(alpha: 0.3)),
+              borderSide: BorderSide(
+                color: colorScheme.outline.withValues(alpha: 0.3),
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
@@ -110,14 +117,15 @@ class AppTextField extends StatelessWidget {
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-              borderSide: BorderSide(color: colorScheme.outline.withValues(alpha: 0.2)),
+              borderSide: BorderSide(
+                color: colorScheme.outline.withValues(alpha: 0.2),
+              ),
             ),
             hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-                ),
-            errorStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: colorScheme.error,
-                ),
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+            ),
+            errorStyle: Theme.of(context).textTheme.bodySmall
+                ?.copyWith(color: colorScheme.error),
           ),
         ),
       ],
@@ -148,7 +156,7 @@ class PlayerNameField extends StatelessWidget {
     return AppTextField(
       controller: controller,
       focusNode: focusNode,
-      hint: AppStrings.playerNameHint,
+      hint: AppLocalizations.of(context)!.playerNameHint,
       errorText: errorText,
       textInputAction: TextInputAction.next,
       onChanged: onChanged,

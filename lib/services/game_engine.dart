@@ -41,8 +41,11 @@ class GameRules {
         .toList();
 
     final byModesAndCategories = byModes
-        .where((q) => normalizedConfig.categories.isEmpty ||
-            normalizedConfig.categories.contains(q.category))
+        .where(
+          (q) =>
+              normalizedConfig.categories.isEmpty ||
+              normalizedConfig.categories.contains(q.category),
+        )
         .toList();
 
     // The selected categories are respected as long as they hold at least one
@@ -101,6 +104,14 @@ class GameRules {
     List<String> recentQuestionIds = const [],
   }) {
     final normalized = _normalizeConfig(config);
+
+    // Reject updates that would drop below the minimum player count:
+    // _normalizeConfig trims empty names, so a quizmaster deleting names can
+    // silently fall below minPlayers. Keep the previous config intact.
+    if (normalized.playerNames.length < normalized.minPlayers) {
+      return state;
+    }
+
     final targetCount = normalized.questionCount;
 
     var questions = state.questions;
@@ -108,7 +119,9 @@ class GameRules {
       questions = questions.sublist(0, targetCount);
     } else if (questions.length < targetCount) {
       final extra = _pickQuestions(
-        pool: state.questions.isEmpty ? const <BaseQuestion>[] : state.questions,
+        pool: state.questions.isEmpty
+            ? const <BaseQuestion>[]
+            : state.questions,
         count: targetCount,
         difficulty: normalized.difficulty,
         modes: normalized.modes,
@@ -180,7 +193,10 @@ class GameRules {
   static GameState revealExplanation(GameState state) {
     final round = state.currentRound;
     if (round == null || state.isOver) return state;
-    return _updateCurrentRound(state, round.copyWith(explanationRevealed: true));
+    return _updateCurrentRound(
+      state,
+      round.copyWith(explanationRevealed: true),
+    );
   }
 
   static GameState revealNextClue(GameState state) {
@@ -188,7 +204,9 @@ class GameRules {
     if (round == null || state.isOver) return state;
 
     final question = state.currentQuestion;
-    final maxClues = question is GuessTheCountryQuestion ? question.clues.length : 0;
+    final maxClues = question is GuessTheCountryQuestion
+        ? question.clues.length
+        : 0;
     if (round.revealedClues >= maxClues) return state;
 
     return _updateCurrentRound(
@@ -206,15 +224,25 @@ class GameRules {
     String playerId, {
     List<String>? announcedOrder,
   }) {
-    if (state.isOver) return (state: state, result: AwardResult.sessionNotActive);
+    if (state.isOver) {
+      return (state: state, result: AwardResult.sessionNotActive);
+    }
 
     final round = state.currentRound;
-    if (round == null) return (state: state, result: AwardResult.sessionNotActive);
-    if (round.isInvalidated) return (state: state, result: AwardResult.invalidatedQuestion);
-    if (round.awardsPointTo(playerId)) return (state: state, result: AwardResult.alreadyAwarded);
+    if (round == null) {
+      return (state: state, result: AwardResult.sessionNotActive);
+    }
+    if (round.isInvalidated) {
+      return (state: state, result: AwardResult.invalidatedQuestion);
+    }
+    if (round.awardsPointTo(playerId)) {
+      return (state: state, result: AwardResult.alreadyAwarded);
+    }
 
     final exists = state.players.any((p) => p.id == playerId);
-    if (!exists) return (state: state, result: AwardResult.unknownPlayer);
+    if (!exists) {
+      return (state: state, result: AwardResult.unknownPlayer);
+    }
 
     final question = state.currentQuestion;
     if (question is PutInOrderQuestion) {
@@ -226,7 +254,10 @@ class GameRules {
 
     final players = [
       for (final player in state.players)
-        if (player.id == playerId) player.copyWith(score: player.score + 1) else player,
+        if (player.id == playerId)
+          player.copyWith(score: player.score + 1)
+        else
+          player,
     ];
 
     final updatedRound = round.copyWith(
@@ -235,30 +266,44 @@ class GameRules {
     );
 
     return (
-      state: _updateCurrentRound(state.copyWith(players: players), updatedRound),
+      state: _updateCurrentRound(
+        state.copyWith(players: players),
+        updatedRound,
+      ),
       result: AwardResult.awarded,
     );
   }
 
   /// Removes a point awarded by mistake, before the quizmaster moves on.
-  static ({GameState state, bool removed}) undoAward(GameState state, String playerId) {
+  static ({GameState state, bool removed}) undoAward(
+    GameState state,
+    String playerId,
+  ) {
     final round = state.currentRound;
     if (round == null || state.isOver) return (state: state, removed: false);
     if (!round.awardsPointTo(playerId)) return (state: state, removed: false);
 
     final players = [
       for (final player in state.players)
-        if (player.id == playerId) player.copyWith(score: player.score - 1) else player,
+        if (player.id == playerId)
+          player.copyWith(score: player.score - 1)
+        else
+          player,
     ];
 
     final remainingAwards = {...round.awardedPlayerIds}..remove(playerId);
     final updatedRound = round.copyWith(
       awardedPlayerIds: remainingAwards,
-      outcome: remainingAwards.isEmpty ? QuestionOutcome.pending : QuestionOutcome.scored,
+      outcome: remainingAwards.isEmpty
+          ? QuestionOutcome.pending
+          : QuestionOutcome.scored,
     );
 
     return (
-      state: _updateCurrentRound(state.copyWith(players: players), updatedRound),
+      state: _updateCurrentRound(
+        state.copyWith(players: players),
+        updatedRound,
+      ),
       removed: true,
     );
   }
@@ -287,9 +332,11 @@ class GameRules {
     if (round.isInvalidated) return (state: state, ok: false);
 
     final players = state.players
-        .map((player) => round.awardsPointTo(player.id)
-            ? player.copyWith(score: player.score - 1)
-            : player)
+        .map(
+          (player) => round.awardsPointTo(player.id)
+              ? player.copyWith(score: player.score - 1)
+              : player,
+        )
         .toList();
 
     return (
@@ -310,8 +357,12 @@ class GameRules {
   /// skips or invalidates it. When the clock has run out, ending the session
   /// happens on this same action instead of a new question.
   static ({GameState state, NextResult result}) nextQuestion(GameState state) {
-    if (state.isOver) return (state: state, result: NextResult.sessionCompleted);
-    if (!state.hasQuestions) return (state: state, result: NextResult.noMoreQuestions);
+    if (state.isOver) {
+      return (state: state, result: NextResult.sessionCompleted);
+    }
+    if (!state.hasQuestions) {
+      return (state: state, result: NextResult.noMoreQuestions);
+    }
 
     final round = state.currentRound;
     if (round == null || !round.isComplete) {
@@ -361,13 +412,15 @@ class GameRules {
 
   /// Same ranking rules, applied to the players of a stored session.
   static List<FinalRankingEntry> rankingsOf(Iterable<Player> players) {
-    final entries = [
-      for (var i = 0; i < players.length; i++) (player: players.elementAt(i), seat: i),
-    ]..sort((a, b) {
-        final byScore = b.player.score.compareTo(a.player.score);
-        if (byScore != 0) return byScore;
-        return a.seat.compareTo(b.seat);
-      });
+    final entries =
+        [
+          for (var i = 0; i < players.length; i++)
+            (player: players.elementAt(i), seat: i),
+        ]..sort((a, b) {
+          final byScore = b.player.score.compareTo(a.player.score);
+          if (byScore != 0) return byScore;
+          return a.seat.compareTo(b.seat);
+        });
 
     final result = <FinalRankingEntry>[];
     var rank = 0;
@@ -383,7 +436,9 @@ class GameRules {
       } else {
         groupSize++;
       }
-      result.add(FinalRankingEntry(player: player, rank: rank, isTied: groupSize > 1));
+      result.add(
+        FinalRankingEntry(player: player, rank: rank, isTied: groupSize > 1),
+      );
     }
 
     // A group only counts as tied once every member is known.
@@ -428,8 +483,13 @@ class GameRules {
   // ---------------------------------------------------------------------------
 
   static SessionConfig _normalizeConfig(SessionConfig config) {
-    final names = config.playerNames.map((n) => n.trim()).where((n) => n.isNotEmpty).toList();
-    final modes = config.modes.isEmpty ? GameMode.values.toList() : config.modes;
+    final names = config.playerNames
+        .map((n) => n.trim())
+        .where((n) => n.isNotEmpty)
+        .toList();
+    final modes = config.modes.isEmpty
+        ? GameMode.values.toList()
+        : config.modes;
     final categories = config.categories;
     final questionCount = config.questionCount < 1 ? 1 : config.questionCount;
     final durationMinutes = config.isTimed && config.sessionDurationMinutes! < 1
@@ -484,14 +544,17 @@ class GameRules {
     final others = order.where((q) => q.difficulty != difficulty).toList();
 
     // Never-used questions first, then the most distant ones in time.
-    final fresh = [...preferred, ...others]
-        .where((q) => !recentRank.containsKey(q.id))
-        .toList();
-    final stale = [...preferred, ...others]
-        .where((q) => recentRank.containsKey(q.id))
-        .toList()
-      ..sort((a, b) =>
-          (recentRank[b.id] ?? 0).compareTo(recentRank[a.id] ?? 0));
+    final fresh = [
+      ...preferred,
+      ...others,
+    ].where((q) => !recentRank.containsKey(q.id)).toList();
+    final stale =
+        [
+          ...preferred,
+          ...others,
+        ].where((q) => recentRank.containsKey(q.id)).toList()..sort(
+          (a, b) => (recentRank[b.id] ?? 0).compareTo(recentRank[a.id] ?? 0),
+        );
 
     final picked = <BaseQuestion>[];
     final usedFactGroups = <String>{};
@@ -504,10 +567,12 @@ class GameRules {
         buckets.putIfAbsent(question.mode, () => []).add(question);
       }
 
-      final modeOrder = modes.isEmpty ? buckets.keys.toList() : [
-        ...modes.where((m) => buckets.containsKey(m)),
-        ...buckets.keys.where((m) => !modes.contains(m)),
-      ];
+      final modeOrder = modes.isEmpty
+          ? buckets.keys.toList()
+          : [
+              ...modes.where((m) => buckets.containsKey(m)),
+              ...buckets.keys.where((m) => !modes.contains(m)),
+            ];
 
       for (final mode in modeOrder) {
         for (final question in buckets[mode]!) {
@@ -529,7 +594,9 @@ class GameRules {
 
   static GameState _updateCurrentRound(GameState state, RoundState round) {
     final rounds = [...state.rounds];
-    if (state.currentIndex < 0 || state.currentIndex >= rounds.length) return state;
+    if (state.currentIndex < 0 || state.currentIndex >= rounds.length) {
+      return state;
+    }
     rounds[state.currentIndex] = round;
     return state.copyWith(rounds: rounds);
   }

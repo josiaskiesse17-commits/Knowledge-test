@@ -390,5 +390,6 @@
   "gameNoticeTimeExpired": "Temps écoulé. Terminez cette question, puis la session s'arrêtera.",
   "gameColumnNextClue": "Indice suivant ({current}/{total})",
   "gameBoardQuestionNumber": "Question {number} / {total}",
-  "questionFilterReset": "Réinitialiser"
+  "questionFilterReset": "Réinitialiser",
+  "playerNameHint": "Nom du joueur"
 }

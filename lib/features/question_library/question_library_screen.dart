@@ -28,20 +28,30 @@ class QuestionLibraryScreen extends ConsumerStatefulWidget {
 class _QuestionLibraryScreenState extends ConsumerState<QuestionLibraryScreen> {
   QuestionFilter _filter = const QuestionFilter();
   BaseQuestion? _selected;
+  List<BaseQuestion>? _sortedQuestions;
+
+  @override
+  void initState() {
+    super.initState();
+    _sortedQuestions = _sortQuestions(
+      ref.read(questionRepositoryProvider).getAllQuestions(),
+    );
+  }
 
   /// All questions of the repository, ordered by mode then id.
   ///
   /// The repository hands out an unmodifiable list, so a sorted copy is made
-  /// here instead of sorting it in place.
-  List<BaseQuestion> get _allQuestions {
-    final questions =
-        [...ref.watch(questionRepositoryProvider).getAllQuestions()]
-          ..sort((a, b) {
-            final byMode = a.mode.index.compareTo(b.mode.index);
-            if (byMode != 0) return byMode;
-            return a.id.compareTo(b.id);
-          });
-    return questions;
+  /// once in [initState] instead of re-sorting on every build.
+  List<BaseQuestion> get _allQuestions => _sortedQuestions ?? const [];
+
+  List<BaseQuestion> _sortQuestions(List<BaseQuestion> questions) {
+    final sorted = [...questions]
+      ..sort((a, b) {
+        final byMode = a.mode.index.compareTo(b.mode.index);
+        if (byMode != 0) return byMode;
+        return a.id.compareTo(b.id);
+      });
+    return sorted;
   }
 
   void _update(QuestionFilter filter) {

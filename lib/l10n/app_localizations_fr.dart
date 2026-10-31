@@ -876,4 +876,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get questionFilterReset => 'Réinitialiser';
+
+  @override
+  String get playerNameHint => 'Nom du joueur';
 }

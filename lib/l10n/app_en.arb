@@ -397,5 +397,6 @@
   "gameNoticeTimeExpired": "Time's up. Finish this question, then the session will end.",
   "gameColumnNextClue": "Next clue ({current}/{total})",
   "gameBoardQuestionNumber": "Question {number} / {total}",
-  "questionFilterReset": "Reset"
+  "questionFilterReset": "Reset",
+  "playerNameHint": "Player name"
 }

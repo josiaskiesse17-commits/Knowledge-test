@@ -1531,6 +1531,12 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Réinitialiser'**
   String get questionFilterReset;
+
+  /// No description provided for @playerNameHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom du joueur'**
+  String get playerNameHint;
 }
 
 class _AppLocalizationsDelegate
