@@ -122,6 +122,7 @@ void main() {
             questionCount: 3,
             difficulty: Difficulty.easy,
           ),
+          l10n: testL10n,
         );
         controller.start();
         await tester.pumpAndSettle();
@@ -245,6 +246,7 @@ void main() {
             questionCount: 3,
             difficulty: Difficulty.easy,
           ),
+          l10n: testL10n,
         );
         controller.start();
         await tester.pumpAndSettle();

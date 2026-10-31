@@ -49,6 +49,7 @@ Future<(GameController, ProviderContainer)> pumpMode(
       // run to the next.
       shuffleQuestions: false,
     ),
+    l10n: testL10n,
   );
   controller.start();
   await tester.pump();
@@ -207,6 +208,7 @@ void main() {
           questionCount: 3,
           sessionDurationMinutes: 2,
         ),
+        l10n: testL10n,
       );
       controller.start();
       await tester.pump();
@@ -289,6 +291,7 @@ void main() {
           modes: GameMode.values.toList(),
           questionCount: 2,
         ),
+        l10n: testL10n,
       );
       controller.start();
 
@@ -323,7 +326,12 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [testQuestionRepositoryOverride],
-          child: const MaterialApp(home: GameSetupScreen()),
+          child: MaterialApp(
+            locale: kTestLocale,
+            localizationsDelegates: kTestLocalizationDelegates,
+            supportedLocales: kTestSupportedLocales,
+            home: const GameSetupScreen(),
+          ),
         ),
       );
 
@@ -348,7 +356,12 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           overrides: [testQuestionRepositoryOverride],
-          child: const MaterialApp(home: GameSetupScreen()),
+          child: MaterialApp(
+            locale: kTestLocale,
+            localizationsDelegates: kTestLocalizationDelegates,
+            supportedLocales: kTestSupportedLocales,
+            home: const GameSetupScreen(),
+          ),
         ),
       );
 

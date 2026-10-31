@@ -30,7 +30,9 @@ class CategoriesSection extends StatelessWidget {
           title: l10n.gameSetupCategoriesTitle,
           subtitle: config.categories.isEmpty
               ? l10n.gameSetupCategoriesSubtitleAll
-              : l10n.gameSetupCategoriesSubtitleSelected(config.categories.length),
+              : l10n.gameSetupCategoriesSubtitleSelected(
+                  config.categories.length,
+                ),
         ),
         const SizedBox(height: AppDimensions.spacingSm),
         Wrap(

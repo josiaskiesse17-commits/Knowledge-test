@@ -60,6 +60,7 @@ class _StartupAppState extends State<StartupApp> {
         if (snapshot.hasError) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
+            locale: const Locale('fr'),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: Builder(

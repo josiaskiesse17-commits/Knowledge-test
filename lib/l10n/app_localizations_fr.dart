@@ -450,26 +450,26 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gameSetupStartGame => 'Commencer la partie';
 
   @override
-  String get gameSetupMinPlayersError =>
-      'Il faut au moins 2 joueurs pour commencer';
+  String get gameSetupMinPlayersError => 'Ajoutez au moins 2 joueurs.';
 
   @override
-  String get gameSetupMaxPlayersError => 'Maximum 8 joueurs autorisés';
+  String get gameSetupMaxPlayersError => 'Maximum 8 joueurs autorisés.';
 
   @override
   String get gameSetupUniqueNamesError =>
-      'Les noms des joueurs doivent être uniques';
+      'Les noms des joueurs doivent être uniques.';
 
   @override
-  String get gameSetupSelectModeError => 'Sélectionnez au moins un mode de jeu';
+  String get gameSetupSelectModeError =>
+      'Sélectionnez au moins un mode de jeu.';
 
   @override
   String get gameSetupDurationMinError =>
-      'La durée doit être d\'au moins 1 minute';
+      'La durée doit être d\'au moins 1 minute.';
 
   @override
   String get gameSetupQuestionCountMinError =>
-      'Le nombre de questions doit être d\'au moins 1';
+      'Le nombre de questions doit être d\'au moins 1.';
 
   @override
   String get difficultyEasy => 'Facile';

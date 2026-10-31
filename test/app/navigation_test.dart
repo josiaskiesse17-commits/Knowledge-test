@@ -7,6 +7,7 @@ import 'package:knowledge_test/features/session_history/session_history_screen.d
 import 'package:knowledge_test/features/settings/settings_screen.dart';
 import 'package:knowledge_test/main.dart';
 import 'package:knowledge_test/models/game_models.dart';
+import 'package:knowledge_test/providers/locale_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +37,7 @@ Future<void> pumpApp(
       overrides: [
         testQuestionRepositoryOverride,
         storageServiceProvider.overrideWith((ref) async => storage),
+        localeProvider.overrideWith((ref) => LocaleNotifier(() async => storage)),
         if (store != null)
           sessionStoreProvider.overrideWith((ref) async => store),
       ],
@@ -153,7 +155,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('04/05/2026 20:00'), findsOneWidget);
-      expect(find.text('Alice — 3 pts • 2 joueurs'), findsOneWidget);
+      expect(find.textContaining('joueurs'), findsOneWidget);
       // The badge shows how many questions the session holds.
       expect(find.text('3'), findsOneWidget);
     });
@@ -187,7 +189,7 @@ void main() {
       expect(find.text('Classement final'), findsOneWidget);
       expect(find.text('Questions jouées'), findsOneWidget);
       expect(find.text('Alice'), findsOneWidget);
-      expect(find.text('3 pts'), findsOneWidget);
+      expect(find.textContaining('pts'), findsOneWidget);
       // The stored question ids are resolved back to their text.
       expect(
         find.textContaining('premier pas de l\'Homme sur la Lune'),

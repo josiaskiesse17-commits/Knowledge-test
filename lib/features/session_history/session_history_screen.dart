@@ -76,16 +76,17 @@ class SessionHistoryScreen extends ConsumerWidget {
       onRefresh: () => ref.read(sessionHistoryProvider.notifier).load(),
       child: ListView.separated(
         itemCount: history.sessions.length,
-        separatorBuilder: (_, _) => const SizedBox(height: AppDimensions.spacingSm),
+        separatorBuilder: (_, _) =>
+            const SizedBox(height: AppDimensions.spacingSm),
         itemBuilder: (context, index) {
           final session = history.sessions[index];
           return _SessionTile(
             session: session,
-            onTap: () => context.push(
-              '${AppRoute.sessionDetail.path}?id=${session.id}',
-            ),
-            onDelete: () =>
-                ref.read(sessionHistoryProvider.notifier).deleteSession(session.id),
+            onTap: () =>
+                context.push('${AppRoute.sessionDetail.path}?id=${session.id}'),
+            onDelete: () => ref
+                .read(sessionHistoryProvider.notifier)
+                .deleteSession(session.id),
           );
         },
       ),
@@ -173,9 +174,7 @@ class _SessionTile extends StatelessWidget {
                 Text(
                   winner == null
                       ? l10n.sessionHistoryNoPlayer
-                      : '${winner.player.name.isEmpty
-                              ? l10n.sessionHistoryPlayerFallback
-                              : winner.player.name}'
+                      : '${winner.player.name.isEmpty ? l10n.sessionHistoryPlayerFallback : winner.player.name}'
                             ' — ${l10n.sessionHistoryScore(winner.player.score)}'
                             ' • ${l10n.sessionHistoryPlayers(session.players.length)}',
                   maxLines: 1,

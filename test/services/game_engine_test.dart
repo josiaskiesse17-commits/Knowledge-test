@@ -1,8 +1,8 @@
 import 'dart:math' show Random;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/l10n/app_localizations_fr.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
@@ -11,8 +11,7 @@ import 'package:knowledge_test/services/game_engine.dart';
 import '../helpers/sample_question_bank.dart';
 
 /// Provides a French [AppLocalizations] instance for validation tests.
-AppLocalizations get _testL10n =>
-    AppLocalizations.delegate.load(const Locale('fr'));
+AppLocalizations get _testL10n => AppLocalizationsFr();
 
 /// Builds a small deterministic question set used by the rule tests.
 List<BaseQuestion> _testQuestions() {

@@ -5,6 +5,7 @@ import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
+import '../helpers/localizations.dart';
 import '../helpers/test_question_repository.dart';
 
 void main() {
@@ -30,6 +31,7 @@ void main() {
         questionCount: questionCount,
         sessionDurationMinutes: minutes,
       ),
+      l10n: testL10n,
     );
     expect(errors, isEmpty);
     controller.start();
@@ -173,6 +175,7 @@ void main() {
         modes: GameMode.values.toList(),
         questionCount: 2,
       ),
+      l10n: testL10n,
     );
     expect(errors, isEmpty);
     controller.start();
@@ -189,6 +192,7 @@ void main() {
 
     final errors = controller.prepare(
       const SessionConfig(playerNames: ['Solo']),
+      l10n: testL10n,
     );
 
     expect(errors, isNotEmpty);
@@ -204,6 +208,7 @@ void main() {
         modes: GameMode.values.toList(),
         questionCount: 4,
       ),
+      l10n: testL10n,
     );
     controller.awardPoint('p1');
 
@@ -213,6 +218,7 @@ void main() {
         modes: GameMode.values.toList(),
         questionCount: 2,
       ),
+      l10n: testL10n,
     );
 
     expect(controller.state.players.map((p) => p.name).toList(), ['C', 'D']);
@@ -231,6 +237,7 @@ void main() {
         modes: GameMode.values.toList(),
         questionCount: 2,
       ),
+      l10n: testL10n,
     );
     controller.start();
 
@@ -251,6 +258,7 @@ void main() {
         modes: const [GameMode.putInOrder],
         questionCount: 1,
       ),
+      l10n: testL10n,
     );
     controller.start();
 
@@ -278,6 +286,7 @@ void main() {
         modes: GameMode.values.toList(),
         questionCount: 1,
       ),
+      l10n: testL10n,
     );
     controller.start();
     controller.awardPoint('p2');
@@ -299,6 +308,7 @@ void main() {
         questionCount: 1,
         sessionDurationMinutes: 2,
       ),
+      l10n: testL10n,
     );
 
     expect(controller.formatRemainingTime(), '02:00');

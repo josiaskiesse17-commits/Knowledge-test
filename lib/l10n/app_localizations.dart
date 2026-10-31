@@ -785,37 +785,37 @@ abstract class AppLocalizations {
   /// No description provided for @gameSetupMinPlayersError.
   ///
   /// In fr, this message translates to:
-  /// **'Il faut au moins 2 joueurs pour commencer'**
+  /// **'Ajoutez au moins 2 joueurs.'**
   String get gameSetupMinPlayersError;
 
   /// No description provided for @gameSetupMaxPlayersError.
   ///
   /// In fr, this message translates to:
-  /// **'Maximum 8 joueurs autorisés'**
+  /// **'Maximum 8 joueurs autorisés.'**
   String get gameSetupMaxPlayersError;
 
   /// No description provided for @gameSetupUniqueNamesError.
   ///
   /// In fr, this message translates to:
-  /// **'Les noms des joueurs doivent être uniques'**
+  /// **'Les noms des joueurs doivent être uniques.'**
   String get gameSetupUniqueNamesError;
 
   /// No description provided for @gameSetupSelectModeError.
   ///
   /// In fr, this message translates to:
-  /// **'Sélectionnez au moins un mode de jeu'**
+  /// **'Sélectionnez au moins un mode de jeu.'**
   String get gameSetupSelectModeError;
 
   /// No description provided for @gameSetupDurationMinError.
   ///
   /// In fr, this message translates to:
-  /// **'La durée doit être d\'au moins 1 minute'**
+  /// **'La durée doit être d\'au moins 1 minute.'**
   String get gameSetupDurationMinError;
 
   /// No description provided for @gameSetupQuestionCountMinError.
   ///
   /// In fr, this message translates to:
-  /// **'Le nombre de questions doit être d\'au moins 1'**
+  /// **'Le nombre de questions doit être d\'au moins 1.'**
   String get gameSetupQuestionCountMinError;
 
   /// No description provided for @difficultyEasy.

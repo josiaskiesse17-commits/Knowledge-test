@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
