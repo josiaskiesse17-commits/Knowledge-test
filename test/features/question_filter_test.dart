@@ -1,5 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:knowledge_test/features/question_library/question_filter.dart';
+
+import '../helpers/localizations.dart';
+
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
 import '../helpers/sample_question_bank.dart';
@@ -120,7 +124,7 @@ void main() {
         QuestionCategory.africa,
       );
       expect(filter.categories, {QuestionCategory.africa});
-      expect(QuestionCategory.africa.displayNameFr, 'Afrique');
+      expect(QuestionCategory.africa.localizedName(testL10n), 'Afrique');
     });
 
     test('filtering by Africa returns only African questions', () {

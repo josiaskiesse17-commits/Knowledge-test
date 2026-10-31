@@ -450,25 +450,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gameSetupStartGame => 'Commencer la partie';
 
   @override
-  String get gameSetupMinPlayersError => 'Ajoutez au moins 2 joueurs.';
+  String get sessionConfigErrorMinPlayers => 'Ajoutez au moins 2 joueurs.';
 
   @override
-  String get gameSetupMaxPlayersError => 'Maximum 8 joueurs autorisés.';
+  String get sessionConfigErrorMaxPlayers => 'Maximum 8 joueurs autorisés.';
 
   @override
-  String get gameSetupUniqueNamesError =>
+  String get sessionConfigErrorUniqueNames =>
       'Les noms des joueurs doivent être uniques.';
 
   @override
-  String get gameSetupSelectModeError =>
+  String get sessionConfigErrorNoMode =>
       'Sélectionnez au moins un mode de jeu.';
 
   @override
-  String get gameSetupDurationMinError =>
+  String get sessionConfigErrorDurationTooShort =>
       'La durée doit être d\'au moins 1 minute.';
 
   @override
-  String get gameSetupQuestionCountMinError =>
+  String get sessionConfigErrorQuestionCountTooLow =>
       'Le nombre de questions doit être d\'au moins 1.';
 
   @override
@@ -547,4 +547,216 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get awardResultWrongOrder =>
       'Le classement doit correspondre exactement à la bonne réponse.';
+
+  @override
+  String get emptySessionTitle => 'Session';
+
+  @override
+  String get emptySessionNoSession => 'Aucune session en cours.';
+
+  @override
+  String get emptySessionSetup => 'Configurer une partie';
+
+  @override
+  String get questionLibraryTitle => 'Bibliothèque de questions';
+
+  @override
+  String get questionFilterMode => 'Mode';
+
+  @override
+  String get questionFilterDifficulty => 'Difficulté';
+
+  @override
+  String get questionFilterCategory => 'Catégorie';
+
+  @override
+  String get questionFilterVariation => 'Variation';
+
+  @override
+  String get questionFilterSearchHint => 'Rechercher une question…';
+
+  @override
+  String get questionFilterClearTooltip => 'Effacer la recherche';
+
+  @override
+  String get questionFilterFilters => 'Filtres';
+
+  @override
+  String questionFilterActiveCount(int count) {
+    return '$count filtre actif';
+  }
+
+  @override
+  String questionFilterActiveCountOther(int count) {
+    return '$count filtres actifs';
+  }
+
+  @override
+  String questionFilterResultCount(int count) {
+    return '$count question';
+  }
+
+  @override
+  String questionFilterResultCountOther(int count) {
+    return '$count questions';
+  }
+
+  @override
+  String get questionFilterHideTooltip => 'Masquer les filtres';
+
+  @override
+  String get questionFilterShowTooltip => 'Afficher les filtres';
+
+  @override
+  String get questionLibraryNoResult => 'Aucune question ne correspond';
+
+  @override
+  String get questionLibraryNoResultHint =>
+      'Modifiez la recherche ou réinitialisez les filtres.';
+
+  @override
+  String get questionLibrarySelectHint => 'Sélectionnez une question';
+
+  @override
+  String get questionLibrarySelectHintDetail =>
+      'Sa réponse, son explication et sa source s\'afficheront ici.';
+
+  @override
+  String get questionBodyRevealAnswer => 'Révéler la réponse';
+
+  @override
+  String get questionBodyHideExplanation => 'Masquer l\'explication';
+
+  @override
+  String get questionBodyShowExplanation => 'Voir l\'explication';
+
+  @override
+  String get questionBodyExplanationTitle => 'Explication';
+
+  @override
+  String get questionBodySource => 'Source :';
+
+  @override
+  String get questionDetailExplanation => 'Explication';
+
+  @override
+  String get questionDetailSource => 'Source :';
+
+  @override
+  String get questionDetailId => 'Identifiant';
+
+  @override
+  String get questionDetailFactGroup => 'Groupe de fait :';
+
+  @override
+  String get questionDetailClues => 'Indices';
+
+  @override
+  String get questionDetailEstimation => 'Estimation';
+
+  @override
+  String get questionBodyCluesRevealed => 'Indices révélés';
+
+  @override
+  String get questionBodyNoCluesYet => 'Aucun indice pour le moment.';
+
+  @override
+  String get questionBodyElementsToOrder => 'Éléments à classer';
+
+  @override
+  String get questionBodyCompleteOrder => 'Classement complet attendu';
+
+  @override
+  String get questionBodyExpectedAnswer => 'Réponse attendue';
+
+  @override
+  String get questionBodyAcceptedRange => 'Plage acceptée';
+
+  @override
+  String get questionBodyScoringRule => 'Règle de score';
+
+  @override
+  String get questionBodyCorrectAnswer => 'Bonne réponse';
+
+  @override
+  String get questionBodyFirst => 'En premier';
+
+  @override
+  String get questionBodyThen => 'Ensuite';
+
+  @override
+  String get questionBodyCountry => 'Pays';
+
+  @override
+  String get questionBodyCapital => 'Capitale';
+
+  @override
+  String get questionBodyAcceptedAnswers => 'Réponses acceptées';
+
+  @override
+  String questionBodyStatementTrueFalse(String isTrue) {
+    String _temp0 = intl.Intl.selectLogic(isTrue, {
+      'true': 'vraie',
+      'false': 'fausse',
+      'other': 'vraie',
+    });
+    return 'Cette affirmation est $_temp0.';
+  }
+
+  @override
+  String get questionBodyFalseStatements => 'Affirmation(s) fausse(s) :';
+
+  @override
+  String get questionBodyCorrectOrder => 'Ordre correct :';
+
+  @override
+  String get questionBodyValue => 'Valeur';
+
+  @override
+  String get questionVariationChronology => 'Chronologie';
+
+  @override
+  String get questionVariationClues => 'Indices';
+
+  @override
+  String get questionVariationFlag => 'Drapeau';
+
+  @override
+  String get questionVariationCapital => 'Capitale';
+
+  @override
+  String get questionVariationSilhouette => 'Silhouette';
+
+  @override
+  String get questionVariationTrueFalse => 'Vrai ou faux';
+
+  @override
+  String get questionVariationTwoTruthsOneLie => 'Deux vérités, un mensonge';
+
+  @override
+  String get questionVariationIdentifyFalse => 'Trouve la fausse affirmation';
+
+  @override
+  String get questionVariationByProperty => 'Par propriété';
+
+  @override
+  String get questionVariationQuantity => 'Quantité';
+
+  @override
+  String get questionVariationDate => 'Date';
+
+  @override
+  String get questionVariationDistance => 'Distance';
+
+  @override
+  String get questionVariationPopulation => 'Population';
+
+  @override
+  String get routerPageNotFound => 'Page non trouvée';
+
+  @override
+  String get routerRouteUnknown => 'Route inconnue';
+
+  @override
+  String get routerBackToHome => 'Retour à l\'accueil';
 }

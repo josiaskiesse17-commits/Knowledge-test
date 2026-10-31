@@ -1,4 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/localizations.dart';
+
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
 void main() {
@@ -61,8 +65,14 @@ void main() {
     });
 
     test('answer indexes are within the event list bounds', () {
-      expect(question.correctFirstIndex, inInclusiveRange(0, question.events.length - 1));
-      expect(question.correctSecondIndex, inInclusiveRange(0, question.events.length - 1));
+      expect(
+        question.correctFirstIndex,
+        inInclusiveRange(0, question.events.length - 1),
+      );
+      expect(
+        question.correctSecondIndex,
+        inInclusiveRange(0, question.events.length - 1),
+      );
     });
   });
 
@@ -86,7 +96,8 @@ void main() {
         acceptedAnswers: const ['Japon', 'Japan'],
         capital: 'Tokyo',
         continent: 'Asie',
-        clues: clues ??
+        clues:
+            clues ??
             const [
               CountryClue(text: 'C\'est un archipel', order: 1),
               CountryClue(text: 'Le mont Fuji s\'y trouve', order: 2),
@@ -168,16 +179,19 @@ void main() {
       expect(question.variation, QuestionVariation.factOrCapTwoTruthsOneLie);
     });
 
-    test('a false index selects the identify-the-false-statement variation', () {
-      final question = build(
-        statements: [
-          ...twoTruthsOneLie,
-          const FactStatement(id: 's4', text: 'Vrai', isTrue: true),
-        ],
-        falseStatementIndex: 2,
-      );
-      expect(question.variation, QuestionVariation.factOrCapIdentifyFalse);
-    });
+    test(
+      'a false index selects the identify-the-false-statement variation',
+      () {
+        final question = build(
+          statements: [
+            ...twoTruthsOneLie,
+            const FactStatement(id: 's4', text: 'Vrai', isTrue: true),
+          ],
+          falseStatementIndex: 2,
+        );
+        expect(question.variation, QuestionVariation.factOrCapIdentifyFalse);
+      },
+    );
 
     test('the statement flagged as a lie is the false one', () {
       final question = build(statements: twoTruthsOneLie, lieStatementIndex: 2);
@@ -212,27 +226,38 @@ void main() {
               unit: unitLabels[i],
             ),
         ],
-        correctOrderIds: [
-          for (var i = 0; i < unitLabels.length; i++) 'item-$i',
-        ].reversed.toList(),
+        correctOrderIds: [for (var i = 0; i < unitLabels.length; i++) 'item-$i']
+            .reversed
+            .toList(),
       );
     }
 
     test('year units select the chronological variation', () {
-      expect(build(unitLabels: ['année', 'année']).variation,
-          QuestionVariation.putInOrderChronological);
+      expect(
+        build(unitLabels: ['année', 'année']).variation,
+        QuestionVariation.putInOrderChronological,
+      );
     });
 
     test('other units select the by-property variation', () {
-      expect(build(unitLabels: ['m', 'm']).variation, QuestionVariation.putInOrderByProperty);
+      expect(
+        build(unitLabels: ['m', 'm']).variation,
+        QuestionVariation.putInOrderByProperty,
+      );
     });
 
-    test('the stored order is complete: every item id appears exactly once', () {
-      final question = build(unitLabels: ['année', 'année', 'année']);
-      expect(question.correctOrderIds.length, question.items.length);
-      expect(question.correctOrderIds.toSet().length, question.items.length);
-      expect(question.correctOrderIds.toSet(), question.items.map((i) => i.id).toSet());
-    });
+    test(
+      'the stored order is complete: every item id appears exactly once',
+      () {
+        final question = build(unitLabels: ['année', 'année', 'année']);
+        expect(question.correctOrderIds.length, question.items.length);
+        expect(question.correctOrderIds.toSet().length, question.items.length);
+        expect(
+          question.correctOrderIds.toSet(),
+          question.items.map((i) => i.id).toSet(),
+        );
+      },
+    );
 
     test('serializes and deserializes without loss', () {
       final question = build(unitLabels: ['km²', 'km²']);
@@ -267,7 +292,9 @@ void main() {
     });
 
     test('a year unit gives the date variation', () {
-      final question = _buildHowMuch(buildAnswer(unit: 'année', unitFr: 'année'));
+      final question = _buildHowMuch(
+        buildAnswer(unit: 'année', unitFr: 'année'),
+      );
       expect(question.variation, QuestionVariation.howMuchDate);
     });
 
@@ -329,31 +356,42 @@ void main() {
   group('Enums', () {
     test('game modes have a French label', () {
       for (final mode in GameMode.values) {
-        expect(mode.displayNameFr.isNotEmpty, isTrue);
+        expect(mode.title(testL10n).isNotEmpty, isTrue);
       }
     });
 
     test('categories have a French label', () {
       for (final category in QuestionCategory.values) {
-        expect(category.displayNameFr.isNotEmpty, isTrue);
+        expect(category.localizedName(testL10n).isNotEmpty, isTrue);
       }
     });
 
     test('difficulties have a French label', () {
       for (final difficulty in Difficulty.values) {
-        expect(difficulty.displayNameFr.isNotEmpty, isTrue);
+        expect(difficulty.localizedName(testL10n).isNotEmpty, isTrue);
       }
     });
 
-    test('enum values are resolvable by name, which the JSON path relies on', () {
-      expect(GameMode.values.byName('factOrCap'), GameMode.factOrCap);
-      expect(Difficulty.values.byName('hard'), Difficulty.hard);
-      expect(QuestionCategory.values.byName('geography'), QuestionCategory.geography);
-      expect(QuestionVariation.values.byName('howMuchDistance'),
-          QuestionVariation.howMuchDistance);
-      expect(Language.values.byName('french'), Language.french);
-      expect(ContentReviewStatus.values.byName('approved'), ContentReviewStatus.approved);
-    });
+    test(
+      'enum values are resolvable by name, which the JSON path relies on',
+      () {
+        expect(GameMode.values.byName('factOrCap'), GameMode.factOrCap);
+        expect(Difficulty.values.byName('hard'), Difficulty.hard);
+        expect(
+          QuestionCategory.values.byName('geography'),
+          QuestionCategory.geography,
+        );
+        expect(
+          QuestionVariation.values.byName('howMuchDistance'),
+          QuestionVariation.howMuchDistance,
+        );
+        expect(Language.values.byName('french'), Language.french);
+        expect(
+          ContentReviewStatus.values.byName('approved'),
+          ContentReviewStatus.approved,
+        );
+      },
+    );
   });
 }
 

@@ -7,6 +7,7 @@ import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/features/question_library/question_detail_view.dart';
 import 'package:knowledge_test/features/question_library/question_filter.dart';
 import 'package:knowledge_test/features/question_library/widgets/library_layouts.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
@@ -33,13 +34,13 @@ class _QuestionLibraryScreenState extends ConsumerState<QuestionLibraryScreen> {
   /// The repository hands out an unmodifiable list, so a sorted copy is made
   /// here instead of sorting it in place.
   List<BaseQuestion> get _allQuestions {
-    final questions = [
-      ...ref.watch(questionRepositoryProvider).getAllQuestions(),
-    ]..sort((a, b) {
-        final byMode = a.mode.index.compareTo(b.mode.index);
-        if (byMode != 0) return byMode;
-        return a.id.compareTo(b.id);
-      });
+    final questions =
+        [...ref.watch(questionRepositoryProvider).getAllQuestions()]
+          ..sort((a, b) {
+            final byMode = a.mode.index.compareTo(b.mode.index);
+            if (byMode != 0) return byMode;
+            return a.id.compareTo(b.id);
+          });
     return questions;
   }
 
@@ -80,19 +81,21 @@ class _QuestionLibraryScreenState extends ConsumerState<QuestionLibraryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final all = _allQuestions;
     final visible = _filter.apply(all);
-    final twoPane =
-        AppBreakpoints.supportsTwoPane(MediaQuery.sizeOf(context).width);
+    final twoPane = AppBreakpoints.supportsTwoPane(
+      MediaQuery.sizeOf(context).width,
+    );
     // A question may disappear from the filtered list while still selected.
     final selected = visible.contains(_selected) ? _selected : null;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bibliothèque de questions'),
+        title: Text(l10n.questionLibraryTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          tooltip: 'Retour',
+          tooltip: l10n.sessionHistoryBackTooltip,
           onPressed: () => context.go(AppRoute.home.path),
         ),
       ),

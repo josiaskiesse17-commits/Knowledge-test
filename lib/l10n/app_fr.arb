@@ -231,12 +231,12 @@
   "gameSetupShuffleTitle": "Mélanger les questions",
   "gameSetupShuffleSubtitle": "Ordre aléatoire à chaque session.",
   "gameSetupStartGame": "Commencer la partie",
-  "gameSetupMinPlayersError": "Ajoutez au moins 2 joueurs.",
-  "gameSetupMaxPlayersError": "Maximum 8 joueurs autorisés.",
-  "gameSetupUniqueNamesError": "Les noms des joueurs doivent être uniques.",
-  "gameSetupSelectModeError": "Sélectionnez au moins un mode de jeu.",
-  "gameSetupDurationMinError": "La durée doit être d'au moins 1 minute.",
-  "gameSetupQuestionCountMinError": "Le nombre de questions doit être d'au moins 1.",
+  "sessionConfigErrorMinPlayers": "Ajoutez au moins 2 joueurs.",
+  "sessionConfigErrorMaxPlayers": "Maximum 8 joueurs autorisés.",
+  "sessionConfigErrorUniqueNames": "Les noms des joueurs doivent être uniques.",
+  "sessionConfigErrorNoMode": "Sélectionnez au moins un mode de jeu.",
+  "sessionConfigErrorDurationTooShort": "La durée doit être d'au moins 1 minute.",
+  "sessionConfigErrorQuestionCountTooLow": "Le nombre de questions doit être d'au moins 1.",
   "difficultyEasy": "Facile",
   "difficultyMedium": "Moyen",
   "difficultyHard": "Difficile",
@@ -259,5 +259,105 @@
   "awardResultAlreadyAwarded": "Ce joueur a déjà reçu un point pour cette question.",
   "awardResultInvalidatedQuestion": "Question invalidée : aucun point ne peut être attribué.",
   "awardResultSessionNotActive": "La session est terminée.",
-  "awardResultWrongOrder": "Le classement doit correspondre exactement à la bonne réponse."
+  "awardResultWrongOrder": "Le classement doit correspondre exactement à la bonne réponse.",
+  "emptySessionTitle": "Session",
+  "emptySessionNoSession": "Aucune session en cours.",
+  "emptySessionSetup": "Configurer une partie",
+  "questionLibraryTitle": "Bibliothèque de questions",
+  "questionFilterMode": "Mode",
+  "questionFilterDifficulty": "Difficulté",
+  "questionFilterCategory": "Catégorie",
+  "questionFilterVariation": "Variation",
+  "questionFilterSearchHint": "Rechercher une question…",
+  "questionFilterClearTooltip": "Effacer la recherche",
+  "questionFilterFilters": "Filtres",
+  "questionFilterActiveCount": "{count} filtre actif",
+  "@questionFilterActiveCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "questionFilterActiveCountOther": "{count} filtres actifs",
+  "@questionFilterActiveCountOther": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "questionFilterResultCount": "{count} question",
+  "@questionFilterResultCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "questionFilterResultCountOther": "{count} questions",
+  "@questionFilterResultCountOther": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "questionFilterHideTooltip": "Masquer les filtres",
+  "questionFilterShowTooltip": "Afficher les filtres",
+  "questionLibraryNoResult": "Aucune question ne correspond",
+  "questionLibraryNoResultHint": "Modifiez la recherche ou réinitialisez les filtres.",
+  "questionLibrarySelectHint": "Sélectionnez une question",
+  "questionLibrarySelectHintDetail": "Sa réponse, son explication et sa source s'afficheront ici.",
+  "questionBodyRevealAnswer": "Révéler la réponse",
+  "questionBodyHideExplanation": "Masquer l'explication",
+  "questionBodyShowExplanation": "Voir l'explication",
+  "questionBodyExplanationTitle": "Explication",
+  "questionBodySource": "Source :",
+  "questionDetailExplanation": "Explication",
+  "questionDetailSource": "Source :",
+  "questionDetailId": "Identifiant",
+  "questionDetailFactGroup": "Groupe de fait :",
+  "questionDetailClues": "Indices",
+  "questionDetailEstimation": "Estimation",
+  "questionBodyCluesRevealed": "Indices révélés",
+  "questionBodyNoCluesYet": "Aucun indice pour le moment.",
+  "questionBodyElementsToOrder": "Éléments à classer",
+  "questionBodyCompleteOrder": "Classement complet attendu",
+  "questionBodyExpectedAnswer": "Réponse attendue",
+  "questionBodyAcceptedRange": "Plage acceptée",
+  "questionBodyScoringRule": "Règle de score",
+  "questionBodyCorrectAnswer": "Bonne réponse",
+  "questionBodyFirst": "En premier",
+  "questionBodyThen": "Ensuite",
+  "questionBodyCountry": "Pays",
+  "questionBodyCapital": "Capitale",
+  "questionBodyAcceptedAnswers": "Réponses acceptées",
+  "questionBodyStatementTrueFalse": "Cette affirmation est {isTrue, select, true {vraie} false {fausse} other {vraie}}.",
+  "@questionBodyStatementTrueFalse": {
+    "placeholders": {
+      "isTrue": {
+        "type": "String"
+      }
+    }
+  },
+  "questionBodyFalseStatements": "Affirmation(s) fausse(s) :",
+  "questionBodyCorrectOrder": "Ordre correct :",
+  "questionBodyValue": "Valeur",
+  "questionVariationChronology": "Chronologie",
+  "questionVariationClues": "Indices",
+  "questionVariationFlag": "Drapeau",
+  "questionVariationCapital": "Capitale",
+  "questionVariationSilhouette": "Silhouette",
+  "questionVariationTrueFalse": "Vrai ou faux",
+  "questionVariationTwoTruthsOneLie": "Deux vérités, un mensonge",
+  "questionVariationIdentifyFalse": "Trouve la fausse affirmation",
+  "questionVariationByProperty": "Par propriété",
+  "questionVariationQuantity": "Quantité",
+  "questionVariationDate": "Date",
+  "questionVariationDistance": "Distance",
+  "questionVariationPopulation": "Population",
+  "routerPageNotFound": "Page non trouvée",
+  "routerRouteUnknown": "Route inconnue",
+  "routerBackToHome": "Retour à l'accueil"
 }

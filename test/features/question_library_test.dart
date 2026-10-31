@@ -133,7 +133,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // 11 easy questions in the sample bank.
-      expect(find.text('35 questions'), findsOneWidget);
+      expect(find.textContaining('11 questions'), findsOneWidget);
     });
 
     testWidgets('searching filters the list', (tester) async {
@@ -174,7 +174,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Aucune question ne correspond'), findsOneWidget);
-      expect(find.text('0 question'), findsOneWidget);
+      expect(find.text('0 questions'), findsOneWidget);
     });
 
     testWidgets('clearing the filters restores every question', (tester) async {
@@ -351,37 +351,38 @@ void main() {
       expect(find.text('Ouvrir l\'historique des sessions'), findsOneWidget);
     });
 
-    testWidgets('the language selector switches the screen to English and back', (
-      tester,
-    ) async {
-      await pumpThemed(
-        tester,
-        const SettingsScreen(),
-        size: const Size(395, 845),
-      );
+    testWidgets(
+      'the language selector switches the screen to English and back',
+      (tester) async {
+        await pumpThemed(
+          tester,
+          const SettingsScreen(),
+          size: const Size(395, 845),
+        );
 
-      // French is the default language.
-      expect(find.text('Paramètres'), findsOneWidget);
-      expect(find.text('Apparence'), findsOneWidget);
-      expect(find.text('Langue'), findsOneWidget);
+        // French is the default language.
+        expect(find.text('Paramètres'), findsOneWidget);
+        expect(find.text('Apparence'), findsOneWidget);
+        expect(find.text('Langue'), findsOneWidget);
 
-      await tester.tap(find.text('English'));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text('English'));
+        await tester.pumpAndSettle();
 
-      expect(find.text('Settings'), findsOneWidget);
-      expect(find.text('Appearance'), findsOneWidget);
-      expect(find.text('Data'), findsOneWidget);
-      // The language labels keep their native names in every language.
-      expect(find.text('Français'), findsOneWidget);
-      expect(find.text('English'), findsOneWidget);
+        expect(find.text('Settings'), findsOneWidget);
+        expect(find.text('Appearance'), findsOneWidget);
+        expect(find.text('Data'), findsOneWidget);
+        // The language labels keep their native names in every language.
+        expect(find.text('Français'), findsOneWidget);
+        expect(find.text('English'), findsOneWidget);
 
-      await tester.tap(find.text('Français'));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text('Français'));
+        await tester.pumpAndSettle();
 
-      expect(find.text('Paramètres'), findsOneWidget);
-      expect(find.text('Apparence'), findsOneWidget);
-      expect(find.text('Données'), findsOneWidget);
-    });
+        expect(find.text('Paramètres'), findsOneWidget);
+        expect(find.text('Apparence'), findsOneWidget);
+        expect(find.text('Données'), findsOneWidget);
+      },
+    );
 
     testWidgets('the language choice is persisted locally', (tester) async {
       SharedPreferences.setMockInitialValues(<String, Object>{});

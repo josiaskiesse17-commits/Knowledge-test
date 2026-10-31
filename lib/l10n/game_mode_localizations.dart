@@ -1,5 +1,6 @@
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
+import 'package:knowledge_test/models/session_models.dart';
 
 /// Localized title of a game mode, usable from any screen that has an
 /// [AppLocalizations] instance.
@@ -71,6 +72,84 @@ extension DifficultyLocalizations on Difficulty {
         return l10n.difficultyMedium;
       case Difficulty.hard:
         return l10n.difficultyHard;
+    }
+  }
+}
+
+/// Localized name of a question variation.
+extension QuestionVariationLocalizations on QuestionVariation {
+  String localizedName(AppLocalizations l10n) {
+    switch (this) {
+      case QuestionVariation.whichCameFirst:
+        return l10n.questionVariationChronology;
+      case QuestionVariation.guessTheCountryProgressive:
+        return l10n.questionVariationClues;
+      case QuestionVariation.guessTheCountryFlag:
+        return l10n.questionVariationFlag;
+      case QuestionVariation.guessTheCountryCapital:
+        return l10n.questionVariationCapital;
+      case QuestionVariation.guessTheCountrySilhouette:
+        return l10n.questionVariationSilhouette;
+      case QuestionVariation.factOrCapTrueFalse:
+        return l10n.questionVariationTrueFalse;
+      case QuestionVariation.factOrCapTwoTruthsOneLie:
+        return l10n.questionVariationTwoTruthsOneLie;
+      case QuestionVariation.factOrCapIdentifyFalse:
+        return l10n.questionVariationIdentifyFalse;
+      case QuestionVariation.putInOrderChronological:
+        return l10n.questionVariationChronology;
+      case QuestionVariation.putInOrderByProperty:
+        return l10n.questionVariationByProperty;
+      case QuestionVariation.howMuchQuantity:
+        return l10n.questionVariationQuantity;
+      case QuestionVariation.howMuchDate:
+        return l10n.questionVariationDate;
+      case QuestionVariation.howMuchDistance:
+        return l10n.questionVariationDistance;
+      case QuestionVariation.howMuchPopulation:
+        return l10n.questionVariationPopulation;
+    }
+  }
+}
+
+/// Localized message for a [SessionConfigError], usable from any UI layer that
+/// has an [AppLocalizations] instance.
+extension SessionConfigErrorMessage on SessionConfigError {
+  String message(AppLocalizations l10n) {
+    switch (this) {
+      case SessionConfigError.minPlayers:
+        return l10n.sessionConfigErrorMinPlayers;
+      case SessionConfigError.maxPlayers:
+        return l10n.sessionConfigErrorMaxPlayers;
+      case SessionConfigError.uniqueNames:
+        return l10n.sessionConfigErrorUniqueNames;
+      case SessionConfigError.noMode:
+        return l10n.sessionConfigErrorNoMode;
+      case SessionConfigError.durationTooShort:
+        return l10n.sessionConfigErrorDurationTooShort;
+      case SessionConfigError.questionCountTooLow:
+        return l10n.sessionConfigErrorQuestionCountTooLow;
+    }
+  }
+}
+
+/// Localized message for an [AwardResult], usable from any UI layer that has
+/// an [AppLocalizations] instance.
+extension AwardResultMessage on AwardResult {
+  String message(AppLocalizations l10n) {
+    switch (this) {
+      case AwardResult.awarded:
+        return l10n.awardResultAwarded;
+      case AwardResult.unknownPlayer:
+        return l10n.awardResultUnknownPlayer;
+      case AwardResult.alreadyAwarded:
+        return l10n.awardResultAlreadyAwarded;
+      case AwardResult.invalidatedQuestion:
+        return l10n.awardResultInvalidatedQuestion;
+      case AwardResult.sessionNotActive:
+        return l10n.awardResultSessionNotActive;
+      case AwardResult.wrongOrder:
+        return l10n.awardResultWrongOrder;
     }
   }
 }

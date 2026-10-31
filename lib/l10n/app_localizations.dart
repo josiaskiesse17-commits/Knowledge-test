@@ -782,41 +782,41 @@ abstract class AppLocalizations {
   /// **'Commencer la partie'**
   String get gameSetupStartGame;
 
-  /// No description provided for @gameSetupMinPlayersError.
+  /// No description provided for @sessionConfigErrorMinPlayers.
   ///
   /// In fr, this message translates to:
   /// **'Ajoutez au moins 2 joueurs.'**
-  String get gameSetupMinPlayersError;
+  String get sessionConfigErrorMinPlayers;
 
-  /// No description provided for @gameSetupMaxPlayersError.
+  /// No description provided for @sessionConfigErrorMaxPlayers.
   ///
   /// In fr, this message translates to:
   /// **'Maximum 8 joueurs autorisés.'**
-  String get gameSetupMaxPlayersError;
+  String get sessionConfigErrorMaxPlayers;
 
-  /// No description provided for @gameSetupUniqueNamesError.
+  /// No description provided for @sessionConfigErrorUniqueNames.
   ///
   /// In fr, this message translates to:
   /// **'Les noms des joueurs doivent être uniques.'**
-  String get gameSetupUniqueNamesError;
+  String get sessionConfigErrorUniqueNames;
 
-  /// No description provided for @gameSetupSelectModeError.
+  /// No description provided for @sessionConfigErrorNoMode.
   ///
   /// In fr, this message translates to:
   /// **'Sélectionnez au moins un mode de jeu.'**
-  String get gameSetupSelectModeError;
+  String get sessionConfigErrorNoMode;
 
-  /// No description provided for @gameSetupDurationMinError.
+  /// No description provided for @sessionConfigErrorDurationTooShort.
   ///
   /// In fr, this message translates to:
   /// **'La durée doit être d\'au moins 1 minute.'**
-  String get gameSetupDurationMinError;
+  String get sessionConfigErrorDurationTooShort;
 
-  /// No description provided for @gameSetupQuestionCountMinError.
+  /// No description provided for @sessionConfigErrorQuestionCountTooLow.
   ///
   /// In fr, this message translates to:
   /// **'Le nombre de questions doit être d\'au moins 1.'**
-  String get gameSetupQuestionCountMinError;
+  String get sessionConfigErrorQuestionCountTooLow;
 
   /// No description provided for @difficultyEasy.
   ///
@@ -955,6 +955,396 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Le classement doit correspondre exactement à la bonne réponse.'**
   String get awardResultWrongOrder;
+
+  /// No description provided for @emptySessionTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Session'**
+  String get emptySessionTitle;
+
+  /// No description provided for @emptySessionNoSession.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune session en cours.'**
+  String get emptySessionNoSession;
+
+  /// No description provided for @emptySessionSetup.
+  ///
+  /// In fr, this message translates to:
+  /// **'Configurer une partie'**
+  String get emptySessionSetup;
+
+  /// No description provided for @questionLibraryTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bibliothèque de questions'**
+  String get questionLibraryTitle;
+
+  /// No description provided for @questionFilterMode.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mode'**
+  String get questionFilterMode;
+
+  /// No description provided for @questionFilterDifficulty.
+  ///
+  /// In fr, this message translates to:
+  /// **'Difficulté'**
+  String get questionFilterDifficulty;
+
+  /// No description provided for @questionFilterCategory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Catégorie'**
+  String get questionFilterCategory;
+
+  /// No description provided for @questionFilterVariation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Variation'**
+  String get questionFilterVariation;
+
+  /// No description provided for @questionFilterSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher une question…'**
+  String get questionFilterSearchHint;
+
+  /// No description provided for @questionFilterClearTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Effacer la recherche'**
+  String get questionFilterClearTooltip;
+
+  /// No description provided for @questionFilterFilters.
+  ///
+  /// In fr, this message translates to:
+  /// **'Filtres'**
+  String get questionFilterFilters;
+
+  /// No description provided for @questionFilterActiveCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} filtre actif'**
+  String questionFilterActiveCount(int count);
+
+  /// No description provided for @questionFilterActiveCountOther.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} filtres actifs'**
+  String questionFilterActiveCountOther(int count);
+
+  /// No description provided for @questionFilterResultCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} question'**
+  String questionFilterResultCount(int count);
+
+  /// No description provided for @questionFilterResultCountOther.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count} questions'**
+  String questionFilterResultCountOther(int count);
+
+  /// No description provided for @questionFilterHideTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Masquer les filtres'**
+  String get questionFilterHideTooltip;
+
+  /// No description provided for @questionFilterShowTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Afficher les filtres'**
+  String get questionFilterShowTooltip;
+
+  /// No description provided for @questionLibraryNoResult.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune question ne correspond'**
+  String get questionLibraryNoResult;
+
+  /// No description provided for @questionLibraryNoResultHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modifiez la recherche ou réinitialisez les filtres.'**
+  String get questionLibraryNoResultHint;
+
+  /// No description provided for @questionLibrarySelectHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez une question'**
+  String get questionLibrarySelectHint;
+
+  /// No description provided for @questionLibrarySelectHintDetail.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sa réponse, son explication et sa source s\'afficheront ici.'**
+  String get questionLibrarySelectHintDetail;
+
+  /// No description provided for @questionBodyRevealAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Révéler la réponse'**
+  String get questionBodyRevealAnswer;
+
+  /// No description provided for @questionBodyHideExplanation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Masquer l\'explication'**
+  String get questionBodyHideExplanation;
+
+  /// No description provided for @questionBodyShowExplanation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Voir l\'explication'**
+  String get questionBodyShowExplanation;
+
+  /// No description provided for @questionBodyExplanationTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Explication'**
+  String get questionBodyExplanationTitle;
+
+  /// No description provided for @questionBodySource.
+  ///
+  /// In fr, this message translates to:
+  /// **'Source :'**
+  String get questionBodySource;
+
+  /// No description provided for @questionDetailExplanation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Explication'**
+  String get questionDetailExplanation;
+
+  /// No description provided for @questionDetailSource.
+  ///
+  /// In fr, this message translates to:
+  /// **'Source :'**
+  String get questionDetailSource;
+
+  /// No description provided for @questionDetailId.
+  ///
+  /// In fr, this message translates to:
+  /// **'Identifiant'**
+  String get questionDetailId;
+
+  /// No description provided for @questionDetailFactGroup.
+  ///
+  /// In fr, this message translates to:
+  /// **'Groupe de fait :'**
+  String get questionDetailFactGroup;
+
+  /// No description provided for @questionDetailClues.
+  ///
+  /// In fr, this message translates to:
+  /// **'Indices'**
+  String get questionDetailClues;
+
+  /// No description provided for @questionDetailEstimation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Estimation'**
+  String get questionDetailEstimation;
+
+  /// No description provided for @questionBodyCluesRevealed.
+  ///
+  /// In fr, this message translates to:
+  /// **'Indices révélés'**
+  String get questionBodyCluesRevealed;
+
+  /// No description provided for @questionBodyNoCluesYet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun indice pour le moment.'**
+  String get questionBodyNoCluesYet;
+
+  /// No description provided for @questionBodyElementsToOrder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Éléments à classer'**
+  String get questionBodyElementsToOrder;
+
+  /// No description provided for @questionBodyCompleteOrder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Classement complet attendu'**
+  String get questionBodyCompleteOrder;
+
+  /// No description provided for @questionBodyExpectedAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réponse attendue'**
+  String get questionBodyExpectedAnswer;
+
+  /// No description provided for @questionBodyAcceptedRange.
+  ///
+  /// In fr, this message translates to:
+  /// **'Plage acceptée'**
+  String get questionBodyAcceptedRange;
+
+  /// No description provided for @questionBodyScoringRule.
+  ///
+  /// In fr, this message translates to:
+  /// **'Règle de score'**
+  String get questionBodyScoringRule;
+
+  /// No description provided for @questionBodyCorrectAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonne réponse'**
+  String get questionBodyCorrectAnswer;
+
+  /// No description provided for @questionBodyFirst.
+  ///
+  /// In fr, this message translates to:
+  /// **'En premier'**
+  String get questionBodyFirst;
+
+  /// No description provided for @questionBodyThen.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ensuite'**
+  String get questionBodyThen;
+
+  /// No description provided for @questionBodyCountry.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pays'**
+  String get questionBodyCountry;
+
+  /// No description provided for @questionBodyCapital.
+  ///
+  /// In fr, this message translates to:
+  /// **'Capitale'**
+  String get questionBodyCapital;
+
+  /// No description provided for @questionBodyAcceptedAnswers.
+  ///
+  /// In fr, this message translates to:
+  /// **'Réponses acceptées'**
+  String get questionBodyAcceptedAnswers;
+
+  /// No description provided for @questionBodyStatementTrueFalse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette affirmation est {isTrue, select, true {vraie} false {fausse} other {vraie}}.'**
+  String questionBodyStatementTrueFalse(String isTrue);
+
+  /// No description provided for @questionBodyFalseStatements.
+  ///
+  /// In fr, this message translates to:
+  /// **'Affirmation(s) fausse(s) :'**
+  String get questionBodyFalseStatements;
+
+  /// No description provided for @questionBodyCorrectOrder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ordre correct :'**
+  String get questionBodyCorrectOrder;
+
+  /// No description provided for @questionBodyValue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valeur'**
+  String get questionBodyValue;
+
+  /// No description provided for @questionVariationChronology.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chronologie'**
+  String get questionVariationChronology;
+
+  /// No description provided for @questionVariationClues.
+  ///
+  /// In fr, this message translates to:
+  /// **'Indices'**
+  String get questionVariationClues;
+
+  /// No description provided for @questionVariationFlag.
+  ///
+  /// In fr, this message translates to:
+  /// **'Drapeau'**
+  String get questionVariationFlag;
+
+  /// No description provided for @questionVariationCapital.
+  ///
+  /// In fr, this message translates to:
+  /// **'Capitale'**
+  String get questionVariationCapital;
+
+  /// No description provided for @questionVariationSilhouette.
+  ///
+  /// In fr, this message translates to:
+  /// **'Silhouette'**
+  String get questionVariationSilhouette;
+
+  /// No description provided for @questionVariationTrueFalse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vrai ou faux'**
+  String get questionVariationTrueFalse;
+
+  /// No description provided for @questionVariationTwoTruthsOneLie.
+  ///
+  /// In fr, this message translates to:
+  /// **'Deux vérités, un mensonge'**
+  String get questionVariationTwoTruthsOneLie;
+
+  /// No description provided for @questionVariationIdentifyFalse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Trouve la fausse affirmation'**
+  String get questionVariationIdentifyFalse;
+
+  /// No description provided for @questionVariationByProperty.
+  ///
+  /// In fr, this message translates to:
+  /// **'Par propriété'**
+  String get questionVariationByProperty;
+
+  /// No description provided for @questionVariationQuantity.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quantité'**
+  String get questionVariationQuantity;
+
+  /// No description provided for @questionVariationDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Date'**
+  String get questionVariationDate;
+
+  /// No description provided for @questionVariationDistance.
+  ///
+  /// In fr, this message translates to:
+  /// **'Distance'**
+  String get questionVariationDistance;
+
+  /// No description provided for @questionVariationPopulation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Population'**
+  String get questionVariationPopulation;
+
+  /// No description provided for @routerPageNotFound.
+  ///
+  /// In fr, this message translates to:
+  /// **'Page non trouvée'**
+  String get routerPageNotFound;
+
+  /// No description provided for @routerRouteUnknown.
+  ///
+  /// In fr, this message translates to:
+  /// **'Route inconnue'**
+  String get routerRouteUnknown;
+
+  /// No description provided for @routerBackToHome.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour à l\'accueil'**
+  String get routerBackToHome;
 }
 
 class _AppLocalizationsDelegate

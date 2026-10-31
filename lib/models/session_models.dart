@@ -1,4 +1,3 @@
-import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
@@ -17,6 +16,18 @@ const GameStatus sessionStatusNotStarted = GameStatus.pending;
 const GameStatus sessionStatusActive = GameStatus.inProgress;
 const GameStatus sessionStatusPaused = GameStatus.paused;
 const GameStatus sessionStatusCompleted = GameStatus.completed;
+
+/// Why a [SessionConfig] failed validation.
+///
+/// Kept free of any UI dependency so the models layer stays pure.
+enum SessionConfigError {
+  minPlayers,
+  maxPlayers,
+  uniqueNames,
+  noMode,
+  durationTooShort,
+  questionCountTooLow,
+}
 
 /// Quizmaster choices made on the game-setup screen.
 ///
@@ -89,39 +100,39 @@ class SessionConfig {
     );
   }
 
-  /// Validation errors, localized, ready to display.
-  List<String> validate(AppLocalizations l10n) {
-    final errors = <String>[];
+  /// Validation errors as error codes, with no UI dependency.
+  List<SessionConfigError> validate() {
+    final errors = <SessionConfigError>[];
 
     final namedPlayers = playerNames
         .map((n) => n.trim())
         .where((n) => n.isNotEmpty)
         .toList();
     if (namedPlayers.length < minPlayers) {
-      errors.add(l10n.gameSetupMinPlayersError);
+      errors.add(SessionConfigError.minPlayers);
     }
     if (namedPlayers.length > maxPlayers) {
-      errors.add(l10n.gameSetupMaxPlayersError);
+      errors.add(SessionConfigError.maxPlayers);
     }
     if (namedPlayers.toSet().length != namedPlayers.length) {
-      errors.add(l10n.gameSetupUniqueNamesError);
+      errors.add(SessionConfigError.uniqueNames);
     }
     if (modes.isEmpty) {
-      errors.add(l10n.gameSetupSelectModeError);
+      errors.add(SessionConfigError.noMode);
     }
     if (isTimed) {
       if (sessionDurationMinutes! < 1) {
-        errors.add(l10n.gameSetupDurationMinError);
+        errors.add(SessionConfigError.durationTooShort);
       }
     } else if (questionCount < 1) {
-      errors.add(l10n.gameSetupQuestionCountMinError);
+      errors.add(SessionConfigError.questionCountTooLow);
     }
 
     return errors;
   }
 
   /// Whether the config has no validation errors.
-  bool isValid(AppLocalizations l10n) => validate(l10n).isEmpty;
+  bool get isValid => validate().isEmpty;
 
   @override
   bool operator ==(Object other) =>
@@ -263,44 +274,6 @@ enum AwardResult {
   invalidatedQuestion,
   sessionNotActive,
   wrongOrder,
-}
-
-extension AwardResultMessage on AwardResult {
-  /// Legacy French message, kept for compatibility with game_screen.dart.
-  String get messageFr {
-    switch (this) {
-      case AwardResult.awarded:
-        return 'Point attribué.';
-      case AwardResult.unknownPlayer:
-        return 'Joueur inconnu.';
-      case AwardResult.alreadyAwarded:
-        return 'Ce joueur a déjà reçu un point pour cette question.';
-      case AwardResult.invalidatedQuestion:
-        return 'Question invalidée : aucun point ne peut être attribué.';
-      case AwardResult.sessionNotActive:
-        return 'La session est terminée.';
-      case AwardResult.wrongOrder:
-        return 'Le classement doit correspondre exactement à la bonne réponse.';
-    }
-  }
-
-  /// Localized message for use with AppLocalizations.
-  String message(AppLocalizations l10n) {
-    switch (this) {
-      case AwardResult.awarded:
-        return l10n.awardResultAwarded;
-      case AwardResult.unknownPlayer:
-        return l10n.awardResultUnknownPlayer;
-      case AwardResult.alreadyAwarded:
-        return l10n.awardResultAlreadyAwarded;
-      case AwardResult.invalidatedQuestion:
-        return l10n.awardResultInvalidatedQuestion;
-      case AwardResult.sessionNotActive:
-        return l10n.awardResultSessionNotActive;
-      case AwardResult.wrongOrder:
-        return l10n.awardResultWrongOrder;
-    }
-  }
 }
 
 /// Result of moving to the next question.

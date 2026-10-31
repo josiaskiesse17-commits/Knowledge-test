@@ -8,6 +8,7 @@ import 'package:knowledge_test/features/question_library/question_library_screen
 import 'package:knowledge_test/features/session_history/session_detail_screen.dart';
 import 'package:knowledge_test/features/session_history/session_history_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 
 enum AppRoute {
   home,
@@ -79,9 +80,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoute.sessionDetail.path,
       name: AppRoute.sessionDetail.name,
-      builder: (context, state) => SessionDetailScreen(
-        sessionId: state.uri.queryParameters['id'] ?? '',
-      ),
+      builder: (context, state) =>
+          SessionDetailScreen(sessionId: state.uri.queryParameters['id'] ?? ''),
     ),
     GoRoute(
       path: AppRoute.settings.path,
@@ -89,35 +89,38 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const SettingsScreen(),
     ),
   ],
-  errorBuilder: (context, state) => Scaffold(
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.error_outline,
-            size: 64,
-            color: Theme.of(context).colorScheme.error,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Page non trouvée',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            state.error?.toString() ?? 'Route inconnue',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-          ),
-          const SizedBox(height: 24),
-          FilledButton(
-            onPressed: () => context.go(AppRoute.home.path),
-            child: const Text('Retour à l\'accueil'),
-          ),
-        ],
+  errorBuilder: (context, state) {
+    final l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.routerPageNotFound,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              state.error?.toString() ?? l10n.routerRouteUnknown,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 24),
+            FilledButton(
+              onPressed: () => context.go(AppRoute.home.path),
+              child: Text(l10n.routerBackToHome),
+            ),
+          ],
+        ),
       ),
-    ),
-  ),
+    );
+  },
 );

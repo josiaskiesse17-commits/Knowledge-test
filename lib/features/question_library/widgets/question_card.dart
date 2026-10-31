@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
-import 'package:knowledge_test/features/question_library/question_filter.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
 /// One question of the library, as a tappable summary card.
@@ -19,6 +20,7 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -32,12 +34,15 @@ class QuestionCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(_modeIcon(question.mode),
-                  size: AppDimensions.iconSm, color: colorScheme.primary),
+              Icon(
+                _modeIcon(question.mode),
+                size: AppDimensions.iconSm,
+                color: colorScheme.primary,
+              ),
               const SizedBox(width: AppDimensions.spacingXs),
               Expanded(
                 child: Text(
-                  question.mode.displayNameFr,
+                  question.mode.title(l10n),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.labelMedium?.copyWith(
@@ -47,7 +52,7 @@ class QuestionCard extends StatelessWidget {
                 ),
               ),
               Text(
-                question.difficulty.displayNameFr,
+                question.difficulty.localizedName(l10n),
                 style: textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -67,19 +72,19 @@ class QuestionCard extends StatelessWidget {
             runSpacing: AppDimensions.spacingXs,
             children: [
               Text(
-                question.category.displayNameFr,
+                question.category.localizedName(l10n),
                 style: textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
               Text(
-                '•',
+                '\u2022',
                 style: textTheme.labelSmall?.copyWith(
                   color: colorScheme.outline,
                 ),
               ),
               Text(
-                question.variation.labelFr,
+                question.variation.localizedName(l10n),
                 style: textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -92,10 +97,10 @@ class QuestionCard extends StatelessWidget {
   }
 
   static IconData _modeIcon(GameMode mode) => switch (mode) {
-        GameMode.whichCameFirst => Icons.history_outlined,
-        GameMode.guessTheCountry => Icons.public_outlined,
-        GameMode.factOrCap => Icons.fact_check_outlined,
-        GameMode.putInOrder => Icons.sort_outlined,
-        GameMode.howMuch => Icons.straighten_outlined,
-      };
+    GameMode.whichCameFirst => Icons.history_outlined,
+    GameMode.guessTheCountry => Icons.public_outlined,
+    GameMode.factOrCap => Icons.fact_check_outlined,
+    GameMode.putInOrder => Icons.sort_outlined,
+    GameMode.howMuch => Icons.straighten_outlined,
+  };
 }

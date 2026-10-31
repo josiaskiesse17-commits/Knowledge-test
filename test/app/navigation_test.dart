@@ -37,7 +37,9 @@ Future<void> pumpApp(
       overrides: [
         testQuestionRepositoryOverride,
         storageServiceProvider.overrideWith((ref) async => storage),
-        localeProvider.overrideWith((ref) => LocaleNotifier(() async => storage)),
+        localeProvider.overrideWith(
+          (ref) => LocaleNotifier(() async => storage),
+        ),
         if (store != null)
           sessionStoreProvider.overrideWith((ref) async => store),
       ],

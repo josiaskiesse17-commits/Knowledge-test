@@ -7,11 +7,10 @@ import 'package:knowledge_test/features/game/game_screen.dart';
 import 'package:knowledge_test/features/game/widgets/question_body.dart';
 import 'package:knowledge_test/features/game/widgets/scoreboard.dart';
 import 'package:knowledge_test/features/game_setup/game_setup_screen.dart';
+import '../helpers/localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
-
-import '../helpers/localizations.dart';
 import '../helpers/sample_question_bank.dart';
 import '../helpers/test_question_repository.dart';
 
@@ -232,6 +231,9 @@ void main() {
       await tester.pumpWidget(
         StatefulBuilder(
           builder: (context, setState) => MaterialApp(
+            locale: kTestLocale,
+            localizationsDelegates: kTestLocalizationDelegates,
+            supportedLocales: kTestSupportedLocales,
             home: Scaffold(
               body: SingleChildScrollView(
                 child: QuestionBody(

@@ -40,11 +40,12 @@ class GameScreen extends ConsumerWidget {
     // A desktop window is wide enough to show the question next to the scores;
     // a phone or a tablet keeps the controls under the question so they stay
     // reachable with a thumb.
-    final isWide = AppBreakpoints.sizeOf(MediaQuery.sizeOf(context).width) ==
+    final isWide =
+        AppBreakpoints.sizeOf(MediaQuery.sizeOf(context).width) ==
         ScreenSize.desktop;
 
     Future<void> awardTo(String playerId) =>
-        _awardPoint(context, controller, question, playerId);
+        _awardPoint(context, controller, question, playerId, l10n);
 
     return Scaffold(
       appBar: AppBar(
@@ -76,10 +77,7 @@ class GameScreen extends ConsumerWidget {
                 controller: controller,
                 onAward: awardTo,
               )
-            : PhoneGameLayout(
-                state: state,
-                controller: controller,
-              ),
+            : PhoneGameLayout(state: state, controller: controller),
       ),
       bottomNavigationBar: isWide
           ? null
@@ -96,6 +94,7 @@ class GameScreen extends ConsumerWidget {
     GameController controller,
     BaseQuestion question,
     String playerId,
+    AppLocalizations l10n,
   ) async {
     List<String>? announcedOrder;
     if (question is PutInOrderQuestion) {
@@ -103,12 +102,15 @@ class GameScreen extends ConsumerWidget {
       if (announcedOrder == null) return;
     }
 
-    final result = controller.awardPoint(playerId, announcedOrder: announcedOrder);
+    final result = controller.awardPoint(
+      playerId,
+      announcedOrder: announcedOrder,
+    );
     if (!context.mounted) return;
     if (result != AwardResult.awarded) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result.messageFr),
+          content: Text(result.message(l10n)),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );

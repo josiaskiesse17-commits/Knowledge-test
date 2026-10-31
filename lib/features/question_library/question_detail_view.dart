@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:knowledge_test/core/constants/app_colors.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/features/game/widgets/question_body.dart';
 import 'package:knowledge_test/features/question_library/question_filter.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
 /// Read-only details of a question from the library.
@@ -17,6 +20,7 @@ class QuestionDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
@@ -24,13 +28,13 @@ class QuestionDetailView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        _MetaRow(question: question),
+        _MetaRow(question: question, l10n: l10n),
         const SizedBox(height: AppDimensions.spacingMd),
         Text(question.text, style: textTheme.titleMedium),
         const SizedBox(height: AppDimensions.spacingMd),
-        _QuestionPayload(question: question),
+        _QuestionPayload(question: question, l10n: l10n),
         const SizedBox(height: AppDimensions.spacingMd),
-        AnswerPanel(question: question),
+        AnswerPanel(question: question, l10n: l10n),
         const SizedBox(height: AppDimensions.spacingMd),
         AppCard(
           color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
@@ -39,11 +43,14 @@ class QuestionDetailView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(Icons.menu_book_outlined,
-                      size: AppDimensions.iconMd, color: colorScheme.primary),
+                  Icon(
+                    Icons.menu_book_outlined,
+                    size: AppDimensions.iconMd,
+                    color: colorScheme.primary,
+                  ),
                   const SizedBox(width: AppDimensions.spacingSm),
                   Text(
-                    'Explication',
+                    l10n.questionDetailExplanation,
                     style: textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -56,14 +63,14 @@ class QuestionDetailView extends StatelessWidget {
               Divider(color: colorScheme.outlineVariant),
               const SizedBox(height: AppDimensions.spacingSm),
               Text(
-                'Source : ${question.sourceReference}',
+                '${l10n.questionDetailSource} ${question.sourceReference}',
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: AppDimensions.spacingXs),
               Text(
-                'Identifiant : ${question.id} • Groupe de fait : ${question.factGroupId}',
+                '${l10n.questionDetailId}: ${question.id} \u2022 ${l10n.questionDetailFactGroup}: ${question.factGroupId}',
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -78,9 +85,10 @@ class QuestionDetailView extends StatelessWidget {
 
 /// Question elements: events, clues, statements, ordered items.
 class _QuestionPayload extends StatelessWidget {
-  const _QuestionPayload({required this.question});
+  const _QuestionPayload({required this.question, required this.l10n});
 
   final BaseQuestion question;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +120,7 @@ class _QuestionPayload extends StatelessWidget {
                 ),
                 title: Text(question.events[i].label),
                 subtitle: Text(
-                  _formatDate(question.events[i].date),
+                  _formatDate(question.events[i].date, l10n),
                   style: textTheme.bodySmall,
                 ),
               ),
@@ -128,7 +136,7 @@ class _QuestionPayload extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Indices',
+                    l10n.questionDetailClues,
                     style: textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -136,8 +144,9 @@ class _QuestionPayload extends StatelessWidget {
                   const SizedBox(height: AppDimensions.spacingSm),
                   for (var i = 0; i < question.clues.length; i++)
                     Padding(
-                      padding:
-                          const EdgeInsets.only(bottom: AppDimensions.spacingXs),
+                      padding: const EdgeInsets.only(
+                        bottom: AppDimensions.spacingXs,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -190,16 +199,16 @@ class _QuestionPayload extends StatelessWidget {
                   question.statements[i].isTrue
                       ? Icons.check_circle_outline
                       : Icons.cancel_outlined,
-                  color:
-                      question.statements[i].isTrue ? successColor : errorColor,
+                  color: question.statements[i].isTrue
+                      ? successColor
+                      : errorColor,
                 ),
               ),
           ],
         );
 
       case PutInOrderQuestion():
-        final items = [...question.items]
-          ..sort((a, b) => a.id.compareTo(b.id));
+        final items = [...question.items]..sort((a, b) => a.id.compareTo(b.id));
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -227,7 +236,7 @@ class _QuestionPayload extends StatelessWidget {
               const SizedBox(width: AppDimensions.spacingSm),
               Expanded(
                 child: Text(
-                  'Estimation ${question.variation.labelFr.toLowerCase()}',
+                  '${l10n.questionDetailEstimation} ${question.variation.labelFr.toLowerCase()}',
                   style: textTheme.bodyLarge,
                 ),
               ),
@@ -240,17 +249,17 @@ class _QuestionPayload extends StatelessWidget {
     }
   }
 
-  static String _formatDate(DateTime date) {
-    String two(int v) => v.toString().padLeft(2, '0');
-    return '${two(date.day)}/${two(date.month)}/${date.year}';
+  static String _formatDate(DateTime date, AppLocalizations l10n) {
+    return intl.DateFormat.yMd(l10n.localeName).format(date);
   }
 }
 
 /// Small badges with mode, category, difficulty and variation.
 class _MetaRow extends StatelessWidget {
-  const _MetaRow({required this.question});
+  const _MetaRow({required this.question, required this.l10n});
 
   final BaseQuestion question;
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -261,20 +270,17 @@ class _MetaRow extends StatelessWidget {
       runSpacing: AppDimensions.spacingXs,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
+        _Badge(label: question.mode.title(l10n), color: colorScheme.primary),
         _Badge(
-          label: question.mode.displayNameFr,
-          color: colorScheme.primary,
-        ),
-        _Badge(
-          label: question.category.displayNameFr,
+          label: question.category.localizedName(l10n),
           color: colorScheme.secondary,
         ),
         _Badge(
-          label: question.difficulty.displayNameFr,
+          label: question.difficulty.localizedName(l10n),
           color: colorScheme.tertiary,
         ),
         _Badge(
-          label: question.variation.labelFr,
+          label: question.variation.localizedName(l10n),
           color: colorScheme.outline,
         ),
       ],
@@ -301,10 +307,8 @@ class _Badge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: color,
-              fontWeight: FontWeight.w600,
-            ),
+        style: Theme.of(context).textTheme.labelSmall
+            ?.copyWith(color: color, fontWeight: FontWeight.w600),
       ),
     );
   }
