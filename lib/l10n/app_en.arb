@@ -327,7 +327,7 @@
   "questionDetailFactGroup": "Fact group",
   "questionDetailClues": "Clues",
   "questionDetailEstimation": "Estimation",
-  "questionBodyCluesRevealed": "Clues revealed",
+  "questionBodyCluesRevealed": "Clues revealed:",
   "questionBodyNoCluesYet": "No clues yet.",
   "questionBodyElementsToOrder": "Elements to order",
   "questionBodyCompleteOrder": "Complete order expected",

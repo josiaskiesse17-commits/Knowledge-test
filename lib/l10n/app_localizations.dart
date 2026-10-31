@@ -1151,7 +1151,7 @@ abstract class AppLocalizations {
   /// No description provided for @questionBodyCluesRevealed.
   ///
   /// In fr, this message translates to:
-  /// **'Indices révélés'**
+  /// **'Indices révélés :'**
   String get questionBodyCluesRevealed;
 
   /// No description provided for @questionBodyNoCluesYet.

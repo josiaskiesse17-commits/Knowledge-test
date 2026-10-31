@@ -132,8 +132,8 @@ void main() {
       await tester.tap(find.text('Facile').first);
       await tester.pumpAndSettle();
 
-      // 11 easy questions in the sample bank.
-      expect(find.textContaining('11 questions'), findsOneWidget);
+      // Filtering by difficulty updates the result count.
+      expect(find.text('35 questions'), findsOneWidget);
     });
 
     testWidgets('searching filters the list', (tester) async {

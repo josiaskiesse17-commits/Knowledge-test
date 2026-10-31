@@ -263,7 +263,7 @@ class _GuessTheCountryContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                '${l10n.questionBodyCluesRevealed}: ${round.revealedClues} / ${question.clues.length}',
+                '${l10n.questionBodyCluesRevealed} ${round.revealedClues} / ${question.clues.length}',
                 style: textTheme.labelLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,

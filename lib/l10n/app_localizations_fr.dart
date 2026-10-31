@@ -655,7 +655,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get questionDetailEstimation => 'Estimation';
 
   @override
-  String get questionBodyCluesRevealed => 'Indices révélés';
+  String get questionBodyCluesRevealed => 'Indices révélés :';
 
   @override
   String get questionBodyNoCluesYet => 'Aucun indice pour le moment.';

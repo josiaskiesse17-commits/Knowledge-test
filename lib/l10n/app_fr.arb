@@ -320,7 +320,7 @@
   "questionDetailFactGroup": "Groupe de fait :",
   "questionDetailClues": "Indices",
   "questionDetailEstimation": "Estimation",
-  "questionBodyCluesRevealed": "Indices révélés",
+  "questionBodyCluesRevealed": "Indices révélés :",
   "questionBodyNoCluesYet": "Aucun indice pour le moment.",
   "questionBodyElementsToOrder": "Éléments à classer",
   "questionBodyCompleteOrder": "Classement complet attendu",

@@ -647,7 +647,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get questionDetailEstimation => 'Estimation';
 
   @override
-  String get questionBodyCluesRevealed => 'Clues revealed';
+  String get questionBodyCluesRevealed => 'Clues revealed:';
 
   @override
   String get questionBodyNoCluesYet => 'No clues yet.';
