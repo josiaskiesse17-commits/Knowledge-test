@@ -5,6 +5,7 @@ import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
@@ -37,6 +38,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
     final rankings = GameRules.rankings(state);
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     final maxScore = rankings.isEmpty
         ? 1
@@ -44,7 +46,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Classement final'),
+        title: Text(l10n.finalRankingAppBarTitle),
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
@@ -66,7 +68,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Partie terminée',
+                        l10n.finalRankingSessionEnded,
                         style: textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -74,7 +76,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
                       ),
                       const SizedBox(height: AppDimensions.spacingXs),
                       Text(
-                        '${state.questions.length} questions jouées',
+                        l10n.finalRankingQuestionsPlayed(state.questions.length),
                         style: textTheme.bodyMedium?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
@@ -97,6 +99,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
                                 itemBuilder: (context, index) => _RankCard(
                                   entry: rankings[index],
                                   maxScore: maxScore,
+                                  l10n: l10n,
                                 ),
                               )
                             : ListView.separated(
@@ -107,6 +110,7 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
                                 itemBuilder: (context, index) => _RankCard(
                                   entry: rankings[index],
                                   maxScore: maxScore,
+                                  l10n: l10n,
                                 ),
                               ),
                       ),
@@ -121,11 +125,10 @@ class _FinalRankingScreenState extends ConsumerState<FinalRankingScreen> {
                           TextButton(
                             onPressed: () =>
                                 context.go(AppRoute.gameSetup.path),
-                            child: const Text(
-                                'Configurer une nouvelle partie'),
+                            child: Text(l10n.finalRankingNewGame),
                           ),
                           PrimaryButton(
-                            label: 'Retour à l\'accueil',
+                            label: l10n.finalRankingBackHome,
                             icon: Icons.home_outlined,
                             onPressed: () => context.go(AppRoute.home.path),
                           ),
@@ -148,7 +151,13 @@ class _RankCard extends StatelessWidget {
   final FinalRankingEntry entry;
   final int maxScore;
 
-  const _RankCard({required this.entry, required this.maxScore});
+  const _RankCard({
+    required this.entry,
+    required this.maxScore,
+    required this.l10n,
+  });
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +182,7 @@ class _RankCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
             ),
             child: Text(
-              _rankLabelOf(entry.rank),
+              l10n.finalRankingRank(entry.rank.toString()),
               style: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w700,
                 color:
@@ -188,7 +197,7 @@ class _RankCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  entry.player.name.isEmpty ? 'Joueur' : entry.player.name,
+                  entry.player.name.isEmpty ? l10n.finalRankingPlayerNameFallback : entry.player.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleMedium?.copyWith(
@@ -197,7 +206,7 @@ class _RankCard extends StatelessWidget {
                 ),
                 if (entry.isTied)
                   Text(
-                    'À égalité avec un autre joueur',
+                    l10n.finalRankingTiedNote,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodySmall?.copyWith(
@@ -209,7 +218,7 @@ class _RankCard extends StatelessWidget {
           ),
           const SizedBox(width: AppDimensions.spacingSm),
           Text(
-            '${entry.player.score} pt${entry.player.score == 1 ? '' : 's'}',
+            l10n.finalRankingScore(entry.player.score),
             style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
               color: colorScheme.primary,
@@ -218,18 +227,5 @@ class _RankCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  static String _rankLabelOf(int rank) {
-    switch (rank) {
-      case 1:
-        return '1er';
-      case 2:
-        return '2e';
-      case 3:
-        return '3e';
-      default:
-        return '${rank}e';
-    }
   }
 }

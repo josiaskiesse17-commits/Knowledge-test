@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:knowledge_test/app/router.dart';
-import 'package:knowledge_test/core/constants/app_strings.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
@@ -13,6 +12,7 @@ import 'package:knowledge_test/features/game_setup/widgets/length_section.dart';
 import 'package:knowledge_test/features/game_setup/widgets/mode_section.dart';
 import 'package:knowledge_test/features/game_setup/widgets/player_section.dart';
 import 'package:knowledge_test/features/game_setup/widgets/shuffle_section.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 
@@ -74,11 +74,13 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
     final config = ref.read(sessionSetupProvider);
     // Questions already played in the saved sessions are reused only when the
     // session cannot be filled with fresh ones.
-    final recentQuestionIds =
-        ref.read(sessionHistoryProvider.notifier).recentQuestionIds;
+    final recentQuestionIds = ref
+        .read(sessionHistoryProvider.notifier)
+        .recentQuestionIds;
+    final l10n = AppLocalizations.of(context)!;
     final errors = ref
         .read(gameControllerProvider.notifier)
-        .prepare(config, recentQuestionIds: recentQuestionIds);
+        .prepare(config, recentQuestionIds: recentQuestionIds, l10n: l10n);
 
     if (errors.isNotEmpty) {
       _showError(errors.first);
@@ -102,12 +104,13 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
   Widget build(BuildContext context) {
     final config = ref.watch(sessionSetupProvider);
     final notifier = ref.read(sessionSetupProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     _syncControllers(config.playerNames);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.gameSetupTitle),
+        title: Text(l10n.gameSetupTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go(AppRoute.home.path),
@@ -116,7 +119,8 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final contentWidth = constraints.maxWidth > AppDimensions.maxContentWidth
+            final contentWidth =
+                constraints.maxWidth > AppDimensions.maxContentWidth
                 ? AppDimensions.maxContentWidth
                 : constraints.maxWidth;
 
@@ -140,8 +144,9 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
                                 children: [
                                   Expanded(
                                     child: _sessionColumn(
-                                      scrollPadding:
-                                          const EdgeInsets.only(right: AppDimensions.spacingMd),
+                                      scrollPadding: const EdgeInsets.only(
+                                        right: AppDimensions.spacingMd,
+                                      ),
                                       children: [
                                         PlayerSection(
                                           config: config,
@@ -160,8 +165,9 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
                                   ),
                                   Expanded(
                                     child: _sessionColumn(
-                                      scrollPadding:
-                                          const EdgeInsets.only(left: AppDimensions.spacingMd),
+                                      scrollPadding: const EdgeInsets.only(
+                                        left: AppDimensions.spacingMd,
+                                      ),
                                       children: [
                                         DifficultySection(
                                           config: config,
@@ -179,7 +185,10 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
                                           config: config,
                                           notifier: notifier,
                                         ),
-                                        ErrorsSection(config: config),
+                                        ErrorsSection(
+                                          config: config,
+                                          l10n: l10n,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -215,12 +224,12 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
                                     config: config,
                                     notifier: notifier,
                                   ),
-                                  ErrorsSection(config: config),
+                                  ErrorsSection(config: config, l10n: l10n),
                                 ],
                               ),
                       ),
                       PrimaryButton(
-                        label: AppStrings.startGame,
+                        label: l10n.gameSetupStartGame,
                         icon: Icons.play_arrow,
                         onPressed: _startGame,
                       ),
@@ -240,9 +249,6 @@ class _GameSetupScreenState extends ConsumerState<GameSetupScreen> {
     required List<Widget> children,
     required EdgeInsets scrollPadding,
   }) {
-    return ListView(
-      padding: scrollPadding,
-      children: children,
-    );
+    return ListView(padding: scrollPadding, children: children);
   }
 }

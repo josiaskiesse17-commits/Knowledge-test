@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/core/constants/app_colors.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/repositories/question_repository.dart';
 import 'package:knowledge_test/services/game_engine.dart';
-import 'package:knowledge_test/services/session_history_service.dart';
 
 /// Details of one saved session: settings, final ranking and questions played.
 class SessionDetailScreen extends ConsumerWidget {
@@ -24,14 +25,17 @@ class SessionDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final history = ref.watch(sessionHistoryProvider);
     final repository = ref.watch(questionRepositoryProvider);
-    final session = history.sessions.where((s) => s.id == sessionId).firstOrNull;
+    final session = history.sessions
+        .where((s) => s.id == sessionId)
+        .firstOrNull;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Détail de la session'),
+        title: Text(l10n.sessionDetailTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          tooltip: 'Retour',
+          tooltip: l10n.sessionDetailBackTooltip,
           onPressed: () => context.pop(),
         ),
       ),
@@ -45,7 +49,10 @@ class SessionDetailScreen extends ConsumerWidget {
             ),
             child: session == null
                 ? const _MissingSession()
-                : _SessionDetailContent(session: session, repository: repository),
+                : _SessionDetailContent(
+                    session: session,
+                    repository: repository,
+                  ),
           ),
         ),
       ),
@@ -66,6 +73,7 @@ class _SessionDetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final settings = session.settings;
     final rankings = GameRules.rankingsOf(session.players);
 
@@ -77,14 +85,16 @@ class _SessionDetailContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                SessionHistoryService.formatSessionDate(session.createdAt),
+                intl.DateFormat.yMd(l10n.localeName)
+                    .add_jm()
+                    .format(session.createdAt),
                 style: textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: AppDimensions.spacingXs),
               Text(
-                _settingsSummary(settings),
+                _settingsSummary(l10n, settings),
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                 ),
@@ -94,8 +104,8 @@ class _SessionDetailContent extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacingMd),
         AppCardHeader(
-          title: 'Classement final',
-          subtitle: '${session.players.length} joueurs',
+          title: l10n.sessionDetailFinalRanking,
+          subtitle: l10n.sessionHistoryPlayers(session.players.length),
           leadingIcon: Icons.leaderboard_outlined,
         ),
         const SizedBox(height: AppDimensions.spacingSm),
@@ -120,7 +130,9 @@ class _SessionDetailContent extends StatelessWidget {
                       color: entry.rank == 1
                           ? colorScheme.primary
                           : colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.radiusSm,
+                      ),
                     ),
                     child: Text(
                       '${entry.rank}',
@@ -136,7 +148,7 @@ class _SessionDetailContent extends StatelessWidget {
                   Expanded(
                     child: Text(
                       entry.player.name.isEmpty
-                          ? 'Joueur'
+                          ? l10n.sessionHistoryPlayerFallback
                           : entry.player.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -146,7 +158,7 @@ class _SessionDetailContent extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${entry.player.score} pt${entry.player.score == 1 ? '' : 's'}',
+                    l10n.sessionHistoryScore(entry.player.score),
                     style: textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: colorScheme.primary,
@@ -160,7 +172,7 @@ class _SessionDetailContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: AppDimensions.spacingSm),
             child: Text(
-              'Aucune question enregistrée pour cette session.',
+              l10n.sessionDetailNoQuestions,
               style: textTheme.bodySmall?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -169,8 +181,8 @@ class _SessionDetailContent extends StatelessWidget {
         else ...[
           const SizedBox(height: AppDimensions.spacingMd),
           AppCardHeader(
-            title: 'Questions jouées',
-            subtitle: '${session.rounds.length} questions',
+            title: l10n.sessionDetailQuestionsPlayed,
+            subtitle: l10n.sessionDetailQuestionCount(session.rounds.length),
             leadingIcon: Icons.quiz_outlined,
           ),
           const SizedBox(height: AppDimensions.spacingSm),
@@ -181,12 +193,13 @@ class _SessionDetailContent extends StatelessWidget {
                 round: round,
                 players: session.players,
                 text: repository.getQuestionById(round.questionId)?.text ?? '',
+                l10n: l10n,
               ),
             ),
         ],
         const SizedBox(height: AppDimensions.spacingMd),
         PrimaryButton(
-          label: 'Retour à l\'historique',
+          label: l10n.sessionDetailBackToHistory,
           icon: Icons.history_outlined,
           onPressed: () => context.go(AppRoute.sessionHistory.path),
         ),
@@ -194,15 +207,19 @@ class _SessionDetailContent extends StatelessWidget {
     );
   }
 
-  static String _settingsSummary(GameSettings settings) {
+  static String _settingsSummary(AppLocalizations l10n, GameSettings settings) {
     final parts = <String>[
       if (settings.timePerQuestion > 0)
-        'Session minutée : ${settings.timePerQuestion} min'
+        l10n.sessionSettingsTimed(settings.timePerQuestion)
       else
-        '${settings.questionCount} questions',
-      'Difficulté : ${settings.difficulty}',
-      if (settings.category.isNotEmpty) 'Catégories : ${settings.category}',
-      if (settings.randomizeQuestions) 'Questions mélangées',
+        l10n.sessionSettingsQuestions(settings.questionCount),
+      l10n.sessionSettingsDifficulty(settings.difficulty),
+      if (settings.category.isNotEmpty)
+        l10n.sessionSettingsCategories(settings.category),
+      if (settings.randomizeQuestions)
+        l10n.sessionSettingsShuffled
+      else
+        l10n.sessionSettingsNotShuffled,
     ];
     return parts.join(' • ');
   }
@@ -212,11 +229,13 @@ class _PlayedQuestionRow extends StatelessWidget {
   final RoundResult round;
   final List<Player> players;
   final String text;
+  final AppLocalizations l10n;
 
   const _PlayedQuestionRow({
     required this.round,
     required this.players,
     required this.text,
+    required this.l10n,
   });
 
   @override
@@ -226,9 +245,9 @@ class _PlayedQuestionRow extends StatelessWidget {
 
     final winners = players
         .where((p) => round.awardedPlayerIds.contains(p.id))
-        .map((p) => p.name.isEmpty ? 'Joueur' : p.name)
+        .map((p) => p.name.isEmpty ? l10n.sessionHistoryPlayerFallback : p.name)
         .toList();
-    final (label, color) = _outcomeStyle(context, round.outcome);
+    final (label, color) = _outcomeStyle(round.outcome, l10n, context);
 
     return AppCard(
       padding: const EdgeInsets.symmetric(
@@ -250,7 +269,7 @@ class _PlayedQuestionRow extends StatelessWidget {
               const SizedBox(width: AppDimensions.spacingSm),
               Expanded(
                 child: Text(
-                  text.isEmpty ? 'Question retirée de la bibliothèque' : text,
+                  text.isEmpty ? l10n.sessionDetailQuestionRemoved : text,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyMedium,
@@ -273,7 +292,7 @@ class _PlayedQuestionRow extends StatelessWidget {
               ),
               if (winners.isNotEmpty)
                 Text(
-                  'Point pour ${winners.join(', ')}',
+                  l10n.sessionDetailPointsFor(winners.join(', ')),
                   style: textTheme.labelMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -287,16 +306,23 @@ class _PlayedQuestionRow extends StatelessWidget {
 
   /// Outcome label with a color taken from the active theme, so it keeps its
   /// contrast in both light and dark mode.
-  (String, Color) _outcomeStyle(BuildContext context, QuestionOutcome outcome) {
+  static (String, Color) _outcomeStyle(
+    QuestionOutcome outcome,
+    AppLocalizations l10n,
+    BuildContext context,
+  ) {
     switch (outcome) {
       case QuestionOutcome.scored:
-        return ('Notée', context.successColor);
+        return (l10n.sessionOutcomeScored, context.successColor);
       case QuestionOutcome.skipped:
-        return ('Passée', context.warningColor);
+        return (l10n.sessionOutcomeSkipped, context.warningColor);
       case QuestionOutcome.invalidated:
-        return ('Invalidée', context.errorColor);
+        return (l10n.sessionOutcomeInvalidated, context.errorColor);
       case QuestionOutcome.pending:
-        return ('Non terminée', Theme.of(context).colorScheme.onSurfaceVariant);
+        return (
+          l10n.sessionOutcomePending,
+          Theme.of(context).colorScheme.onSurfaceVariant,
+        );
     }
   }
 }
@@ -307,6 +333,7 @@ class _MissingSession extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Center(
       child: Padding(
@@ -321,12 +348,14 @@ class _MissingSession extends StatelessWidget {
             ),
             const SizedBox(height: AppDimensions.spacingMd),
             Text(
-              'Session introuvable',
-              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              l10n.sessionDetailMissingTitle,
+              style: textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: AppDimensions.spacingSm),
             Text(
-              'Cette session a peut-être été supprimée de l\'historique.',
+              l10n.sessionDetailMissingMessage,
               style: textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -334,7 +363,7 @@ class _MissingSession extends StatelessWidget {
             ),
             const SizedBox(height: AppDimensions.spacingLg),
             PrimaryButton(
-              label: 'Retour à l\'historique',
+              label: l10n.sessionDetailBackToHistory,
               icon: Icons.history_outlined,
               onPressed: () => context.go(AppRoute.sessionHistory.path),
             ),

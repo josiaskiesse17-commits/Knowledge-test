@@ -5,6 +5,7 @@ import 'package:knowledge_test/app/router.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/utils/responsive.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/services/game_engine.dart';
@@ -18,21 +19,22 @@ class SessionHistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final history = ref.watch(sessionHistoryProvider);
     final notifier = ref.read(sessionHistoryProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Historique des sessions'),
+        title: Text(l10n.sessionHistoryTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          tooltip: 'Retour',
+          tooltip: l10n.sessionHistoryBackTooltip,
           onPressed: () => context.go(AppRoute.home.path),
         ),
         actions: [
           if (history.sessions.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.delete_sweep_outlined),
-              tooltip: 'Vider l\'historique',
-              onPressed: () => _confirmClear(context, notifier),
+              tooltip: l10n.sessionHistoryClearTooltip,
+              onPressed: () => _confirmClear(context, notifier, l10n),
             ),
         ],
       ),
@@ -93,22 +95,21 @@ class SessionHistoryScreen extends ConsumerWidget {
   Future<void> _confirmClear(
     BuildContext context,
     SessionHistoryNotifier notifier,
+    AppLocalizations l10n,
   ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Vider l\'historique ?'),
-        content: const Text(
-          'Toutes les sessions enregistrées seront supprimées de cet appareil.',
-        ),
+        title: Text(l10n.sessionHistoryClearDialogTitle),
+        content: Text(l10n.sessionHistoryClearDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Annuler'),
+            child: Text(l10n.sessionHistoryClearDialogCancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Vider'),
+            child: Text(l10n.sessionHistoryClearDialogConfirm),
           ),
         ],
       ),
@@ -133,6 +134,7 @@ class _SessionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final rankings = GameRules.rankingsOf(session.players);
     final winner = rankings.isEmpty ? null : rankings.first;
 
@@ -170,10 +172,12 @@ class _SessionTile extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   winner == null
-                      ? 'Aucun joueur'
-                      : '${winner.player.name.isEmpty ? 'Joueur' : winner.player.name}'
-                            ' — ${winner.player.score} pt${winner.player.score == 1 ? '' : 's'}'
-                            ' • ${session.players.length} joueurs',
+                      ? l10n.sessionHistoryNoPlayer
+                      : '${winner.player.name.isEmpty
+                              ? l10n.sessionHistoryPlayerFallback
+                              : winner.player.name}'
+                            ' — ${l10n.sessionHistoryScore(winner.player.score)}'
+                            ' • ${l10n.sessionHistoryPlayers(session.players.length)}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodySmall?.copyWith(
@@ -186,7 +190,7 @@ class _SessionTile extends StatelessWidget {
           IconButton(
             visualDensity: VisualDensity.compact,
             icon: const Icon(Icons.delete_outline),
-            tooltip: 'Supprimer cette session',
+            tooltip: l10n.sessionHistoryDeleteSessionTooltip,
             onPressed: onDelete,
           ),
           Icon(
@@ -209,6 +213,7 @@ class _EmptyHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Center(
       child: Column(
@@ -230,16 +235,16 @@ class _EmptyHistory extends StatelessWidget {
           const SizedBox(height: AppDimensions.spacingLg),
           Text(
             failed
-                ? 'Historique indisponible'
-                : 'Aucune session enregistrée',
+                ? l10n.sessionHistoryUnavailable
+                : l10n.sessionHistoryNoSessions,
             style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppDimensions.spacingSm),
           Text(
             failed
-                ? 'Les sessions ne peuvent pas être lues sur cet appareil pour le moment.'
-                : 'Terminez une partie pour la retrouver ici, avec les scores et les questions jouées.',
+                ? l10n.sessionHistoryUnavailableMessage
+                : l10n.sessionHistoryEmptyMessage,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -258,12 +263,13 @@ class _HistoryFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.spacingMd),
         child: Text(
-          'Les sessions restent sur cet appareil : aucun compte ni connexion n\'est nécessaire.',
+          l10n.sessionHistoryFooter,
           style: textTheme.bodySmall?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),

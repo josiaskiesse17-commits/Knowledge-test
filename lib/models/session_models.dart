@@ -1,3 +1,4 @@
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 
@@ -7,12 +8,7 @@ import 'package:knowledge_test/models/questions/index.dart';
 /// * [QuestionOutcome.scored] – at least one player earned a point.
 /// * [QuestionOutcome.skipped] – skipped by the quizmaster, no points.
 /// * [QuestionOutcome.invalidated] – question withdrawn, no points.
-enum QuestionOutcome {
-  pending,
-  scored,
-  skipped,
-  invalidated,
-}
+enum QuestionOutcome { pending, scored, skipped, invalidated }
 
 /// Session status, mapped onto the existing [GameStatus] values:
 /// not started -> `pending`, active -> `inProgress`, paused -> `paused`,
@@ -49,8 +45,9 @@ class SessionConfig {
   /// True when the session is limited by duration instead of question count.
   bool get isTimed => sessionDurationMinutes != null;
 
-  Duration? get sessionDuration =>
-      sessionDurationMinutes == null ? null : Duration(minutes: sessionDurationMinutes!);
+  Duration? get sessionDuration => sessionDurationMinutes == null
+      ? null
+      : Duration(minutes: sessionDurationMinutes!);
 
   int get minPlayers => 2;
   int get maxPlayers => 8;
@@ -92,36 +89,39 @@ class SessionConfig {
     );
   }
 
-  /// Validation errors, in French, ready to display.
-  List<String> validate() {
+  /// Validation errors, localized, ready to display.
+  List<String> validate(AppLocalizations l10n) {
     final errors = <String>[];
 
-    final namedPlayers =
-        playerNames.map((n) => n.trim()).where((n) => n.isNotEmpty).toList();
+    final namedPlayers = playerNames
+        .map((n) => n.trim())
+        .where((n) => n.isNotEmpty)
+        .toList();
     if (namedPlayers.length < minPlayers) {
-      errors.add('Ajoutez au moins $minPlayers joueurs.');
+      errors.add(l10n.gameSetupMinPlayersError);
     }
     if (namedPlayers.length > maxPlayers) {
-      errors.add('Maximum $maxPlayers joueurs autorisés.');
+      errors.add(l10n.gameSetupMaxPlayersError);
     }
     if (namedPlayers.toSet().length != namedPlayers.length) {
-      errors.add('Les noms des joueurs doivent être uniques.');
+      errors.add(l10n.gameSetupUniqueNamesError);
     }
     if (modes.isEmpty) {
-      errors.add('Sélectionnez au moins un mode de jeu.');
+      errors.add(l10n.gameSetupSelectModeError);
     }
     if (isTimed) {
       if (sessionDurationMinutes! < 1) {
-        errors.add('La durée doit être d\'au moins 1 minute.');
+        errors.add(l10n.gameSetupDurationMinError);
       }
     } else if (questionCount < 1) {
-      errors.add('Le nombre de questions doit être d\'au moins 1.');
+      errors.add(l10n.gameSetupQuestionCountMinError);
     }
 
     return errors;
   }
 
-  bool get isValid => validate().isEmpty;
+  /// Whether the config has no validation errors.
+  bool isValid(AppLocalizations l10n) => validate(l10n).isEmpty;
 
   @override
   bool operator ==(Object other) =>
@@ -138,14 +138,14 @@ class SessionConfig {
 
   @override
   int get hashCode => Object.hash(
-        listHashCode(playerNames),
-        listHashCode(modes),
-        listHashCode(categories),
-        difficulty,
-        questionCount,
-        sessionDurationMinutes,
-        shuffleQuestions,
-      );
+    listHashCode(playerNames),
+    listHashCode(modes),
+    listHashCode(categories),
+    difficulty,
+    questionCount,
+    sessionDurationMinutes,
+    shuffleQuestions,
+  );
 
   @override
   String toString() =>
@@ -212,13 +212,13 @@ class RoundState {
 
   @override
   int get hashCode => Object.hash(
-        questionId,
-        outcome,
-        setHashCode(awardedPlayerIds),
-        answerRevealed,
-        explanationRevealed,
-        revealedClues,
-      );
+    questionId,
+    outcome,
+    setHashCode(awardedPlayerIds),
+    answerRevealed,
+    explanationRevealed,
+    revealedClues,
+  );
 
   @override
   String toString() =>
@@ -251,7 +251,8 @@ class FinalRankingEntry {
   int get hashCode => Object.hash(player, rank, isTied);
 
   @override
-  String toString() => 'FinalRankingEntry(${player.name}, score: ${player.score}, rank: $rank, tied: $isTied)';
+  String toString() =>
+      'FinalRankingEntry(${player.name}, score: ${player.score}, rank: $rank, tied: $isTied)';
 }
 
 /// Why an award request was refused.
@@ -265,6 +266,7 @@ enum AwardResult {
 }
 
 extension AwardResultMessage on AwardResult {
+  /// Legacy French message, kept for compatibility with game_screen.dart.
   String get messageFr {
     switch (this) {
       case AwardResult.awarded:
@@ -281,15 +283,28 @@ extension AwardResultMessage on AwardResult {
         return 'Le classement doit correspondre exactement à la bonne réponse.';
     }
   }
+
+  /// Localized message for use with AppLocalizations.
+  String message(AppLocalizations l10n) {
+    switch (this) {
+      case AwardResult.awarded:
+        return l10n.awardResultAwarded;
+      case AwardResult.unknownPlayer:
+        return l10n.awardResultUnknownPlayer;
+      case AwardResult.alreadyAwarded:
+        return l10n.awardResultAlreadyAwarded;
+      case AwardResult.invalidatedQuestion:
+        return l10n.awardResultInvalidatedQuestion;
+      case AwardResult.sessionNotActive:
+        return l10n.awardResultSessionNotActive;
+      case AwardResult.wrongOrder:
+        return l10n.awardResultWrongOrder;
+    }
+  }
 }
 
 /// Result of moving to the next question.
-enum NextResult {
-  advanced,
-  sessionCompleted,
-  roundIncomplete,
-  noMoreQuestions,
-}
+enum NextResult { advanced, sessionCompleted, roundIncomplete, noMoreQuestions }
 
 bool setEqualsByValue<T>(Set<T>? a, Set<T>? b) {
   if (identical(a, b)) return true;

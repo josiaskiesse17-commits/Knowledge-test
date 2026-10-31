@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/features/game_setup/widgets/section_title.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart'
+    show AppLocalizations;
+import 'package:knowledge_test/l10n/game_mode_localizations.dart'
+    show DifficultyLocalizations;
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
@@ -18,13 +22,14 @@ class DifficultySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SectionTitle(
-          title: 'Difficulté',
-          subtitle: 'Les questions de ce niveau sont privilégiées.',
+        SectionTitle(
+          title: l10n.gameSetupDifficultyTitle,
+          subtitle: l10n.gameSetupDifficultySubtitle,
         ),
         const SizedBox(height: AppDimensions.spacingSm),
         SegmentedButton<Difficulty>(
@@ -32,11 +37,12 @@ class DifficultySection extends StatelessWidget {
             for (final difficulty in Difficulty.values)
               ButtonSegment<Difficulty>(
                 value: difficulty,
-                label: Text(difficulty.displayNameFr),
+                label: Text(difficulty.localizedName(l10n)),
               ),
           ],
           selected: {config.difficulty},
-          onSelectionChanged: (selection) => notifier.setDifficulty(selection.first),
+          onSelectionChanged: (selection) =>
+              notifier.setDifficulty(selection.first),
         ),
         const SizedBox(height: AppDimensions.spacingLg),
       ],

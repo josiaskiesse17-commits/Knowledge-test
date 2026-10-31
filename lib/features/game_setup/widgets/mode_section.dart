@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/features/game_setup/widgets/section_title.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
@@ -11,21 +13,18 @@ class ModeSection extends StatelessWidget {
   final SessionConfig config;
   final SessionSetupNotifier notifier;
 
-  const ModeSection({
-    super.key,
-    required this.config,
-    required this.notifier,
-  });
+  const ModeSection({super.key, required this.config, required this.notifier});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SectionTitle(
-          title: 'Modes de jeu',
-          subtitle: 'Un ou plusieurs modes pour la session.',
+        SectionTitle(
+          title: l10n.gameSetupModesTitle,
+          subtitle: l10n.gameSetupModesSubtitle,
         ),
         const SizedBox(height: AppDimensions.spacingSm),
         for (final mode in GameMode.values)
@@ -33,6 +32,7 @@ class ModeSection extends StatelessWidget {
             mode: mode,
             isSelected: config.modes.contains(mode),
             onTap: () => notifier.toggleMode(mode),
+            l10n: l10n,
           ),
         const SizedBox(height: AppDimensions.spacingLg),
       ],
@@ -45,12 +45,14 @@ class ModeTile extends StatelessWidget {
   final GameMode mode;
   final bool isSelected;
   final VoidCallback onTap;
+  final AppLocalizations l10n;
 
   const ModeTile({
     super.key,
     required this.mode,
     required this.isSelected,
     required this.onTap,
+    required this.l10n,
   });
 
   @override
@@ -62,7 +64,9 @@ class ModeTile extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
       child: AppCard(
         onTap: onTap,
-        color: isSelected ? colorScheme.primaryContainer.withValues(alpha: 0.4) : null,
+        color: isSelected
+            ? colorScheme.primaryContainer.withValues(alpha: 0.4)
+            : null,
         child: Row(
           children: [
             Icon(
@@ -76,14 +80,14 @@ class ModeTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    mode.displayNameFr,
+                    mode.title(l10n),
                     style: textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: colorScheme.onSurface,
                     ),
                   ),
                   Text(
-                    mode.descriptionFr,
+                    mode.description(l10n),
                     style: textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),

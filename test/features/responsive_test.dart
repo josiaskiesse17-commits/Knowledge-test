@@ -105,7 +105,12 @@ void main() {
         await tester.pumpWidget(
           UncontrolledProviderScope(
             container: container,
-            child: const MaterialApp(home: GameScreen()),
+            child: MaterialApp(
+              locale: kTestLocale,
+              localizationsDelegates: kTestLocalizationDelegates,
+              supportedLocales: kTestSupportedLocales,
+              home: const GameScreen(),
+            ),
           ),
         );
 
@@ -224,7 +229,12 @@ void main() {
         await tester.pumpWidget(
           UncontrolledProviderScope(
             container: container,
-            child: const MaterialApp(home: GameScreen()),
+            child: MaterialApp(
+              locale: kTestLocale,
+              localizationsDelegates: kTestLocalizationDelegates,
+              supportedLocales: kTestSupportedLocales,
+              home: const GameScreen(),
+            ),
           ),
         );
         final controller = container.read(gameControllerProvider.notifier);

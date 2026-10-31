@@ -37,5 +37,227 @@
   "settingsHistoryFull": "Historique plein : les sessions les plus anciennes sont remplacées automatiquement",
   "settingsOpenHistory": "Ouvrir l'historique des sessions",
   "settingsAboutTitle": "À propos",
-  "settingsAboutDescription": "Quiz Master fonctionne hors connexion : ni compte, ni connexion internet, ni publicité. Les questions et les sessions sont stockées localement sur cet appareil."
+  "settingsAboutDescription": "Quiz Master fonctionne hors connexion : ni compte, ni connexion internet, ni publicité. Les questions et les sessions sont stockées localement sur cet appareil.",
+  "gameQuitSessionTooltip": "Quitter la session",
+  "gameResumeTooltip": "Reprendre",
+  "gamePauseTooltip": "Mettre en pause",
+  "gameQuitDialogTitle": "Quitter la session ?",
+  "gameQuitDialogContent": "La progression et les scores seront perdus.",
+  "gameQuitDialogStay": "Rester",
+  "gameQuitDialogQuit": "Quitter",
+  "gameModeWhichCameFirst": "Lequel en premier ?",
+  "gameModeGuessTheCountry": "Devine le pays",
+  "gameModeFactOrCap": "Fait ou Fake",
+  "gameModePutInOrder": "Mets dans l'ordre",
+  "gameModeHowMuch": "Combien ?",
+  "finalRankingAppBarTitle": "Classement final",
+  "finalRankingSessionEnded": "Partie terminée",
+  "finalRankingQuestionsPlayed": "{count, plural, =1 {1 question jouée} other {# questions jouées}}",
+  "@finalRankingQuestionsPlayed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "finalRankingNewGame": "Configurer une nouvelle partie",
+  "finalRankingBackHome": "Retour à l'accueil",
+  "finalRankingPlayerNameFallback": "Joueur",
+  "finalRankingTiedNote": "À égalité avec un autre joueur",
+  "finalRankingScore": "{score, plural, =1 {1 pt} other {# pts}}",
+  "@finalRankingScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "finalRankingRank": "{rank, select, 1 {1er} 2 {2e} 3 {3e} other {#e}}",
+  "@finalRankingRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionHistoryTitle": "Historique des sessions",
+  "sessionHistoryBackTooltip": "Retour",
+  "sessionHistoryClearTooltip": "Vider l'historique",
+  "sessionHistoryClearDialogTitle": "Vider l'historique ?",
+  "sessionHistoryClearDialogContent": "Toutes les sessions enregistrées seront supprimées de cet appareil.",
+  "sessionHistoryClearDialogCancel": "Annuler",
+  "sessionHistoryClearDialogConfirm": "Vider",
+  "sessionHistoryNoPlayer": "Aucun joueur",
+  "sessionHistoryPlayerFallback": "Joueur",
+  "sessionHistoryScore": "{score, plural, =1 {1 pt} other {# pts}}",
+  "@sessionHistoryScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionHistoryPlayers": "{count, plural, =1 {1 joueur} other {# joueurs}}",
+  "@sessionHistoryPlayers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionHistoryDeleteSessionTooltip": "Supprimer cette session",
+  "sessionHistoryUnavailable": "Historique indisponible",
+  "sessionHistoryNoSessions": "Aucune session enregistrée",
+  "sessionHistoryUnavailableMessage": "Les sessions ne peuvent pas être lues sur cet appareil pour le moment.",
+  "sessionHistoryEmptyMessage": "Terminez une partie pour la retrouver ici, avec les scores et les questions jouées.",
+  "sessionHistoryFooter": "Les sessions restent sur cet appareil : aucun compte ni connexion n'est nécessaire.",
+  "sessionDetailTitle": "Détail de la session",
+  "sessionDetailBackTooltip": "Retour",
+  "sessionDetailFinalRanking": "Classement final",
+  "sessionDetailNoQuestions": "Aucune question enregistrée pour cette session.",
+  "sessionDetailQuestionsPlayed": "Questions jouées",
+  "sessionDetailQuestionCount": "{count, plural, =1 {1 question} other {# questions}}",
+  "@sessionDetailQuestionCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionDetailQuestionRemoved": "Question retirée de la bibliothèque",
+  "sessionDetailPointsFor": "Point pour {winners}",
+  "@sessionDetailPointsFor": {
+    "placeholders": {
+      "winners": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionDetailMissingTitle": "Session introuvable",
+  "sessionDetailMissingMessage": "Cette session a peut-être été supprimée de l'historique.",
+  "sessionDetailBackToHistory": "Retour à l'historique",
+  "sessionOutcomeScored": "Notée",
+  "sessionOutcomeSkipped": "Passée",
+  "sessionOutcomeInvalidated": "Invalidée",
+  "sessionOutcomePending": "Non terminée",
+  "sessionSettingsTimed": "Session minutée : {minutes} min",
+  "@sessionSettingsTimed": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionSettingsQuestions": "{count, plural, =1 {1 question} other {# questions}}",
+  "@sessionSettingsQuestions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionSettingsDifficulty": "Difficulté : {difficulty}",
+  "@sessionSettingsDifficulty": {
+    "placeholders": {
+      "difficulty": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionSettingsCategories": "Catégories : {categories}",
+  "@sessionSettingsCategories": {
+    "placeholders": {
+      "categories": {
+        "type": "String"
+      }
+    }
+  },
+  "sessionSettingsShuffled": "Questions mélangées",
+  "sessionSettingsNotShuffled": "Questions dans l'ordre",
+  "sessionSettingsDurationLabel": "Durée : {minutes} min",
+  "@sessionSettingsDurationLabel": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionSettingsQuestionCountLabel": "Nombre de questions : {count}",
+  "@sessionSettingsQuestionCountLabel": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "startupErrorTitle": "Impossible de charger la banque de questions.\n{error}",
+  "@startupErrorTitle": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "startupErrorRetry": "Réessayer",
+  "gameSetupTitle": "Configuration de la partie",
+  "gameSetupPlayersTitle": "Joueurs",
+  "gameSetupPlayersSubtitle": "De 2 à 8 joueurs, sur un seul appareil.",
+  "gameSetupPlayerNameHint": "Nom du joueur",
+  "gameSetupAddPlayer": "Ajouter un joueur",
+  "gameSetupRemovePlayerTooltip": "Supprimer le joueur",
+  "gameSetupModesTitle": "Modes de jeu",
+  "gameSetupModesSubtitle": "Un ou plusieurs modes pour la session.",
+  "gameSetupDifficultyTitle": "Difficulté",
+  "gameSetupDifficultySubtitle": "Les questions de ce niveau sont privilégiées.",
+  "gameSetupCategoriesTitle": "Catégories",
+  "gameSetupCategoriesSubtitleAll": "Toutes les catégories.",
+  "gameSetupCategoriesSubtitleSelected": "{count, plural, =1 {1 catégorie sélectionnée} other {# catégories sélectionnées}}",
+  "@gameSetupCategoriesSubtitleSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameSetupLengthTitle": "Durée ou nombre de questions",
+  "gameSetupLengthSubtitleTimed": "Session minutée : la question en cours est toujours terminée.",
+  "gameSetupLengthSubtitleQuestions": "Session limitée en nombre de questions.",
+  "gameSetupLengthQuestions": "Questions",
+  "gameSetupLengthDuration": "Durée",
+  "gameSetupDecreaseDurationTooltip": "Réduire la durée",
+  "gameSetupIncreaseDurationTooltip": "Augmenter la durée",
+  "gameSetupDecreaseQuestionsTooltip": "Moins de questions",
+  "gameSetupIncreaseQuestionsTooltip": "Plus de questions",
+  "gameSetupShuffleTitle": "Mélanger les questions",
+  "gameSetupShuffleSubtitle": "Ordre aléatoire à chaque session.",
+  "gameSetupStartGame": "Commencer la partie",
+  "gameSetupMinPlayersError": "Il faut au moins 2 joueurs pour commencer",
+  "gameSetupMaxPlayersError": "Maximum 8 joueurs autorisés",
+  "gameSetupUniqueNamesError": "Les noms des joueurs doivent être uniques",
+  "gameSetupSelectModeError": "Sélectionnez au moins un mode de jeu",
+  "gameSetupDurationMinError": "La durée doit être d'au moins 1 minute",
+  "gameSetupQuestionCountMinError": "Le nombre de questions doit être d'au moins 1",
+  "difficultyEasy": "Facile",
+  "difficultyMedium": "Moyen",
+  "difficultyHard": "Difficile",
+  "categoryHistory": "Histoire",
+  "categoryScience": "Sciences",
+  "categoryGeography": "Géographie",
+  "categoryArts": "Arts et Culture",
+  "categorySports": "Sports",
+  "categoryTechnology": "Technologie",
+  "categoryNature": "Nature",
+  "categoryGeneral": "Culture Générale",
+  "categoryAfrica": "Afrique",
+  "gameModeWhichCameFirstDesc": "Comparez des événements historiques, découvertes et inventions",
+  "gameModeGuessTheCountryDesc": "Identifiez des pays à partir d'indices progressifs, drapeaux, capitales ou silhouettes",
+  "gameModeFactOrCapDesc": "Vrai/faux, deux vérités un mensonge, identifiez la fausse affirmation",
+  "gameModePutInOrderDesc": "Rangez des éléments chronologiquement ou par une propriété mesurable",
+  "gameModeHowMuchDesc": "Estimation numérique : quantités, dates, distances, populations",
+  "awardResultAwarded": "Point attribué.",
+  "awardResultUnknownPlayer": "Joueur inconnu.",
+  "awardResultAlreadyAwarded": "Ce joueur a déjà reçu un point pour cette question.",
+  "awardResultInvalidatedQuestion": "Question invalidée : aucun point ne peut être attribué.",
+  "awardResultSessionNotActive": "La session est terminée.",
+  "awardResultWrongOrder": "Le classement doit correspondre exactement à la bonne réponse."
 }

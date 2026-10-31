@@ -9,6 +9,8 @@ import 'package:knowledge_test/features/game/widgets/quizmaster_bar.dart';
 import 'package:knowledge_test/features/game/widgets/scoreboard.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
+import 'package:knowledge_test/l10n/game_mode_localizations.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
 class GameScreen extends ConsumerWidget {
@@ -18,6 +20,7 @@ class GameScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(gameControllerProvider);
     final controller = ref.read(gameControllerProvider.notifier);
+    final l10n = AppLocalizations.of(context)!;
 
     if (state.isCompleted) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -45,23 +48,23 @@ class GameScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(question.mode.displayNameFr),
+        title: Text(question.mode.title(l10n)),
         leading: IconButton(
           icon: const Icon(Icons.close),
-          tooltip: 'Quitter la session',
-          onPressed: () => _confirmQuit(context, controller),
+          tooltip: l10n.gameQuitSessionTooltip,
+          onPressed: () => _confirmQuit(context, controller, l10n),
         ),
         actions: [
           if (state.isPaused)
             IconButton(
               icon: const Icon(Icons.play_arrow),
-              tooltip: 'Reprendre',
+              tooltip: l10n.gameResumeTooltip,
               onPressed: controller.resume,
             )
           else if (state.isActive)
             IconButton(
               icon: const Icon(Icons.pause),
-              tooltip: 'Mettre en pause',
+              tooltip: l10n.gamePauseTooltip,
               onPressed: controller.pause,
             ),
         ],
@@ -112,20 +115,24 @@ class GameScreen extends ConsumerWidget {
     }
   }
 
-  Future<void> _confirmQuit(BuildContext context, GameController controller) async {
+  Future<void> _confirmQuit(
+    BuildContext context,
+    GameController controller,
+    AppLocalizations l10n,
+  ) async {
     final leave = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Quitter la session ?'),
-        content: const Text('La progression et les scores seront perdus.'),
+        title: Text(l10n.gameQuitDialogTitle),
+        content: Text(l10n.gameQuitDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: const Text('Rester'),
+            child: Text(l10n.gameQuitDialogStay),
           ),
           FilledButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: const Text('Quitter'),
+            child: Text(l10n.gameQuitDialogQuit),
           ),
         ],
       ),

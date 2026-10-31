@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
@@ -15,6 +16,7 @@ class ShuffleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -22,8 +24,8 @@ class ShuffleSection extends StatelessWidget {
         SwitchListTile(
           value: config.shuffleQuestions,
           onChanged: (_) => notifier.toggleShuffle(),
-          title: const Text('Mélanger les questions'),
-          subtitle: const Text('Ordre aléatoire à chaque session.'),
+          title: Text(l10n.gameSetupShuffleTitle),
+          subtitle: Text(l10n.gameSetupShuffleSubtitle),
           contentPadding: EdgeInsets.zero,
         ),
       ],

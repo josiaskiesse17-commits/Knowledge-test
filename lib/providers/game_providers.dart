@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/repositories/question_repository.dart';
@@ -109,8 +111,9 @@ class GameController extends StateNotifier<GameState> {
   List<String> prepare(
     SessionConfig config, {
     List<String> recentQuestionIds = const [],
+    required AppLocalizations l10n,
   }) {
-    final errors = config.validate();
+    final errors = config.validate(l10n);
     state = GameRules.buildSession(
       config: config,
       availableQuestions: _repository.getAllQuestions(),

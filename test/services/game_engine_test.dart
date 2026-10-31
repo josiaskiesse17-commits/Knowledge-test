@@ -1,12 +1,18 @@
 import 'dart:math' show Random;
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/game_models.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/services/game_engine.dart';
 
 import '../helpers/sample_question_bank.dart';
+
+/// Provides a French [AppLocalizations] instance for validation tests.
+AppLocalizations get _testL10n =>
+    AppLocalizations.delegate.load(const Locale('fr'));
 
 /// Builds a small deterministic question set used by the rule tests.
 List<BaseQuestion> _testQuestions() {
@@ -100,8 +106,8 @@ void main() {
         playerNames: const ['Solo'],
         modes: GameMode.values.toList(),
       );
-      expect(config.isValid, isFalse);
-      expect(config.validate(), isNotEmpty);
+      expect(config.isValid(_testL10n), isFalse);
+      expect(config.validate(_testL10n), isNotEmpty);
     });
 
     test('rejects a session with duplicate names', () {
@@ -109,13 +115,13 @@ void main() {
         playerNames: const ['Alice', 'Alice'],
         modes: GameMode.values.toList(),
       );
-      expect(config.validate(), isNotEmpty);
+      expect(config.validate(_testL10n), isNotEmpty);
     });
 
     test('rejects a session without any game mode', () {
       final config = const SessionConfig(playerNames: ['Alice', 'Bob']);
-      expect(config.isValid, isFalse);
-      expect(config.validate(), isNotEmpty);
+      expect(config.isValid(_testL10n), isFalse);
+      expect(config.validate(_testL10n), isNotEmpty);
     });
 
     test('rejects a timed session with no duration', () {
@@ -124,7 +130,7 @@ void main() {
         modes: GameMode.values.toList(),
         sessionDurationMinutes: 0,
       );
-      expect(config.validate(), isNotEmpty);
+      expect(config.validate(_testL10n), isNotEmpty);
     });
 
     test('a timed session starts with the full duration in seconds', () {

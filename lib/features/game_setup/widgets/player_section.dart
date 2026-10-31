@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
-import 'package:knowledge_test/core/constants/app_strings.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
@@ -28,13 +28,14 @@ class PlayerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          AppStrings.players,
+          l10n.gameSetupPlayersTitle,
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w600,
             color: colorScheme.onSurface,
@@ -42,7 +43,7 @@ class PlayerSection extends StatelessWidget {
         ),
         const SizedBox(height: AppDimensions.spacingXs),
         Text(
-          'De 2 à 8 joueurs, sur un seul appareil.',
+          l10n.gameSetupPlayersSubtitle,
           style: textTheme.bodyMedium?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
@@ -59,12 +60,13 @@ class PlayerSection extends StatelessWidget {
               onRemove: config.playerNames.length > config.minPlayers
                   ? () => onRemove(i)
                   : null,
+              l10n: l10n,
             ),
           ),
         Align(
           alignment: Alignment.centerLeft,
           child: TextButtonWidget(
-            label: AppStrings.addPlayer,
+            label: l10n.gameSetupAddPlayer,
             icon: Icons.person_add_outlined,
             onPressed: config.playerNames.length < config.maxPlayers
                 ? onAdd
@@ -84,6 +86,7 @@ class PlayerRow extends StatelessWidget {
   final FocusNode focusNode;
   final ValueChanged<String> onNameChanged;
   final VoidCallback? onRemove;
+  final AppLocalizations l10n;
 
   const PlayerRow({
     super.key,
@@ -92,6 +95,7 @@ class PlayerRow extends StatelessWidget {
     required this.focusNode,
     required this.onNameChanged,
     this.onRemove,
+    required this.l10n,
   });
 
   @override
@@ -113,9 +117,9 @@ class PlayerRow extends StatelessWidget {
               child: Text(
                 '${index + 1}',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: colorScheme.primary,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  color: colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
@@ -126,7 +130,7 @@ class PlayerRow extends StatelessWidget {
               focusNode: focusNode,
               textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
-                hintText: '${AppStrings.playerNameHint} ${index + 1}',
+                hintText: '${l10n.gameSetupPlayerNameHint} ${index + 1}',
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.spacingSm,
@@ -144,7 +148,7 @@ class PlayerRow extends StatelessWidget {
                 size: AppDimensions.iconMd,
               ),
               onPressed: onRemove,
-              tooltip: 'Supprimer le joueur',
+              tooltip: l10n.gameSetupRemovePlayerTooltip,
             ),
         ],
       ),

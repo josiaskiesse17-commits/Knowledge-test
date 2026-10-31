@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/features/game_setup/widgets/section_title.dart';
+import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/session_models.dart';
 import 'package:knowledge_test/providers/game_providers.dart';
 
@@ -19,27 +20,28 @@ class LengthSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SectionTitle(
-          title: 'Durée ou nombre de questions',
+          title: l10n.gameSetupLengthTitle,
           subtitle: config.isTimed
-              ? 'Session minutée : la question en cours est toujours terminée.'
-              : 'Session limitée en nombre de questions.',
+              ? l10n.gameSetupLengthSubtitleTimed
+              : l10n.gameSetupLengthSubtitleQuestions,
         ),
         const SizedBox(height: AppDimensions.spacingSm),
         SegmentedButton<bool>(
-          segments: const [
+          segments: [
             ButtonSegment<bool>(
               value: false,
-              label: Text('Questions'),
+              label: Text(l10n.gameSetupLengthQuestions),
             ),
             ButtonSegment<bool>(
               value: true,
-              label: Text('Durée'),
+              label: Text(l10n.gameSetupLengthDuration),
             ),
           ],
           selected: {config.isTimed},
@@ -55,7 +57,9 @@ class LengthSection extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Durée : ${config.sessionDurationMinutes} min',
+                    l10n.sessionSettingsDurationLabel(
+                      config.sessionDurationMinutes!,
+                    ),
                     style: textTheme.bodyLarge,
                   ),
                 ),
@@ -64,14 +68,14 @@ class LengthSection extends StatelessWidget {
                   onPressed: () => notifier.setSessionDurationMinutes(
                     (config.sessionDurationMinutes! - 1).clamp(1, 180),
                   ),
-                  tooltip: 'Réduire la durée',
+                  tooltip: l10n.gameSetupDecreaseDurationTooltip,
                 ),
                 IconButton(
                   icon: const Icon(Icons.add_circle_outline),
                   onPressed: () => notifier.setSessionDurationMinutes(
                     (config.sessionDurationMinutes! + 1).clamp(1, 180),
                   ),
-                  tooltip: 'Augmenter la durée',
+                  tooltip: l10n.gameSetupIncreaseDurationTooltip,
                 ),
               ],
             ),
@@ -82,7 +86,9 @@ class LengthSection extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Nombre de questions : ${config.questionCount}',
+                    l10n.sessionSettingsQuestionCountLabel(
+                      config.questionCount,
+                    ),
                     style: textTheme.bodyLarge,
                   ),
                 ),
@@ -91,14 +97,14 @@ class LengthSection extends StatelessWidget {
                   onPressed: () => notifier.setQuestionCount(
                     (config.questionCount - 1).clamp(1, 30),
                   ),
-                  tooltip: 'Moins de questions',
+                  tooltip: l10n.gameSetupDecreaseQuestionsTooltip,
                 ),
                 IconButton(
                   icon: const Icon(Icons.add_circle_outline),
                   onPressed: () => notifier.setQuestionCount(
                     (config.questionCount + 1).clamp(1, 30),
                   ),
-                  tooltip: 'Plus de questions',
+                  tooltip: l10n.gameSetupIncreaseQuestionsTooltip,
                 ),
               ],
             ),
