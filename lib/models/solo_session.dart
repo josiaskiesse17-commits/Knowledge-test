@@ -289,6 +289,8 @@ class SoloSession {
   final int streak;
   final int maxStreak;
   final GameStatus status;
+  final String id;
+  final DateTime? completedAt;
 
   const SoloSession({
     required this.config,
@@ -299,6 +301,8 @@ class SoloSession {
     this.streak = 0,
     this.maxStreak = 0,
     this.status = GameStatus.pending,
+    this.id = '',
+    this.completedAt,
   });
 
   bool get isCompleted => status == GameStatus.completed;
@@ -324,6 +328,8 @@ class SoloSession {
     int? streak,
     int? maxStreak,
     GameStatus? status,
+    String? id,
+    DateTime? completedAt,
   }) {
     final nextQuestions = questions ?? this.questions;
     final nextIndex = (currentIndex ?? this.currentIndex).clamp(
@@ -339,6 +345,8 @@ class SoloSession {
       streak: streak ?? this.streak,
       maxStreak: maxStreak ?? this.maxStreak,
       status: status ?? this.status,
+      id: id ?? this.id,
+      completedAt: completedAt ?? this.completedAt,
     );
   }
 
@@ -352,6 +360,8 @@ class SoloSession {
       'streak': streak,
       'maxStreak': maxStreak,
       'status': status.name,
+      'id': id,
+      'completedAt': completedAt?.toIso8601String(),
     };
   }
 
@@ -390,6 +400,8 @@ class SoloSession {
       status:
           enumByNameOrNull(GameStatus.values, json['status']) ??
           GameStatus.pending,
+      id: json['id'] as String? ?? '',
+      completedAt: parseDateOrNull(json['completedAt']),
     );
   }
 
@@ -405,7 +417,9 @@ class SoloSession {
           score == other.score &&
           streak == other.streak &&
           maxStreak == other.maxStreak &&
-          status == other.status;
+          status == other.status &&
+          id == other.id &&
+          completedAt == other.completedAt;
 
   @override
   int get hashCode => Object.hash(
@@ -417,9 +431,124 @@ class SoloSession {
     streak,
     maxStreak,
     status,
+    id,
+    completedAt,
   );
 
   @override
   String toString() =>
-      'SoloSession(status: $status, question: ${currentIndex + 1}/${questions.length}, score: $score, streak: $streak)';
+      'SoloSession(status: $status, question: ${currentIndex + 1}/${questions.length}, score: $score, streak: $streak, id: $id, completedAt: $completedAt)';
+}
+
+/// One answered question kept for the solo question history.
+///
+/// Used to avoid repeating recently played questions and to build the
+/// end-of-session review. Stored under its own key, separate from the session
+/// history.
+class SoloQuestionRecord {
+  final String questionId;
+  final GameMode mode;
+  final QuestionCategory category;
+  final Difficulty difficulty;
+  final bool correct;
+  final String userAnswer;
+  final String correctAnswer;
+  final DateTime answeredAt;
+
+  const SoloQuestionRecord({
+    required this.questionId,
+    required this.mode,
+    required this.category,
+    required this.difficulty,
+    required this.correct,
+    required this.userAnswer,
+    required this.correctAnswer,
+    required this.answeredAt,
+  });
+
+  SoloQuestionRecord copyWith({
+    String? questionId,
+    GameMode? mode,
+    QuestionCategory? category,
+    Difficulty? difficulty,
+    bool? correct,
+    String? userAnswer,
+    String? correctAnswer,
+    DateTime? answeredAt,
+  }) {
+    return SoloQuestionRecord(
+      questionId: questionId ?? this.questionId,
+      mode: mode ?? this.mode,
+      category: category ?? this.category,
+      difficulty: difficulty ?? this.difficulty,
+      correct: correct ?? this.correct,
+      userAnswer: userAnswer ?? this.userAnswer,
+      correctAnswer: correctAnswer ?? this.correctAnswer,
+      answeredAt: answeredAt ?? this.answeredAt,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'questionId': questionId,
+      'mode': mode.name,
+      'category': category.name,
+      'difficulty': difficulty.name,
+      'correct': correct,
+      'userAnswer': userAnswer,
+      'correctAnswer': correctAnswer,
+      'answeredAt': answeredAt.toIso8601String(),
+    };
+  }
+
+  factory SoloQuestionRecord.fromJson(Map<String, dynamic> json) {
+    return SoloQuestionRecord(
+      questionId: json['questionId'] as String? ?? '',
+      mode:
+          enumByNameOrNull(GameMode.values, json['mode']) ??
+          GameMode.whichCameFirst,
+      category:
+          enumByNameOrNull(QuestionCategory.values, json['category']) ??
+          QuestionCategory.general,
+      difficulty:
+          enumByNameOrNull(Difficulty.values, json['difficulty']) ??
+          Difficulty.medium,
+      correct: json['correct'] as bool? ?? false,
+      userAnswer: json['userAnswer'] as String? ?? '',
+      correctAnswer: json['correctAnswer'] as String? ?? '',
+      answeredAt:
+          parseDateOrNull(json['answeredAt']) ??
+          DateTime.fromMillisecondsSinceEpoch(0),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SoloQuestionRecord &&
+          runtimeType == other.runtimeType &&
+          questionId == other.questionId &&
+          mode == other.mode &&
+          category == other.category &&
+          difficulty == other.difficulty &&
+          correct == other.correct &&
+          userAnswer == other.userAnswer &&
+          correctAnswer == other.correctAnswer &&
+          answeredAt == other.answeredAt;
+
+  @override
+  int get hashCode => Object.hash(
+    questionId,
+    mode,
+    category,
+    difficulty,
+    correct,
+    userAnswer,
+    correctAnswer,
+    answeredAt,
+  );
+
+  @override
+  String toString() =>
+      'SoloQuestionRecord(questionId: $questionId, correct: $correct, answeredAt: $answeredAt)';
 }

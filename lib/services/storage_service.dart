@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart' show Locale, ThemeMode;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'dart:convert';
+
 import 'package:knowledge_test/models/game_models.dart';
+import 'package:knowledge_test/models/solo_session.dart';
 
 /// Local, offline-only storage of the finished sessions, settings, and preferences.
 ///
@@ -14,6 +17,13 @@ class StorageService {
   static const String _keyPlayerNames = 'recent_player_names';
   static const String _keyThemeMode = 'theme_mode';
   static const String _keyLocale = 'app_locale';
+
+  static const String _keySoloSessions = 'solo_sessions';
+  static const String _keySoloQuestionHistory = 'solo_question_history';
+  static const String _keySoloInProgress = 'solo_in_progress';
+
+  static const int _maxSoloSessions = 100;
+  static const int _maxSoloQuestionHistory = 2000;
 
   final SharedPreferences _prefs;
 
@@ -76,6 +86,143 @@ class StorageService {
 
   Future<void> clearAllSessions() async {
     await _prefs.remove(_keySessions);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Solo sessions (completed), separate from the quizmaster session history.
+  // ---------------------------------------------------------------------------
+
+  /// Saves [session] only when its id is not already stored.
+  ///
+  /// Idempotent by id: completing the same session again (for instance while
+  /// navigating to the summary) writes nothing a second time and returns false.
+  Future<bool> saveSoloSession(SoloSession session) async {
+    final sessions = await getSoloSessions();
+    if (sessions.any((s) => s.id == session.id)) return false;
+    sessions.add(session);
+    await _saveSoloSessions(sessions);
+    return true;
+  }
+
+  /// Completed solo sessions, most recent first, capped at [_maxSoloSessions].
+  ///
+  /// Entries that cannot be decoded are skipped; the readable ones are still
+  /// returned so a single damaged entry never hides the whole history.
+  Future<List<SoloSession>> getSoloSessions() async {
+    final jsonList = _prefs.getStringList(_keySoloSessions) ?? const <String>[];
+    final sessions = <SoloSession>[];
+    for (final json in jsonList) {
+      final session = _decodeSoloSession(json);
+      if (session != null) sessions.add(session);
+    }
+    sessions.sort((a, b) {
+      final aTime = a.completedAt?.millisecondsSinceEpoch ?? 0;
+      final bTime = b.completedAt?.millisecondsSinceEpoch ?? 0;
+      return bTime.compareTo(aTime);
+    });
+    return sessions.take(_maxSoloSessions).toList();
+  }
+
+  Future<void> deleteSoloSession(String sessionId) async {
+    final sessions = await getSoloSessions();
+    sessions.removeWhere((s) => s.id == sessionId);
+    await _saveSoloSessions(sessions);
+  }
+
+  Future<void> clearSoloSessions() async {
+    await _prefs.remove(_keySoloSessions);
+  }
+
+  Future<void> _saveSoloSessions(List<SoloSession> sessions) async {
+    sessions.sort((a, b) {
+      final aTime = a.completedAt?.millisecondsSinceEpoch ?? 0;
+      final bTime = b.completedAt?.millisecondsSinceEpoch ?? 0;
+      return bTime.compareTo(aTime);
+    });
+    sessions = sessions.take(_maxSoloSessions).toList();
+    final jsonList = sessions.map((s) => jsonEncode(s.toJson())).toList();
+    await _prefs.setStringList(_keySoloSessions, jsonList);
+  }
+
+  /// Decodes one stored solo session, returning null when the entry is
+  /// unreadable or carries no id.
+  static SoloSession? _decodeSoloSession(String json) {
+    try {
+      final decoded = jsonDecode(json);
+      if (decoded is! Map<String, dynamic>) return null;
+      final session = SoloSession.fromJson(decoded);
+      if (session.id.isEmpty) return null;
+      return session;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Solo question history (per-question results), under its own key.
+  // ---------------------------------------------------------------------------
+
+  /// Appends [record] to the solo question history, newest first, capped at
+  /// [_maxSoloQuestionHistory] records (the oldest are dropped).
+  Future<void> saveSoloQuestionHistory(SoloQuestionRecord record) async {
+    final history = await getSoloQuestionHistory();
+    history.add(record);
+    history.sort((a, b) => b.answeredAt.compareTo(a.answeredAt));
+    if (history.length > _maxSoloQuestionHistory) {
+      history.length = _maxSoloQuestionHistory;
+    }
+    await _prefs.setStringList(
+      _keySoloQuestionHistory,
+      history.map((r) => jsonEncode(r.toJson())).toList(),
+    );
+  }
+
+  /// Solo question records, most recent first. Corrupt entries are skipped.
+  Future<List<SoloQuestionRecord>> getSoloQuestionHistory() async {
+    final jsonList =
+        _prefs.getStringList(_keySoloQuestionHistory) ?? const <String>[];
+    final records = <SoloQuestionRecord>[];
+    for (final json in jsonList) {
+      try {
+        final decoded = jsonDecode(json);
+        if (decoded is! Map<String, dynamic>) continue;
+        records.add(SoloQuestionRecord.fromJson(decoded));
+      } catch (_) {}
+    }
+    records.sort((a, b) => b.answeredAt.compareTo(a.answeredAt));
+    return records;
+  }
+
+  Future<void> clearSoloQuestionHistory() async {
+    await _prefs.remove(_keySoloQuestionHistory);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Solo in-progress session, so it can be resumed later.
+  // ---------------------------------------------------------------------------
+
+  /// Saves the unfinished session, overwriting any previously stored one.
+  Future<void> saveSoloInProgress(SoloSession session) async {
+    await _prefs.setString(_keySoloInProgress, jsonEncode(session.toJson()));
+  }
+
+  /// The unfinished session, or null when none is stored.
+  ///
+  /// A corrupt value returns null instead of throwing.
+  Future<SoloSession?> getSoloInProgress() async {
+    final jsonString = _prefs.getString(_keySoloInProgress);
+    if (jsonString == null) return null;
+    try {
+      final decoded = jsonDecode(jsonString);
+      if (decoded is! Map<String, dynamic>) return null;
+      return SoloSession.fromJson(decoded);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> clearSoloInProgress() async {
+    await _prefs.remove(_keySoloInProgress);
   }
 
   /// Keeps only the [maxSessions] most recent sessions, so the history cannot
@@ -161,7 +308,9 @@ class StorageService {
       final session = GameSession.fromJson(decoded);
       // An entry with neither an id nor any content is not a session at all:
       // dropping it keeps a stray empty object out of the history.
-      if (session.id.isEmpty && session.players.isEmpty && session.rounds.isEmpty) {
+      if (session.id.isEmpty &&
+          session.players.isEmpty &&
+          session.rounds.isEmpty) {
         return null;
       }
       return session;
