@@ -446,5 +446,14 @@
   "soloBackHome": "Retour à l'accueil",
   "soloNoAnswer": "(aucune réponse)",
   "soloTrue": "Vrai",
-  "soloFalse": "Faux"
+  "soloFalse": "Faux",
+  "soloGuessTheCountryHint": "Nom du pays",
+  "soloPutInOrderInstruction": "Glissez les éléments dans l'ordre",
+  "soloPutInOrderValidate": "Valider l'ordre",
+  "soloValidate": "Valider",
+  "soloHowMuchHint": "Votre estimation",
+  "soloHowMuchInvalid": "Nombre invalide",
+  "soloHowMuchReference": "Valeur de référence",
+  "soloHowMuchAcceptedRange": "Plage acceptée",
+  "soloHowMuchTolerance": "Tolérance appliquée"
 }

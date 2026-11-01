@@ -4,10 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:knowledge_test/features/home/home_screen.dart';
 import 'package:knowledge_test/features/solo/solo_game_screen.dart';
 import 'package:knowledge_test/features/solo/solo_setup_screen.dart';
+import 'package:knowledge_test/features/solo/solo_constants.dart';
 
 import '../helpers/localizations.dart';
 import '../helpers/sample_question_bank.dart';
 import '../helpers/test_question_repository.dart';
+
+import 'package:knowledge_test/core/widgets/index.dart';
 
 import 'package:knowledge_test/models/game_enums.dart';
 import 'package:knowledge_test/models/questions/index.dart';
@@ -99,7 +102,54 @@ Future<SoloController> pumpGame(
       ),
     ),
   );
-  await tester.pumpAndSettle();
+  await tester.pumpAndSettle(const Duration(seconds: 1));
+  return controller;
+}
+
+/// Pumps the solo game screen with a session built from exactly [questions].
+/// Unlike [pumpGame], this lets the caller pick the [modes], [questionCount]
+/// and [difficulty] so a specific question is guaranteed to be shown.
+Future<SoloController> pumpGameRepo(
+  WidgetTester tester, {
+  required List<BaseQuestion> questions,
+  List<GameMode>? modes,
+  int questionCount = 1,
+  Difficulty difficulty = Difficulty.medium,
+}) async {
+  SharedPreferences.setMockInitialValues(<String, Object>{});
+
+  final storage = await StorageService.create();
+  final repo = InMemoryQuestionRepository(questions);
+  final container = ProviderContainer(
+    overrides: [
+      questionRepositoryProvider.overrideWithValue(repo),
+      storageServiceProvider.overrideWith((ref) async => storage),
+    ],
+  );
+  addTearDown(container.dispose);
+
+  final controller = container.read(soloControllerProvider.notifier);
+  await controller.start(
+    SoloConfig(
+      modes: modes ?? questions.map((q) => q.mode).toSet().toList(),
+      questionCount: questionCount,
+      difficulty: difficulty,
+      shuffle: false,
+    ),
+  );
+
+  await tester.pumpWidget(
+    UncontrolledProviderScope(
+      container: container,
+      child: MaterialApp(
+        locale: kTestLocale,
+        localizationsDelegates: kTestLocalizationDelegates,
+        supportedLocales: kTestSupportedLocales,
+        home: const SoloGameScreen(),
+      ),
+    ),
+  );
+  await tester.pumpAndSettle(const Duration(seconds: 1));
   return controller;
 }
 
@@ -114,7 +164,7 @@ void main() {
           home: const HomeScreen(),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Jouer seul(e)'), findsOneWidget);
       expect(
@@ -134,19 +184,9 @@ void main() {
 
       expect(find.textContaining('Lequel en premier'), findsOneWidget);
       expect(find.textContaining('Fait ou Fake'), findsOneWidget);
-      expect(find.textContaining('Devine le pays'), findsNothing);
-      expect(find.textContaining('Mets dans l’ordre'), findsNothing);
-      expect(find.textContaining('Combien'), findsNothing);
-    });
-
-    testWidgets('offers only supported modes', (tester) async {
-      await pumpSetup(tester);
-
-      expect(find.textContaining('Lequel en premier'), findsOneWidget);
-      expect(find.textContaining('Fait ou Fake'), findsOneWidget);
-      expect(find.textContaining('Devine le pays'), findsNothing);
-      expect(find.textContaining('Mets dans l’ordre'), findsNothing);
-      expect(find.textContaining('Combien'), findsNothing);
+      expect(find.textContaining('Devine le pays'), findsOneWidget);
+      expect(find.textContaining('Mets dans l\'ordre'), findsOneWidget);
+      expect(find.textContaining('Combien'), findsOneWidget);
     });
 
     testWidgets('shows resume card when in-progress session exists', (
@@ -184,7 +224,7 @@ void main() {
 
       // correctFirstIndex is 1 for wcf-001 (second event came first)
       await tester.tap(find.text('B').first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Bonne réponse !'), findsOneWidget);
       expect(find.text('Score : 15'), findsOneWidget);
@@ -202,7 +242,7 @@ void main() {
       await pumpGame(tester, questions: wcfQuestions);
 
       await tester.tap(find.text('A').first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Mauvaise réponse.'), findsOneWidget);
       expect(find.text('Score : 0'), findsOneWidget);
@@ -219,7 +259,7 @@ void main() {
       await pumpGame(tester, questions: wcfQuestions);
 
       await tester.tap(find.text('A').first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Votre réponse'), findsOneWidget);
       expect(find.text('Bonne réponse'), findsOneWidget);
@@ -255,7 +295,7 @@ void main() {
 
       final isTrue = focQuestions.first.statements.first.isTrue;
       await tester.tap(find.text(isTrue ? 'Vrai' : 'Faux').first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Bonne réponse !'), findsOneWidget);
       expect(find.text('Score : 15'), findsOneWidget);
@@ -271,14 +311,14 @@ void main() {
       await pumpGame(tester, questions: wcfQuestions);
 
       await tester.tap(find.byIcon(Icons.close));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Quitter la partie solo ?'), findsOneWidget);
       expect(find.text('Rester'), findsOneWidget);
       expect(find.text('Quitter'), findsOneWidget);
 
       await tester.tap(find.text('Rester'));
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.byType(SoloGameScreen), findsOneWidget);
     });
@@ -296,7 +336,7 @@ void main() {
 
         // Answer the first question (wrong: tap 'A' when correctFirstIndex is 1)
         await tester.tap(find.text('A').first);
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(seconds: 1));
 
         // Feedback should show the first question's explanation
         expect(
@@ -319,7 +359,7 @@ void main() {
         await pumpGame(tester, questions: wcfQuestions);
 
         await tester.tap(find.text('A').first);
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(seconds: 1));
 
         expect(find.textContaining('Votre réponse'), findsOneWidget);
         // Shows the event label 'A', not the raw string '0'
@@ -373,7 +413,7 @@ void main() {
             ),
           ),
         );
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(seconds: 1));
 
         // Verify we got a statement-type question (renders A/B/C labels)
         final q = controller.state.currentQuestion as FactOrCapQuestion;
@@ -384,7 +424,7 @@ void main() {
 
         // Tap the first statement card (letter 'A')
         await tester.tap(find.text('A').first);
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(seconds: 1));
 
         expect(find.textContaining('Votre réponse'), findsOneWidget);
         // Shows the chosen statement text, not the raw string '0'
@@ -403,7 +443,7 @@ void main() {
       await pumpGame(tester, questions: wcfQuestions);
 
       await tester.tap(find.text('B').first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
 
       expect(find.text('Bonne réponse !'), findsOneWidget);
       expect(find.text('Voir les résultats'), findsOneWidget);
@@ -460,5 +500,309 @@ void main() {
         isNot(saved?.answers.last.questionId),
       );
     });
+  });
+
+  group('Solo game screen - GuessTheCountry', () {
+    testWidgets('renders four multiple-choice options', (tester) async {
+      final controller = await pumpGameRepo(
+        tester,
+        questions: SampleQuestionBank.questions,
+        modes: [GameMode.guessTheCountry],
+        questionCount: 1,
+        difficulty: Difficulty.medium,
+      );
+      final question =
+          controller.state.currentQuestion as GuessTheCountryQuestion;
+      expect(find.byType(AppCard), findsNWidgets(4));
+      expect(find.text(question.targetCountry), findsOneWidget);
+    });
+
+    testWidgets('correct answer shows feedback with the country explanation', (
+      tester,
+    ) async {
+      final controller = await pumpGameRepo(
+        tester,
+        questions: SampleQuestionBank.questions,
+        modes: [GameMode.guessTheCountry],
+        questionCount: 1,
+        difficulty: Difficulty.medium,
+      );
+      final question =
+          controller.state.currentQuestion as GuessTheCountryQuestion;
+      final correctCard = find.text(question.targetCountry).first;
+      await tester.ensureVisible(correctCard);
+      await tester.tap(correctCard);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.text('Bonne réponse !'), findsOneWidget);
+      expect(find.text('Voir les résultats'), findsOneWidget);
+      expect(find.textContaining(question.explanationFr), findsOneWidget);
+    });
+
+    testWidgets('wrong answer shows feedback', (tester) async {
+      final controller = await pumpGameRepo(
+        tester,
+        questions: SampleQuestionBank.questions,
+        modes: [GameMode.guessTheCountry],
+        questionCount: 1,
+        difficulty: Difficulty.medium,
+      );
+      final question =
+          controller.state.currentQuestion as GuessTheCountryQuestion;
+      final optionTexts = <String>[];
+      for (final card in tester.widgetList<AppCard>(find.byType(AppCard))) {
+        final row = (card.child as Padding).child as Row;
+        final text =
+            (row.children.lastWhere((c) => c is Expanded) as Expanded).child
+                as Text;
+        optionTexts.add(text.data!);
+      }
+      final wrong = optionTexts.firstWhere((t) => t != question.targetCountry);
+      final wrongCard = find.text(wrong).first;
+      await tester.ensureVisible(wrongCard);
+      await tester.tap(wrongCard);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.text('Mauvaise réponse.'), findsOneWidget);
+      expect(find.text('Voir les résultats'), findsOneWidget);
+    });
+
+    testWidgets(
+      'deterministic distractors: correct country once, stable on rebuild',
+      (tester) async {
+        final controller = await pumpGameRepo(
+          tester,
+          questions: SampleQuestionBank.questions,
+          modes: [GameMode.guessTheCountry],
+          questionCount: 1,
+          difficulty: Difficulty.medium,
+        );
+        final question =
+            controller.state.currentQuestion as GuessTheCountryQuestion;
+        expect(find.byType(AppCard), findsNWidgets(4));
+        expect(find.text(question.targetCountry), findsOneWidget);
+
+        await tester.pump();
+        expect(find.byType(AppCard), findsNWidgets(4));
+        expect(find.text(question.targetCountry), findsOneWidget);
+      },
+    );
+
+    testWidgets('hard mode: text field correct answer', (tester) async {
+      final controller = await pumpGameRepo(
+        tester,
+        questions: SampleQuestionBank.questions
+            .whereType<GuessTheCountryQuestion>()
+            .toList(),
+        modes: [GameMode.guessTheCountry],
+        questionCount: 1,
+        difficulty: Difficulty.hard,
+      );
+      final question =
+          controller.state.currentQuestion as GuessTheCountryQuestion;
+      final field = find.byType(TextFormField).first;
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.enterText(field, question.targetCountry);
+      await tester.pump();
+      final validate = find.text('Valider').first;
+      await tester.ensureVisible(validate);
+      await tester.tap(validate);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.text('Bonne réponse !'), findsOneWidget);
+    });
+
+    testWidgets('hard mode: text field wrong answer', (tester) async {
+      await pumpGameRepo(
+        tester,
+        questions: SampleQuestionBank.questions
+            .whereType<GuessTheCountryQuestion>()
+            .toList(),
+        modes: [GameMode.guessTheCountry],
+        questionCount: 1,
+        difficulty: Difficulty.hard,
+      );
+      final field = find.byType(TextFormField).first;
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.enterText(field, 'Japon');
+      await tester.pump();
+      final validate = find.text('Valider').first;
+      await tester.ensureVisible(validate);
+      await tester.tap(validate);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      expect(find.text('Mauvaise réponse.'), findsOneWidget);
+    });
+  });
+
+  group('Solo game screen - PutInOrder', () {
+    final PutInOrderQuestion pio001 = SampleQuestionBank.questions
+        .whereType<PutInOrderQuestion>()
+        .firstWhere((q) => q.id == 'pio-001');
+
+    testWidgets('renders a reorderable list with drag handles', (tester) async {
+      await pumpGameRepo(tester, questions: [pio001]);
+      expect(find.byType(ListTile), findsNWidgets(5));
+      expect(find.byIcon(Icons.drag_handle), findsNWidgets(5));
+      expect(find.text('Valider l\'ordre'), findsOneWidget);
+    });
+
+    testWidgets('initial order is never the correct order', (tester) async {
+      await pumpGameRepo(tester, questions: [pio001]);
+      final correctLabels = pio001.correctOrderIds
+          .map((id) => pio001.items.firstWhere((i) => i.id == id).label)
+          .toList();
+      final displayed = tester
+          .widgetList<ListTile>(find.byType(ListTile))
+          .map((t) => (t.title as Text).data ?? '')
+          .toList();
+
+      expect(displayed, isNot(correctLabels));
+    });
+
+    testWidgets('validating the initial shuffled (wrong) order is incorrect', (
+      tester,
+    ) async {
+      await pumpGameRepo(tester, questions: [pio001]);
+      final validate = find.text('Valider l\'ordre').first;
+      await tester.ensureVisible(validate);
+      await tester.tap(validate);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Mauvaise réponse.'), findsOneWidget);
+    });
+  });
+
+  group('Solo game screen - HowMuch', () {
+    final HowMuchQuestion hm001 = SampleQuestionBank.questions
+        .whereType<HowMuchQuestion>()
+        .firstWhere((q) => q.id == 'hm-001');
+
+    PrimaryButton validateButton(WidgetTester tester) =>
+        tester.widget<PrimaryButton>(find.byType(PrimaryButton));
+
+    testWidgets('correct numeric answer', (tester) async {
+      await pumpGameRepo(tester, questions: [hm001]);
+      final field = find.byType(AppTextField).first;
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.enterText(field, hm001.answer.referenceValue.toString());
+      await tester.pump();
+      final validate = find.text('Valider').first;
+      await tester.ensureVisible(validate);
+      await tester.tap(validate);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Bonne réponse !'), findsOneWidget);
+    });
+
+    testWidgets('wrong numeric answer', (tester) async {
+      await pumpGameRepo(tester, questions: [hm001]);
+      final field = find.byType(AppTextField).first;
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.enterText(find.byType(AppTextField), '999');
+      await tester.pump();
+      final validate = find.text('Valider').first;
+      await tester.ensureVisible(validate);
+      await tester.tap(validate);
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Mauvaise réponse.'), findsOneWidget);
+    });
+
+    testWidgets('invalid input disables Validate and shows a localized error', (
+      tester,
+    ) async {
+      await pumpGameRepo(tester, questions: [hm001]);
+
+      // Validate disabled while the field is empty.
+      expect(validateButton(tester).onPressed, isNull);
+
+      // Invalid input shows a localized error and keeps Validate disabled.
+      final field = find.byType(AppTextField).first;
+      await tester.ensureVisible(field);
+      await tester.tap(field);
+      await tester.enterText(find.byType(AppTextField), 'abc');
+      await tester.pump();
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(find.text('Nombre invalide'), findsOneWidget);
+      expect(validateButton(tester).onPressed, isNull);
+
+      // Valid input enables Validate again.
+      await tester.enterText(field, hm001.answer.referenceValue.toString());
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+      expect(validateButton(tester).onPressed, isNotNull);
+    });
+  });
+
+  group('Solo game screen - all modes handled', () {
+    testWidgets('every GameMode is supported by the solo game screen', (
+      tester,
+    ) async {
+      expect(
+        GameMode.values.every((mode) => kSoloSupportedModes.contains(mode)),
+        isTrue,
+        reason: 'kSoloSupportedModes must cover every GameMode so none hits the fallback',
+      );
+
+      // Render each mode once to confirm the screen handles it without crashing.
+      for (final mode in GameMode.values) {
+        final q = SampleQuestionBank.questions.firstWhere(
+          (question) => question.mode == mode,
+        );
+        await pumpGameRepo(tester, questions: [q]);
+        expect(find.byType(SoloGameScreen), findsOneWidget);
+      }
+    });
+  });
+
+  group('Solo game screen - completed session safety', () {
+    testWidgets(
+      'opened on a completed session does not crash or show an empty screen',
+      (tester) async {
+        SharedPreferences.setMockInitialValues(<String, Object>{});
+
+        final storage = await StorageService.create();
+        final container = ProviderContainer(
+          overrides: [
+            testQuestionRepositoryOverride,
+            storageServiceProvider.overrideWith((ref) async => storage),
+          ],
+        );
+        addTearDown(container.dispose);
+
+        final controller = container.read(soloControllerProvider.notifier);
+        await controller.start(
+          SoloConfig(
+            modes: [GameMode.whichCameFirst],
+            questionCount: 1,
+            shuffle: false,
+          ),
+        );
+        // wcf-001 correctFirstIndex is 1, so answering '1' completes the session.
+        await controller.answer('1');
+        expect(controller.state.isCompleted, isTrue);
+
+        await tester.pumpWidget(
+          UncontrolledProviderScope(
+            container: container,
+            child: MaterialApp(
+              locale: kTestLocale,
+              localizationsDelegates: kTestLocalizationDelegates,
+              supportedLocales: kTestSupportedLocales,
+              home: const SoloGameScreen(),
+            ),
+          ),
+        );
+        await tester.pump();
+        await tester.pump();
+
+        // No crash, no empty screen: a loading indicator is shown while the
+        // screen redirects to /solo-summary (no stale feedback is shown).
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.text('Bonne réponse !'), findsNothing);
+        expect(find.text('Voir les résultats'), findsNothing);
+      },
+    );
   });
 }

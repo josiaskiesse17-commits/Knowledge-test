@@ -3,23 +3,26 @@ import 'package:knowledge_test/core/constants/app_dimensions.dart';
 import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
+import 'package:knowledge_test/services/solo_answer_codec.dart';
 
-/// Answering controls for the two solo-supported modes.
+import 'solo_guess_the_country_controls.dart';
+import 'solo_how_much_controls.dart';
+import 'solo_put_in_order_controls.dart';
+
+/// Answering controls for every mode supported in solo.
 ///
-/// WhichCameFirst shows two tappable event cards. FactOrCap shows either
-/// true/false buttons or tappable statements depending on the variation.
+/// Each control encodes the player's answer with [SoloAnswerCodec] and reports
+/// it through [onAnswer] as the string that [SoloRules.checkAnswer] expects.
 class SoloQuestionControls extends StatelessWidget {
   final BaseQuestion question;
-  final int? selectedIndex;
-  final void Function(int index) onIndexSelected;
-  final void Function(String text) onTextSubmitted;
+  final List<BaseQuestion> bank;
+  final void Function(String encodedAnswer) onAnswer;
 
   const SoloQuestionControls({
     super.key,
     required this.question,
-    this.selectedIndex,
-    required this.onIndexSelected,
-    required this.onTextSubmitted,
+    required this.bank,
+    required this.onAnswer,
   });
 
   @override
@@ -28,15 +31,28 @@ class SoloQuestionControls extends StatelessWidget {
       case WhichCameFirstQuestion():
         return _WhichCameFirstControls(
           question: question as WhichCameFirstQuestion,
-          selectedIndex: selectedIndex,
-          onIndexSelected: onIndexSelected,
+          onAnswer: onAnswer,
         );
       case FactOrCapQuestion():
         return _FactOrCapControls(
           question: question as FactOrCapQuestion,
-          selectedIndex: selectedIndex,
-          onIndexSelected: onIndexSelected,
-          onTextSubmitted: onTextSubmitted,
+          onAnswer: onAnswer,
+        );
+      case GuessTheCountryQuestion():
+        return SoloGuessTheCountryControls(
+          question: question as GuessTheCountryQuestion,
+          bank: bank,
+          onAnswer: onAnswer,
+        );
+      case PutInOrderQuestion():
+        return SoloPutInOrderControls(
+          question: question as PutInOrderQuestion,
+          onAnswer: onAnswer,
+        );
+      case HowMuchQuestion():
+        return SoloHowMuchControls(
+          question: question as HowMuchQuestion,
+          onAnswer: onAnswer,
         );
       default:
         return _UnsupportedControls(question);
@@ -47,13 +63,11 @@ class SoloQuestionControls extends StatelessWidget {
 /// Two tappable event cards for WhichCameFirst.
 class _WhichCameFirstControls extends StatelessWidget {
   final WhichCameFirstQuestion question;
-  final int? selectedIndex;
-  final void Function(int index) onIndexSelected;
+  final void Function(String encodedAnswer) onAnswer;
 
   const _WhichCameFirstControls({
     required this.question,
-    this.selectedIndex,
-    required this.onIndexSelected,
+    required this.onAnswer,
   });
 
   @override
@@ -67,8 +81,7 @@ class _WhichCameFirstControls extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
             child: _SelectableCard(
-              onTap: () => onIndexSelected(i),
-              isSelected: selectedIndex == i,
+              onTap: () => onAnswer(SoloAnswerCodec.encodeWhichCameFirst(i)),
               colorScheme: colorScheme,
               child: Row(
                 children: [
@@ -97,12 +110,6 @@ class _WhichCameFirstControls extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
-                  if (selectedIndex == i)
-                    Icon(
-                      Icons.check_circle,
-                      color: colorScheme.primary,
-                      size: AppDimensions.iconMd,
-                    ),
                 ],
               ),
             ),
@@ -115,16 +122,9 @@ class _WhichCameFirstControls extends StatelessWidget {
 /// True/false buttons or tappable statements for FactOrCap.
 class _FactOrCapControls extends StatelessWidget {
   final FactOrCapQuestion question;
-  final int? selectedIndex;
-  final void Function(int index) onIndexSelected;
-  final void Function(String text) onTextSubmitted;
+  final void Function(String encodedAnswer) onAnswer;
 
-  const _FactOrCapControls({
-    required this.question,
-    this.selectedIndex,
-    required this.onIndexSelected,
-    required this.onTextSubmitted,
-  });
+  const _FactOrCapControls({required this.question, required this.onAnswer});
 
   bool get _isTrueFalse =>
       question.lieStatementIndex == null &&
@@ -152,18 +152,17 @@ class _FactOrCapControls extends StatelessWidget {
             children: [
               Expanded(
                 child: _SelectableCard(
-                  onTap: () => onTextSubmitted(isTrue ? 'true' : 'false'),
-                  isSelected: selectedIndex == (isTrue ? 1 : 0),
+                  onTap: () => onAnswer(
+                    SoloAnswerCodec.encodeFactOrCapTrueFalse(isTrue),
+                  ),
                   colorScheme: colorScheme,
                   child: Padding(
                     padding: const EdgeInsets.all(AppDimensions.spacingMd),
                     child: Row(
                       children: [
                         Icon(
-                          selectedIndex == (isTrue ? 1 : 0)
-                              ? Icons.check_circle
-                              : Icons.circle_outlined,
-                          color: selectedIndex == (isTrue ? 1 : 0)
+                          isTrue ? Icons.check_circle : Icons.circle_outlined,
+                          color: isTrue
                               ? colorScheme.primary
                               : colorScheme.outline,
                           size: AppDimensions.iconMd,
@@ -183,18 +182,17 @@ class _FactOrCapControls extends StatelessWidget {
               const SizedBox(width: AppDimensions.spacingSm),
               Expanded(
                 child: _SelectableCard(
-                  onTap: () => onTextSubmitted(isTrue ? 'false' : 'true'),
-                  isSelected: selectedIndex == (isTrue ? 0 : 1),
+                  onTap: () => onAnswer(
+                    SoloAnswerCodec.encodeFactOrCapTrueFalse(!isTrue),
+                  ),
                   colorScheme: colorScheme,
                   child: Padding(
                     padding: const EdgeInsets.all(AppDimensions.spacingMd),
                     child: Row(
                       children: [
                         Icon(
-                          selectedIndex == (isTrue ? 0 : 1)
-                              ? Icons.check_circle
-                              : Icons.circle_outlined,
-                          color: selectedIndex == (isTrue ? 0 : 1)
+                          !isTrue ? Icons.check_circle : Icons.circle_outlined,
+                          color: !isTrue
                               ? colorScheme.primary
                               : colorScheme.outline,
                           size: AppDimensions.iconMd,
@@ -225,8 +223,8 @@ class _FactOrCapControls extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: AppDimensions.spacingSm),
             child: _SelectableCard(
-              onTap: () => onIndexSelected(i),
-              isSelected: selectedIndex == i,
+              onTap: () =>
+                  onAnswer(SoloAnswerCodec.encodeFactOrCapStatement(i)),
               colorScheme: colorScheme,
               child: Row(
                 children: [
@@ -255,12 +253,6 @@ class _FactOrCapControls extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
-                  if (selectedIndex == i)
-                    Icon(
-                      Icons.check_circle,
-                      color: colorScheme.primary,
-                      size: AppDimensions.iconMd,
-                    ),
                 ],
               ),
             ),
@@ -270,33 +262,28 @@ class _FactOrCapControls extends StatelessWidget {
   }
 }
 
-/// A tappable card with a selection indicator.
+/// A tappable card.
 class _SelectableCard extends StatelessWidget {
   final VoidCallback onTap;
-  final bool isSelected;
   final ColorScheme colorScheme;
   final Widget child;
 
   const _SelectableCard({
     required this.onTap,
-    required this.isSelected,
     required this.colorScheme,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AppCard(
-      onTap: onTap,
-      color: isSelected
-          ? colorScheme.primaryContainer.withValues(alpha: 0.5)
-          : null,
-      child: child,
-    );
+    return AppCard(onTap: onTap, child: child);
   }
 }
 
 /// Placeholder for modes not yet supported in solo.
+///
+/// Kept as a safety net: every mode in [GameMode] is handled above, so this
+/// branch is only reachable for a future mode that has not been wired yet.
 class _UnsupportedControls extends StatelessWidget {
   final BaseQuestion question;
 

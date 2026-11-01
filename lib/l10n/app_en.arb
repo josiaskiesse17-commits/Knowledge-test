@@ -453,5 +453,14 @@
   "soloBackHome": "Back to home",
   "soloNoAnswer": "(no answer)",
   "soloTrue": "True",
-  "soloFalse": "False"
+  "soloFalse": "False",
+  "soloGuessTheCountryHint": "Country name",
+  "soloPutInOrderInstruction": "Drag items into order",
+  "soloPutInOrderValidate": "Validate order",
+  "soloValidate": "Validate",
+  "soloHowMuchHint": "Your estimate",
+  "soloHowMuchInvalid": "Invalid number",
+  "soloHowMuchReference": "Reference value",
+  "soloHowMuchAcceptedRange": "Accepted range",
+  "soloHowMuchTolerance": "Tolerance applied"
 }

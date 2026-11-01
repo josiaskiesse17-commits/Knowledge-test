@@ -32,6 +32,9 @@ class SoloFeedbackCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final isCorrect = answer.isCorrect;
+    final howMuch = question is HowMuchQuestion
+        ? (question as HowMuchQuestion)
+        : null;
 
     final describedAnswer = SoloAnswerCodec.describe(
       question,
@@ -96,6 +99,32 @@ class SoloFeedbackCard extends StatelessWidget {
                 textTheme: textTheme,
                 colorScheme: colorScheme,
               ),
+            ],
+            if (howMuch != null) ...[
+              _InfoRow(
+                title: l10n.soloHowMuchReference,
+                value: checkResult.canonicalAnswer,
+                textTheme: textTheme,
+                colorScheme: colorScheme,
+              ),
+              if (howMuch.answer.acceptedMin != null &&
+                  howMuch.answer.acceptedMax != null)
+                _InfoRow(
+                  title: l10n.soloHowMuchAcceptedRange,
+                  value:
+                      '${howMuch.answer.acceptedMin} – '
+                      '${howMuch.answer.acceptedMax} '
+                      '${howMuch.answer.unitFr ?? howMuch.answer.unit}',
+                  textTheme: textTheme,
+                  colorScheme: colorScheme,
+                )
+              else
+                _InfoRow(
+                  title: l10n.soloHowMuchTolerance,
+                  value: '±${_tolerancePercent(howMuch.difficulty)}%',
+                  textTheme: textTheme,
+                  colorScheme: colorScheme,
+                ),
             ],
             const SizedBox(height: AppDimensions.spacingMd),
             Row(
@@ -181,3 +210,9 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
+
+int _tolerancePercent(Difficulty difficulty) => switch (difficulty) {
+  Difficulty.easy => 20,
+  Difficulty.medium => 10,
+  Difficulty.hard => 5,
+};

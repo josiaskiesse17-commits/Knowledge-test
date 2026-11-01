@@ -1807,6 +1807,60 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Faux'**
   String get soloFalse;
+
+  /// No description provided for @soloGuessTheCountryHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom du pays'**
+  String get soloGuessTheCountryHint;
+
+  /// No description provided for @soloPutInOrderInstruction.
+  ///
+  /// In fr, this message translates to:
+  /// **'Glissez les éléments dans l\'ordre'**
+  String get soloPutInOrderInstruction;
+
+  /// No description provided for @soloPutInOrderValidate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valider l\'ordre'**
+  String get soloPutInOrderValidate;
+
+  /// No description provided for @soloValidate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valider'**
+  String get soloValidate;
+
+  /// No description provided for @soloHowMuchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre estimation'**
+  String get soloHowMuchHint;
+
+  /// No description provided for @soloHowMuchInvalid.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nombre invalide'**
+  String get soloHowMuchInvalid;
+
+  /// No description provided for @soloHowMuchReference.
+  ///
+  /// In fr, this message translates to:
+  /// **'Valeur de référence'**
+  String get soloHowMuchReference;
+
+  /// No description provided for @soloHowMuchAcceptedRange.
+  ///
+  /// In fr, this message translates to:
+  /// **'Plage acceptée'**
+  String get soloHowMuchAcceptedRange;
+
+  /// No description provided for @soloHowMuchTolerance.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tolérance appliquée'**
+  String get soloHowMuchTolerance;
 }
 
 class _AppLocalizationsDelegate

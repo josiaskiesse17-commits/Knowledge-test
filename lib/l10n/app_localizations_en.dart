@@ -1035,4 +1035,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soloFalse => 'False';
+
+  @override
+  String get soloGuessTheCountryHint => 'Country name';
+
+  @override
+  String get soloPutInOrderInstruction => 'Drag items into order';
+
+  @override
+  String get soloPutInOrderValidate => 'Validate order';
+
+  @override
+  String get soloValidate => 'Validate';
+
+  @override
+  String get soloHowMuchHint => 'Your estimate';
+
+  @override
+  String get soloHowMuchInvalid => 'Invalid number';
+
+  @override
+  String get soloHowMuchReference => 'Reference value';
+
+  @override
+  String get soloHowMuchAcceptedRange => 'Accepted range';
+
+  @override
+  String get soloHowMuchTolerance => 'Tolerance applied';
 }
