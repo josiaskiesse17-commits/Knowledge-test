@@ -1039,4 +1039,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get soloNoAnswer => '(aucune réponse)';
+
+  @override
+  String get soloTrue => 'Vrai';
+
+  @override
+  String get soloFalse => 'Faux';
 }

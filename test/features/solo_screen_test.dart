@@ -12,8 +12,10 @@ import '../helpers/test_question_repository.dart';
 import 'package:knowledge_test/models/game_enums.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/solo_session.dart';
+import 'package:knowledge_test/providers/game_providers.dart';
 import 'package:knowledge_test/providers/session_history_providers.dart';
 import 'package:knowledge_test/providers/solo_providers.dart';
+import 'package:knowledge_test/repositories/in_memory_question_repository.dart';
 import 'package:knowledge_test/services/storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,7 +62,8 @@ Future<void> pumpSetup(
 }
 
 /// Pumps the solo game screen with an already-started session.
-Future<void> pumpGame(
+/// Returns the controller so tests can drive answers programmatically.
+Future<SoloController> pumpGame(
   WidgetTester tester, {
   required List<BaseQuestion> questions,
   bool shuffle = false,
@@ -97,6 +100,7 @@ Future<void> pumpGame(
     ),
   );
   await tester.pumpAndSettle();
+  return controller;
 }
 
 void main() {
@@ -277,6 +281,184 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(SoloGameScreen), findsOneWidget);
+    });
+  });
+
+  group('Solo game screen - feedback uses answered question', () {
+    testWidgets(
+      'shows the first question\'s explanation, not the second\'s, after answering',
+      (tester) async {
+        final wcfQuestions = SampleQuestionBank.questions
+            .whereType<WhichCameFirstQuestion>()
+            .take(2)
+            .toList();
+        await pumpGame(tester, questions: wcfQuestions);
+
+        // Answer the first question (wrong: tap 'A' when correctFirstIndex is 1)
+        await tester.tap(find.text('A').first);
+        await tester.pumpAndSettle();
+
+        // Feedback should show the first question's explanation
+        expect(
+          find.textContaining('Tereshkova est devenue la première femme'),
+          findsOneWidget,
+        );
+        // And must NOT show the second question's explanation
+        expect(find.textContaining('deuxième question'), findsNothing);
+        expect(find.text('Question suivante'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'wrong WhichCameFirst shows the chosen event label, not a raw index',
+      (tester) async {
+        final wcfQuestions = SampleQuestionBank.questions
+            .whereType<WhichCameFirstQuestion>()
+            .take(1)
+            .toList();
+        await pumpGame(tester, questions: wcfQuestions);
+
+        await tester.tap(find.text('A').first);
+        await tester.pumpAndSettle();
+
+        expect(find.textContaining('Votre réponse'), findsOneWidget);
+        // Shows the event label 'A', not the raw string '0'
+        expect(
+          find.textContaining('Premier pas de l\'Homme sur la Lune'),
+          findsOneWidget,
+        );
+        expect(find.text('0'), findsNothing);
+      },
+    );
+
+    testWidgets(
+      'wrong FactOrCap shows the chosen statement text, not a raw index',
+      (tester) async {
+        SharedPreferences.setMockInitialValues(<String, Object>{});
+
+        final statementQuestions = SampleQuestionBank.questions
+            .whereType<FactOrCapQuestion>()
+            .where(
+              (q) =>
+                  q.lieStatementIndex != null || q.falseStatementIndex != null,
+            )
+            .toList();
+        final statementRepo = InMemoryQuestionRepository(statementQuestions);
+        final storage = await StorageService.create();
+        final container = ProviderContainer(
+          overrides: [
+            questionRepositoryProvider.overrideWithValue(statementRepo),
+            storageServiceProvider.overrideWith((ref) async => storage),
+          ],
+        );
+        addTearDown(container.dispose);
+
+        final controller = container.read(soloControllerProvider.notifier);
+        await controller.start(
+          SoloConfig(
+            modes: [GameMode.factOrCap],
+            questionCount: 1,
+            shuffle: false,
+          ),
+        );
+
+        await tester.pumpWidget(
+          UncontrolledProviderScope(
+            container: container,
+            child: MaterialApp(
+              locale: kTestLocale,
+              localizationsDelegates: kTestLocalizationDelegates,
+              supportedLocales: kTestSupportedLocales,
+              home: const SoloGameScreen(),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Verify we got a statement-type question (renders A/B/C labels)
+        final q = controller.state.currentQuestion as FactOrCapQuestion;
+        expect(
+          q.lieStatementIndex != null || q.falseStatementIndex != null,
+          isTrue,
+        );
+
+        // Tap the first statement card (letter 'A')
+        await tester.tap(find.text('A').first);
+        await tester.pumpAndSettle();
+
+        expect(find.textContaining('Votre réponse'), findsOneWidget);
+        // Shows the chosen statement text, not the raw string '0'
+        final statementText = statementQuestions.first.statements.first.text;
+        expect(find.textContaining(statementText), findsOneWidget);
+      },
+    );
+
+    testWidgets('last question shows feedback with correct explanation', (
+      tester,
+    ) async {
+      final wcfQuestions = SampleQuestionBank.questions
+          .whereType<WhichCameFirstQuestion>()
+          .take(1)
+          .toList();
+      await pumpGame(tester, questions: wcfQuestions);
+
+      await tester.tap(find.text('B').first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Bonne réponse !'), findsOneWidget);
+      expect(find.text('Voir les résultats'), findsOneWidget);
+      expect(
+        find.textContaining('Tereshkova est devenue la première femme'),
+        findsOneWidget,
+      );
+    });
+  });
+
+  group('Solo game screen - resume after feedback', () {
+    testWidgets('resume goes to next unanswered question, not stale feedback', (
+      tester,
+    ) async {
+      SharedPreferences.setMockInitialValues(<String, Object>{});
+
+      final storage = await StorageService.create();
+      final container = ProviderContainer(
+        overrides: [
+          testQuestionRepositoryOverride,
+          storageServiceProvider.overrideWith((ref) async => storage),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      // Start session and answer the first question
+      final controller = container.read(soloControllerProvider.notifier);
+      await controller.start(
+        SoloConfig(
+          modes: [GameMode.whichCameFirst],
+          questionCount: 2,
+          shuffle: false,
+        ),
+      );
+      await controller.answer(
+        '0',
+      ); // wrong for wcf-001 (correctFirstIndex is 1)
+
+      // Verify the in-progress session was saved with currentIndex advanced
+      final saved = await storage.getSoloInProgress();
+      expect(saved, isNotNull);
+      expect(saved?.currentIndex, 1);
+      expect(saved?.status, GameStatus.inProgress);
+
+      // Simulate app restart: resume the session
+      await controller.resume();
+      expect(controller.state.currentIndex, 1);
+      expect(controller.state.status, GameStatus.inProgress);
+      expect(controller.state.currentQuestion, isNotNull);
+      // The resumed question must be the next unanswered one (index 1),
+      // not the one we just answered (index 0).
+      expect(
+        controller.state.currentQuestion?.id,
+        isNot(saved?.answers.last.questionId),
+      );
     });
   });
 }

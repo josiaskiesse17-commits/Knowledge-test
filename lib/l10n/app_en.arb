@@ -451,5 +451,7 @@
   "soloQuitDialogQuit": "Quit",
   "soloSummaryTitle": "Your solo results",
   "soloBackHome": "Back to home",
-  "soloNoAnswer": "(no answer)"
+  "soloNoAnswer": "(no answer)",
+  "soloTrue": "True",
+  "soloFalse": "False"
 }

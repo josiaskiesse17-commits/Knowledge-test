@@ -1029,4 +1029,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soloNoAnswer => '(no answer)';
+
+  @override
+  String get soloTrue => 'True';
+
+  @override
+  String get soloFalse => 'False';
 }

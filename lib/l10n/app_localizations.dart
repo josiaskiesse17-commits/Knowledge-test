@@ -1795,6 +1795,18 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'(aucune réponse)'**
   String get soloNoAnswer;
+
+  /// No description provided for @soloTrue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vrai'**
+  String get soloTrue;
+
+  /// No description provided for @soloFalse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Faux'**
+  String get soloFalse;
 }
 
 class _AppLocalizationsDelegate

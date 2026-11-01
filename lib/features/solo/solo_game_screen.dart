@@ -8,6 +8,7 @@ import 'package:knowledge_test/features/solo/widgets/solo_feedback_card.dart';
 import 'package:knowledge_test/features/solo/widgets/solo_question_controls.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/l10n/game_mode_localizations.dart';
+import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/providers/solo_providers.dart';
 import 'package:knowledge_test/services/solo_answer_codec.dart';
 import 'package:knowledge_test/services/solo_rules.dart';
@@ -33,7 +34,7 @@ class _SoloGameScreenState extends ConsumerState<SoloGameScreen> {
     final state = ref.watch(soloControllerProvider);
     final l10n = AppLocalizations.of(context)!;
 
-    if (state.isCompleted) {
+    if (state.isCompleted && !_showingFeedback) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (GoRouter.maybeOf(context) == null) return;
         context.go(AppRoute.soloSummary.path);
@@ -55,9 +56,21 @@ class _SoloGameScreenState extends ConsumerState<SoloGameScreen> {
       );
     }
 
-    final displayQuestion = state.isCompleted
-        ? state.questions.last
-        : question!;
+    // Resolve the feedback question from the last answered question, never
+    // from currentIndex (recordAnswer advances it immediately, which would
+    // show the next question's explanation as a spoiler).
+    BaseQuestion? feedbackQuestion;
+    if (state.answers.isNotEmpty) {
+      for (final q in state.questions) {
+        if (q.id == state.answers.last.questionId) {
+          feedbackQuestion = q;
+          break;
+        }
+      }
+    }
+
+    final isFeedback = _showingFeedback && feedbackQuestion != null;
+    final displayQuestion = isFeedback ? feedbackQuestion : question!;
 
     return PopScope(
       canPop: false,
@@ -118,7 +131,7 @@ class _SoloGameScreenState extends ConsumerState<SoloGameScreen> {
                         ],
                       ),
                       const SizedBox(height: AppDimensions.spacingMd),
-                      if (_showingFeedback || state.isCompleted) ...[
+                      if (isFeedback) ...[
                         SoloFeedbackCard(
                           question: displayQuestion,
                           answer: state.answers.last,

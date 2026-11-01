@@ -444,5 +444,7 @@
   "soloQuitDialogQuit": "Quitter",
   "soloSummaryTitle": "Résultats de votre partie solo",
   "soloBackHome": "Retour à l'accueil",
-  "soloNoAnswer": "(aucune réponse)"
+  "soloNoAnswer": "(aucune réponse)",
+  "soloTrue": "Vrai",
+  "soloFalse": "Faux"
 }

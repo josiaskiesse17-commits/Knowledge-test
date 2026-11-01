@@ -143,4 +143,81 @@ void main() {
       expect(SoloAnswerCodec.decode(hm, '99.5'), 99.5);
     });
   });
+
+  group('SoloAnswerCodec describe', () {
+    List<BaseQuestion> questions = [];
+
+    setUp(() {
+      questions = SampleQuestionBank.questions;
+    });
+
+    test('WhichCameFirst returns the chosen event label', () {
+      final wcf = questions.whereType<WhichCameFirstQuestion>().first;
+      expect(SoloAnswerCodec.describe(wcf, '0'), wcf.events[0].label);
+      expect(SoloAnswerCodec.describe(wcf, '1'), wcf.events[1].label);
+      // Out-of-range index falls back to the raw string
+      expect(SoloAnswerCodec.describe(wcf, '99'), '99');
+    });
+
+    test('GuessTheCountry returns the typed country', () {
+      final gtc = questions.whereType<GuessTheCountryQuestion>().first;
+      expect(SoloAnswerCodec.describe(gtc, 'Japon'), 'Japon');
+      expect(SoloAnswerCodec.describe(gtc, ''), '(aucune r\u00e9ponse)');
+    });
+
+    test('FactOrCap true/false returns true/false', () {
+      final focQuestions = questions.whereType<FactOrCapQuestion>().toList();
+      final trueFalse = focQuestions.firstWhere(
+        (q) => q.lieStatementIndex == null && q.falseStatementIndex == null,
+        orElse: () => focQuestions.first,
+      );
+      expect(SoloAnswerCodec.describe(trueFalse, 'true'), 'true');
+      expect(SoloAnswerCodec.describe(trueFalse, 'false'), 'false');
+    });
+
+    test('FactOrCap statement returns the chosen statement text', () {
+      final focQuestions = questions
+          .whereType<FactOrCapQuestion>()
+          .where(
+            (q) => q.lieStatementIndex != null || q.falseStatementIndex != null,
+          )
+          .toList();
+      expect(focQuestions, isNotEmpty);
+      final foc = focQuestions.first;
+      final index = foc.lieStatementIndex ?? foc.falseStatementIndex ?? 0;
+      expect(
+        SoloAnswerCodec.describe(foc, index.toString()),
+        foc.statements[index].text,
+      );
+    });
+
+    test('PutInOrder returns ordered item labels joined', () {
+      final pio = questions.whereType<PutInOrderQuestion>().first;
+      final encoded = pio.correctOrderIds.join(',');
+      final described = SoloAnswerCodec.describe(pio, encoded);
+      final byId = {for (final item in pio.items) item.id: item};
+      final expected = pio.correctOrderIds
+          .map((id) => byId[id]?.label ?? id)
+          .join(' \u2192 ');
+      expect(described, expected);
+    });
+
+    test('HowMuch returns formatted value with unit', () {
+      final hm = questions.whereType<HowMuchQuestion>().first;
+      final value = hm.answer.referenceValue;
+      final encoded = SoloAnswerCodec.encodeHowMuch(value);
+      final described = SoloAnswerCodec.describe(hm, encoded);
+      final unit = hm.answer.unitFr ?? hm.answer.unit;
+      final formatted = value == value.roundToDouble()
+          ? value.toInt().toString()
+          : value.toString();
+      expect(described, '$formatted $unit');
+    });
+
+    test('describe handles unknown question type', () {
+      // All modes are covered by the switch; this just ensures no crash.
+      final wcf = questions.whereType<WhichCameFirstQuestion>().first;
+      expect(SoloAnswerCodec.describe(wcf, '0'), isA<String>());
+    });
+  });
 }

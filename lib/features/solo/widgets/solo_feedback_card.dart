@@ -4,6 +4,7 @@ import 'package:knowledge_test/core/widgets/index.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 import 'package:knowledge_test/models/questions/index.dart';
 import 'package:knowledge_test/models/solo_session.dart';
+import 'package:knowledge_test/services/solo_answer_codec.dart';
 
 /// Feedback card shown right after the player answers a solo question.
 ///
@@ -31,6 +32,16 @@ class SoloFeedbackCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final isCorrect = answer.isCorrect;
+
+    final describedAnswer = SoloAnswerCodec.describe(
+      question,
+      answer.userAnswer,
+    );
+    final displayedAnswer = describedAnswer == 'true'
+        ? l10n.soloTrue
+        : describedAnswer == 'false'
+        ? l10n.soloFalse
+        : describedAnswer;
 
     return AppCard(
       color: isCorrect
@@ -75,7 +86,7 @@ class SoloFeedbackCard extends StatelessWidget {
                 title: l10n.soloYourAnswer,
                 value: answer.userAnswer.isEmpty
                     ? l10n.soloNoAnswer
-                    : answer.userAnswer,
+                    : displayedAnswer,
                 textTheme: textTheme,
                 colorScheme: colorScheme,
               ),

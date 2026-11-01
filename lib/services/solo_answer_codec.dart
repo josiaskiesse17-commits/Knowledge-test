@@ -102,4 +102,50 @@ class SoloAnswerCodec {
     }
     throw ArgumentError('Unsupported question type: ${question.runtimeType}');
   }
+
+  /// Returns a human-readable description of [encodedAnswer] for [question],
+  /// suitable for displaying to the player in feedback UI.
+  ///
+  /// Never returns a raw index or id list: resolves indexes to event labels,
+  /// statement texts, or item labels, and appends units for numeric answers.
+  static String describe(BaseQuestion question, String encodedAnswer) {
+    switch (question) {
+      case WhichCameFirstQuestion():
+        final index = decodeWhichCameFirst(encodedAnswer);
+        if (index == null || index < 0 || index >= question.events.length) {
+          return encodedAnswer;
+        }
+        return question.events[index].label;
+      case GuessTheCountryQuestion():
+        return encodedAnswer.isEmpty ? '(aucune r\u00e9ponse)' : encodedAnswer;
+      case FactOrCapQuestion():
+        if (question.lieStatementIndex != null ||
+            question.falseStatementIndex != null) {
+          final index = decodeFactOrCapStatement(encodedAnswer);
+          if (index == null ||
+              index < 0 ||
+              index >= question.statements.length) {
+            return encodedAnswer;
+          }
+          return question.statements[index].text;
+        } else {
+          final isTrue = decodeFactOrCapTrueFalse(encodedAnswer);
+          if (isTrue == null) return encodedAnswer;
+          return isTrue ? 'true' : 'false';
+        }
+      case PutInOrderQuestion():
+        final ids = decodePutInOrder(encodedAnswer);
+        final byId = {for (final item in question.items) item.id: item};
+        return ids.map((id) => byId[id]?.label ?? id).join(' \u2192 ');
+      case HowMuchQuestion():
+        final value = decodeHowMuch(encodedAnswer);
+        if (value == null) return encodedAnswer;
+        final unit = question.answer.unitFr ?? question.answer.unit;
+        final formatted = value == value.roundToDouble()
+            ? value.toInt().toString()
+            : value.toString();
+        return '$formatted $unit';
+    }
+    throw ArgumentError('Unsupported question type: ${question.runtimeType}');
+  }
 }
