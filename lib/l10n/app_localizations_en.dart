@@ -870,4 +870,163 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get playerNameHint => 'Player name';
+
+  @override
+  String get homeSoloMode => 'Play solo';
+
+  @override
+  String get homeSoloModeDescription =>
+      'Answer questions yourself and improve with explanations';
+
+  @override
+  String get soloSetupTitle => 'Solo setup';
+
+  @override
+  String get soloSetupModesTitle => 'Game modes';
+
+  @override
+  String get soloSetupModesSubtitle =>
+      'One or more modes for your solo session.';
+
+  @override
+  String get soloSetupDifficultyTitle => 'Difficulty';
+
+  @override
+  String get soloSetupDifficultySubtitle =>
+      'Questions of this level are preferred.';
+
+  @override
+  String get soloSetupCategoriesTitle => 'Categories';
+
+  @override
+  String get soloSetupCategoriesSubtitleAll => 'All categories.';
+
+  @override
+  String soloSetupCategoriesSubtitleSelected(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# categories selected',
+      one: '1 category selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloSetupLengthTitle => 'Number of questions';
+
+  @override
+  String get soloSetupLengthSubtitleQuestions =>
+      'Session limited by number of questions.';
+
+  @override
+  String get soloSetupShuffleTitle => 'Shuffle questions';
+
+  @override
+  String get soloSetupShuffleSubtitle => 'Random order for each session.';
+
+  @override
+  String get soloStartGame => 'Start solo game';
+
+  @override
+  String get soloResumeTitle => 'Solo session in progress';
+
+  @override
+  String get soloResumeSubtitle =>
+      'You have an unfinished solo session. Resume it?';
+
+  @override
+  String get soloResumeButton => 'Resume';
+
+  @override
+  String get soloDiscardButton => 'New game';
+
+  @override
+  String get soloErrorNoMode => 'Select at least one game mode.';
+
+  @override
+  String get soloErrorQuestionCountTooLow =>
+      'Number of questions must be at least 1.';
+
+  @override
+  String get soloErrorNotEnoughQuestions =>
+      'Not enough questions available with these criteria.';
+
+  @override
+  String get soloNotSupportedYet => 'This mode is not available in solo yet.';
+
+  @override
+  String get soloSkipQuestion => 'Skip this question';
+
+  @override
+  String soloQuestionNumber(Object number, Object total) {
+    return 'Question $number / $total';
+  }
+
+  @override
+  String soloScore(Object score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String soloStreak(Object streak) {
+    return 'Streak: $streak';
+  }
+
+  @override
+  String get soloCorrect => 'Correct!';
+
+  @override
+  String get soloIncorrect => 'Incorrect.';
+
+  @override
+  String soloPointsEarned(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '+# pts',
+      one: '+1 pt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloYourAnswer => 'Your answer';
+
+  @override
+  String get soloCorrectAnswer => 'Correct answer';
+
+  @override
+  String get soloExplanation => 'Explanation';
+
+  @override
+  String get soloSource => 'Source:';
+
+  @override
+  String get soloNextQuestion => 'Next question';
+
+  @override
+  String get soloSeeResults => 'See results';
+
+  @override
+  String get soloQuitDialogTitle => 'Quit solo game?';
+
+  @override
+  String get soloQuitDialogContent =>
+      'Your progress will be saved so you can resume later.';
+
+  @override
+  String get soloQuitDialogStay => 'Stay';
+
+  @override
+  String get soloQuitDialogQuit => 'Quit';
+
+  @override
+  String get soloSummaryTitle => 'Your solo results';
+
+  @override
+  String get soloBackHome => 'Back to home';
+
+  @override
+  String get soloNoAnswer => '(no answer)';
 }

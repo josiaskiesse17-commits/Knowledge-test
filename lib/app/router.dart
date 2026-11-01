@@ -8,6 +8,9 @@ import 'package:knowledge_test/features/question_library/question_library_screen
 import 'package:knowledge_test/features/session_history/session_detail_screen.dart';
 import 'package:knowledge_test/features/session_history/session_history_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
+import 'package:knowledge_test/features/solo/solo_game_screen.dart';
+import 'package:knowledge_test/features/solo/solo_setup_screen.dart';
+import 'package:knowledge_test/features/solo/solo_summary_screen.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
 
 enum AppRoute {
@@ -19,6 +22,9 @@ enum AppRoute {
   sessionHistory,
   sessionDetail,
   settings,
+  soloSetup,
+  soloGame,
+  soloSummary,
 }
 
 extension AppRouteExtension on AppRoute {
@@ -40,6 +46,12 @@ extension AppRouteExtension on AppRoute {
         return '/session-history/detail';
       case AppRoute.settings:
         return '/settings';
+      case AppRoute.soloSetup:
+        return '/solo-setup';
+      case AppRoute.soloGame:
+        return '/solo-game';
+      case AppRoute.soloSummary:
+        return '/solo-summary';
     }
   }
 }
@@ -87,6 +99,21 @@ final GoRouter appRouter = GoRouter(
       path: AppRoute.settings.path,
       name: AppRoute.settings.name,
       builder: (context, state) => const SettingsScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.soloSetup.path,
+      name: AppRoute.soloSetup.name,
+      builder: (context, state) => const SoloSetupScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.soloGame.path,
+      name: AppRoute.soloGame.name,
+      builder: (context, state) => const SoloGameScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.soloSummary.path,
+      name: AppRoute.soloSummary.name,
+      builder: (context, state) => const SoloSummaryScreen(),
     ),
   ],
   errorBuilder: (context, state) {

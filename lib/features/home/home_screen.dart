@@ -21,6 +21,12 @@ class HomeScreen extends StatelessWidget {
 
     final secondaryButtons = [
       _MenuEntry(
+        label: l10n.homeSoloMode,
+        icon: Icons.person_outline,
+        description: l10n.homeSoloModeDescription,
+        onTap: () => context.go(AppRoute.soloSetup.path),
+      ),
+      _MenuEntry(
         label: l10n.homeQuestionLibrary,
         icon: Icons.menu_book_outlined,
         description: l10n.homeQuestionLibraryDescription,
@@ -70,13 +76,14 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: AppDimensions.spacingMd),
                   Text(
                     l10n.homeWelcome,
-                    style: (isWide
-                            ? textTheme.displayLarge
-                            : textTheme.displayMedium)
-                        ?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: colorScheme.onSurface,
-                    ),
+                    style:
+                        (isWide
+                                ? textTheme.displayLarge
+                                : textTheme.displayMedium)
+                            ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: colorScheme.onSurface,
+                            ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: AppDimensions.spacingSm),
@@ -103,8 +110,9 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'v0.1.0',
                     style: textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant
-                          .withValues(alpha: 0.5),
+                      color: colorScheme.onSurfaceVariant.withValues(
+                        alpha: 0.5,
+                      ),
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -140,9 +148,11 @@ class HomeScreen extends StatelessWidget {
       builder: (context, constraints) {
         final columns =
             AppBreakpoints.sizeOf(constraints.maxWidth) == ScreenSize.desktop
-                ? 3
-                : 2;
-        final cardWidth = (constraints.maxWidth - AppDimensions.spacingMd * (columns - 1)) / columns;
+            ? 3
+            : 2;
+        final cardWidth =
+            (constraints.maxWidth - AppDimensions.spacingMd * (columns - 1)) /
+            columns;
 
         return Wrap(
           spacing: AppDimensions.spacingMd,

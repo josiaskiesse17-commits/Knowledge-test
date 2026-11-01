@@ -391,5 +391,58 @@
   "gameColumnNextClue": "Indice suivant ({current}/{total})",
   "gameBoardQuestionNumber": "Question {number} / {total}",
   "questionFilterReset": "Réinitialiser",
-  "playerNameHint": "Nom du joueur"
+  "playerNameHint": "Nom du joueur",
+
+  "homeSoloMode": "Jouer seul(e)",
+  "homeSoloModeDescription": "Répondez aux questions vous-même et progressez grâce aux explications",
+
+  "soloSetupTitle": "Configuration solo",
+  "soloSetupModesTitle": "Modes de jeu",
+  "soloSetupModesSubtitle": "Un ou plusieurs modes pour votre partie solo.",
+  "soloSetupDifficultyTitle": "Difficulté",
+  "soloSetupDifficultySubtitle": "Les questions de ce niveau sont privilégiées.",
+  "soloSetupCategoriesTitle": "Catégories",
+  "soloSetupCategoriesSubtitleAll": "Toutes les catégories.",
+  "soloSetupCategoriesSubtitleSelected": "{count, plural, =1 {1 catégorie sélectionnée} other {# catégories sélectionnées}}",
+  "soloSetupLengthTitle": "Nombre de questions",
+  "soloSetupLengthSubtitleQuestions": "Session limitée en nombre de questions.",
+  "soloSetupShuffleTitle": "Mélanger les questions",
+  "soloSetupShuffleSubtitle": "Ordre aléatoire à chaque session.",
+  "soloStartGame": "Commencer la partie solo",
+  "soloResumeTitle": "Partie solo en cours",
+  "soloResumeSubtitle": "Vous avez une partie solo non terminée. Voulez-vous la reprendre ?",
+  "soloResumeButton": "Reprendre",
+  "soloDiscardButton": "Nouvelle partie",
+  "soloErrorNoMode": "Sélectionnez au moins un mode de jeu.",
+  "soloErrorQuestionCountTooLow": "Le nombre de questions doit être d'au moins 1.",
+  "soloErrorNotEnoughQuestions": "Pas assez de questions disponibles avec ces critères.",
+  "soloNotSupportedYet": "Ce mode n'est pas encore disponible en solo.",
+  "soloSkipQuestion": "Passer cette question",
+
+  "soloQuestionNumber": "Question {number} / {total}",
+  "soloScore": "Score : {score}",
+  "soloStreak": "Série : {streak}",
+  "soloCorrect": "Bonne réponse !",
+  "soloIncorrect": "Mauvaise réponse.",
+  "soloPointsEarned": "{points, plural, =1 {+1 pt} other {+# pts}}",
+  "@soloPointsEarned": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "soloYourAnswer": "Votre réponse",
+  "soloCorrectAnswer": "Bonne réponse",
+  "soloExplanation": "Explication",
+  "soloSource": "Source :",
+  "soloNextQuestion": "Question suivante",
+  "soloSeeResults": "Voir les résultats",
+  "soloQuitDialogTitle": "Quitter la partie solo ?",
+  "soloQuitDialogContent": "Votre progression sera conservée pour reprendre plus tard.",
+  "soloQuitDialogStay": "Rester",
+  "soloQuitDialogQuit": "Quitter",
+  "soloSummaryTitle": "Résultats de votre partie solo",
+  "soloBackHome": "Retour à l'accueil",
+  "soloNoAnswer": "(aucune réponse)"
 }

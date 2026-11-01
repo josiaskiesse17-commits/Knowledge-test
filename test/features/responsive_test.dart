@@ -169,7 +169,7 @@ void main() {
 
       expect(find.text('Consultez les questions du quiz'), findsNothing);
       // Every entry stays a full-width row with a chevron.
-      expect(find.byIcon(Icons.chevron_right), findsNWidgets(3));
+      expect(find.byIcon(Icons.chevron_right), findsNWidgets(4));
     });
 
     testWidgets('the library shows its details pane on a desktop window', (

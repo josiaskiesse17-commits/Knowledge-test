@@ -1537,6 +1537,264 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Nom du joueur'**
   String get playerNameHint;
+
+  /// No description provided for @homeSoloMode.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jouer seul(e)'**
+  String get homeSoloMode;
+
+  /// No description provided for @homeSoloModeDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Répondez aux questions vous-même et progressez grâce aux explications'**
+  String get homeSoloModeDescription;
+
+  /// No description provided for @soloSetupTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Configuration solo'**
+  String get soloSetupTitle;
+
+  /// No description provided for @soloSetupModesTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Modes de jeu'**
+  String get soloSetupModesTitle;
+
+  /// No description provided for @soloSetupModesSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Un ou plusieurs modes pour votre partie solo.'**
+  String get soloSetupModesSubtitle;
+
+  /// No description provided for @soloSetupDifficultyTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Difficulté'**
+  String get soloSetupDifficultyTitle;
+
+  /// No description provided for @soloSetupDifficultySubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les questions de ce niveau sont privilégiées.'**
+  String get soloSetupDifficultySubtitle;
+
+  /// No description provided for @soloSetupCategoriesTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Catégories'**
+  String get soloSetupCategoriesTitle;
+
+  /// No description provided for @soloSetupCategoriesSubtitleAll.
+  ///
+  /// In fr, this message translates to:
+  /// **'Toutes les catégories.'**
+  String get soloSetupCategoriesSubtitleAll;
+
+  /// No description provided for @soloSetupCategoriesSubtitleSelected.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1 {1 catégorie sélectionnée} other {# catégories sélectionnées}}'**
+  String soloSetupCategoriesSubtitleSelected(num count);
+
+  /// No description provided for @soloSetupLengthTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nombre de questions'**
+  String get soloSetupLengthTitle;
+
+  /// No description provided for @soloSetupLengthSubtitleQuestions.
+  ///
+  /// In fr, this message translates to:
+  /// **'Session limitée en nombre de questions.'**
+  String get soloSetupLengthSubtitleQuestions;
+
+  /// No description provided for @soloSetupShuffleTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mélanger les questions'**
+  String get soloSetupShuffleTitle;
+
+  /// No description provided for @soloSetupShuffleSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ordre aléatoire à chaque session.'**
+  String get soloSetupShuffleSubtitle;
+
+  /// No description provided for @soloStartGame.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commencer la partie solo'**
+  String get soloStartGame;
+
+  /// No description provided for @soloResumeTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Partie solo en cours'**
+  String get soloResumeTitle;
+
+  /// No description provided for @soloResumeSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous avez une partie solo non terminée. Voulez-vous la reprendre ?'**
+  String get soloResumeSubtitle;
+
+  /// No description provided for @soloResumeButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Reprendre'**
+  String get soloResumeButton;
+
+  /// No description provided for @soloDiscardButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle partie'**
+  String get soloDiscardButton;
+
+  /// No description provided for @soloErrorNoMode.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sélectionnez au moins un mode de jeu.'**
+  String get soloErrorNoMode;
+
+  /// No description provided for @soloErrorQuestionCountTooLow.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le nombre de questions doit être d\'au moins 1.'**
+  String get soloErrorQuestionCountTooLow;
+
+  /// No description provided for @soloErrorNotEnoughQuestions.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pas assez de questions disponibles avec ces critères.'**
+  String get soloErrorNotEnoughQuestions;
+
+  /// No description provided for @soloNotSupportedYet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ce mode n\'est pas encore disponible en solo.'**
+  String get soloNotSupportedYet;
+
+  /// No description provided for @soloSkipQuestion.
+  ///
+  /// In fr, this message translates to:
+  /// **'Passer cette question'**
+  String get soloSkipQuestion;
+
+  /// No description provided for @soloQuestionNumber.
+  ///
+  /// In fr, this message translates to:
+  /// **'Question {number} / {total}'**
+  String soloQuestionNumber(Object number, Object total);
+
+  /// No description provided for @soloScore.
+  ///
+  /// In fr, this message translates to:
+  /// **'Score : {score}'**
+  String soloScore(Object score);
+
+  /// No description provided for @soloStreak.
+  ///
+  /// In fr, this message translates to:
+  /// **'Série : {streak}'**
+  String soloStreak(Object streak);
+
+  /// No description provided for @soloCorrect.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonne réponse !'**
+  String get soloCorrect;
+
+  /// No description provided for @soloIncorrect.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mauvaise réponse.'**
+  String get soloIncorrect;
+
+  /// No description provided for @soloPointsEarned.
+  ///
+  /// In fr, this message translates to:
+  /// **'{points, plural, =1 {+1 pt} other {+# pts}}'**
+  String soloPointsEarned(int points);
+
+  /// No description provided for @soloYourAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre réponse'**
+  String get soloYourAnswer;
+
+  /// No description provided for @soloCorrectAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'Bonne réponse'**
+  String get soloCorrectAnswer;
+
+  /// No description provided for @soloExplanation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Explication'**
+  String get soloExplanation;
+
+  /// No description provided for @soloSource.
+  ///
+  /// In fr, this message translates to:
+  /// **'Source :'**
+  String get soloSource;
+
+  /// No description provided for @soloNextQuestion.
+  ///
+  /// In fr, this message translates to:
+  /// **'Question suivante'**
+  String get soloNextQuestion;
+
+  /// No description provided for @soloSeeResults.
+  ///
+  /// In fr, this message translates to:
+  /// **'Voir les résultats'**
+  String get soloSeeResults;
+
+  /// No description provided for @soloQuitDialogTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter la partie solo ?'**
+  String get soloQuitDialogTitle;
+
+  /// No description provided for @soloQuitDialogContent.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre progression sera conservée pour reprendre plus tard.'**
+  String get soloQuitDialogContent;
+
+  /// No description provided for @soloQuitDialogStay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rester'**
+  String get soloQuitDialogStay;
+
+  /// No description provided for @soloQuitDialogQuit.
+  ///
+  /// In fr, this message translates to:
+  /// **'Quitter'**
+  String get soloQuitDialogQuit;
+
+  /// No description provided for @soloSummaryTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Résultats de votre partie solo'**
+  String get soloSummaryTitle;
+
+  /// No description provided for @soloBackHome.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour à l\'accueil'**
+  String get soloBackHome;
+
+  /// No description provided for @soloNoAnswer.
+  ///
+  /// In fr, this message translates to:
+  /// **'(aucune réponse)'**
+  String get soloNoAnswer;
 }
 
 class _AppLocalizationsDelegate

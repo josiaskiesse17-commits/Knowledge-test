@@ -398,5 +398,58 @@
   "gameColumnNextClue": "Next clue ({current}/{total})",
   "gameBoardQuestionNumber": "Question {number} / {total}",
   "questionFilterReset": "Reset",
-  "playerNameHint": "Player name"
+  "playerNameHint": "Player name",
+
+  "homeSoloMode": "Play solo",
+  "homeSoloModeDescription": "Answer questions yourself and improve with explanations",
+
+  "soloSetupTitle": "Solo setup",
+  "soloSetupModesTitle": "Game modes",
+  "soloSetupModesSubtitle": "One or more modes for your solo session.",
+  "soloSetupDifficultyTitle": "Difficulty",
+  "soloSetupDifficultySubtitle": "Questions of this level are preferred.",
+  "soloSetupCategoriesTitle": "Categories",
+  "soloSetupCategoriesSubtitleAll": "All categories.",
+  "soloSetupCategoriesSubtitleSelected": "{count, plural, =1 {1 category selected} other {# categories selected}}",
+  "soloSetupLengthTitle": "Number of questions",
+  "soloSetupLengthSubtitleQuestions": "Session limited by number of questions.",
+  "soloSetupShuffleTitle": "Shuffle questions",
+  "soloSetupShuffleSubtitle": "Random order for each session.",
+  "soloStartGame": "Start solo game",
+  "soloResumeTitle": "Solo session in progress",
+  "soloResumeSubtitle": "You have an unfinished solo session. Resume it?",
+  "soloResumeButton": "Resume",
+  "soloDiscardButton": "New game",
+  "soloErrorNoMode": "Select at least one game mode.",
+  "soloErrorQuestionCountTooLow": "Number of questions must be at least 1.",
+  "soloErrorNotEnoughQuestions": "Not enough questions available with these criteria.",
+  "soloNotSupportedYet": "This mode is not available in solo yet.",
+  "soloSkipQuestion": "Skip this question",
+
+  "soloQuestionNumber": "Question {number} / {total}",
+  "soloScore": "Score: {score}",
+  "soloStreak": "Streak: {streak}",
+  "soloCorrect": "Correct!",
+  "soloIncorrect": "Incorrect.",
+  "soloPointsEarned": "{points, plural, =1 {+1 pt} other {+# pts}}",
+  "@soloPointsEarned": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "soloYourAnswer": "Your answer",
+  "soloCorrectAnswer": "Correct answer",
+  "soloExplanation": "Explanation",
+  "soloSource": "Source:",
+  "soloNextQuestion": "Next question",
+  "soloSeeResults": "See results",
+  "soloQuitDialogTitle": "Quit solo game?",
+  "soloQuitDialogContent": "Your progress will be saved so you can resume later.",
+  "soloQuitDialogStay": "Stay",
+  "soloQuitDialogQuit": "Quit",
+  "soloSummaryTitle": "Your solo results",
+  "soloBackHome": "Back to home",
+  "soloNoAnswer": "(no answer)"
 }

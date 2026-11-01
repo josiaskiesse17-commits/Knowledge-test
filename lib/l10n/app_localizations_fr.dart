@@ -879,4 +879,164 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get playerNameHint => 'Nom du joueur';
+
+  @override
+  String get homeSoloMode => 'Jouer seul(e)';
+
+  @override
+  String get homeSoloModeDescription =>
+      'Répondez aux questions vous-même et progressez grâce aux explications';
+
+  @override
+  String get soloSetupTitle => 'Configuration solo';
+
+  @override
+  String get soloSetupModesTitle => 'Modes de jeu';
+
+  @override
+  String get soloSetupModesSubtitle =>
+      'Un ou plusieurs modes pour votre partie solo.';
+
+  @override
+  String get soloSetupDifficultyTitle => 'Difficulté';
+
+  @override
+  String get soloSetupDifficultySubtitle =>
+      'Les questions de ce niveau sont privilégiées.';
+
+  @override
+  String get soloSetupCategoriesTitle => 'Catégories';
+
+  @override
+  String get soloSetupCategoriesSubtitleAll => 'Toutes les catégories.';
+
+  @override
+  String soloSetupCategoriesSubtitleSelected(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# catégories sélectionnées',
+      one: '1 catégorie sélectionnée',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloSetupLengthTitle => 'Nombre de questions';
+
+  @override
+  String get soloSetupLengthSubtitleQuestions =>
+      'Session limitée en nombre de questions.';
+
+  @override
+  String get soloSetupShuffleTitle => 'Mélanger les questions';
+
+  @override
+  String get soloSetupShuffleSubtitle => 'Ordre aléatoire à chaque session.';
+
+  @override
+  String get soloStartGame => 'Commencer la partie solo';
+
+  @override
+  String get soloResumeTitle => 'Partie solo en cours';
+
+  @override
+  String get soloResumeSubtitle =>
+      'Vous avez une partie solo non terminée. Voulez-vous la reprendre ?';
+
+  @override
+  String get soloResumeButton => 'Reprendre';
+
+  @override
+  String get soloDiscardButton => 'Nouvelle partie';
+
+  @override
+  String get soloErrorNoMode => 'Sélectionnez au moins un mode de jeu.';
+
+  @override
+  String get soloErrorQuestionCountTooLow =>
+      'Le nombre de questions doit être d\'au moins 1.';
+
+  @override
+  String get soloErrorNotEnoughQuestions =>
+      'Pas assez de questions disponibles avec ces critères.';
+
+  @override
+  String get soloNotSupportedYet =>
+      'Ce mode n\'est pas encore disponible en solo.';
+
+  @override
+  String get soloSkipQuestion => 'Passer cette question';
+
+  @override
+  String soloQuestionNumber(Object number, Object total) {
+    return 'Question $number / $total';
+  }
+
+  @override
+  String soloScore(Object score) {
+    return 'Score : $score';
+  }
+
+  @override
+  String soloStreak(Object streak) {
+    return 'Série : $streak';
+  }
+
+  @override
+  String get soloCorrect => 'Bonne réponse !';
+
+  @override
+  String get soloIncorrect => 'Mauvaise réponse.';
+
+  @override
+  String soloPointsEarned(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '+# pts',
+      one: '+1 pt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloYourAnswer => 'Votre réponse';
+
+  @override
+  String get soloCorrectAnswer => 'Bonne réponse';
+
+  @override
+  String get soloExplanation => 'Explication';
+
+  @override
+  String get soloSource => 'Source :';
+
+  @override
+  String get soloNextQuestion => 'Question suivante';
+
+  @override
+  String get soloSeeResults => 'Voir les résultats';
+
+  @override
+  String get soloQuitDialogTitle => 'Quitter la partie solo ?';
+
+  @override
+  String get soloQuitDialogContent =>
+      'Votre progression sera conservée pour reprendre plus tard.';
+
+  @override
+  String get soloQuitDialogStay => 'Rester';
+
+  @override
+  String get soloQuitDialogQuit => 'Quitter';
+
+  @override
+  String get soloSummaryTitle => 'Résultats de votre partie solo';
+
+  @override
+  String get soloBackHome => 'Retour à l\'accueil';
+
+  @override
+  String get soloNoAnswer => '(aucune réponse)';
 }
