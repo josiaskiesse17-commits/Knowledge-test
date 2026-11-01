@@ -12,7 +12,7 @@
     "sourceReference": "NASA, fiches de mission Apollo 11 et Vostok 6",
     "factGroupId": "fg-moon-landing-1969",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -44,7 +44,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Printing press » et « Telephone »",
     "factGroupId": "fg-gutenberg-press-1450",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -76,7 +76,7 @@
     "sourceReference": "Nature 171 (1953), article de Watson et Crick ; Nobel Prize, Fleming 1945",
     "factGroupId": "fg-penicillin-1928",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -108,7 +108,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Berlin Wall » et « Soviet Union »",
     "factGroupId": "fg-berlin-wall-1989",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -140,7 +140,7 @@
     "sourceReference": "Comité international olympique ; FIFA, coupes du monde 1930",
     "factGroupId": "fg-modern-olympics-1896",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -172,7 +172,7 @@
     "sourceReference": "NASA, historique des débuts de l'ère spatiale",
     "factGroupId": "fg-sputnik-1957",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -204,7 +204,7 @@
     "sourceReference": "Nature, article de Watson et Crick (1953) ; Roslin Institute, dossier Dolly",
     "factGroupId": "fg-dna-helix-1953",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -236,7 +236,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Declaration of Independence » et « Storming of the Bastille »",
     "factGroupId": "fg-us-independence-1776",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -268,7 +268,7 @@
     "sourceReference": "Smithsonian National Air and Space Museum ; Encyclopaedia Britannica, article « World War I »",
     "factGroupId": "fg-wright-flight-1903",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -300,7 +300,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Charlemagne » et « Magna Carta »",
     "factGroupId": "fg-charlemagne-800",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -332,7 +332,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Ghana » et « Algeria » ; Nations unies, liste des décolonisations",
     "factGroupId": "fg-ghana-independence-1957",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -364,7 +364,7 @@
     "sourceReference": "Nobel Prize, dossier Fleming ; Encyclopaedia Britannica, article « Heart transplant »",
     "factGroupId": "fg-penicillin-vs-hearttransplant-1928-1967",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -396,7 +396,7 @@
     "sourceReference": "Suez Canal Authority ; Autorité du canal de Panama, chronologie officielle",
     "factGroupId": "fg-suez-canal-1869",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -428,7 +428,7 @@
     "sourceReference": "National Park Service, histoire de Yellowstone ; Parcs Canada, histoire de Banff",
     "factGroupId": "fg-yellowstone-1872",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -460,7 +460,7 @@
     "sourceReference": "Comité international olympique, histoire du CIO ; Tour de France, archives",
     "factGroupId": "fg-ioc-foundation-1894",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -492,7 +492,7 @@
     "sourceReference": "Orchestre philharmonique de Vienne ; Encyclopaedia Britannica, article « The Rite of Spring »",
     "factGroupId": "fg-beethoven-ninth-1824",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -524,7 +524,7 @@
     "sourceReference": "NASA, dossiers Spoutnik et Apollo 11",
     "factGroupId": "fg-sputnik-apollo-1957-1969",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -556,7 +556,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Hundred Years' War » et « Black Death »",
     "factGroupId": "fg-hundred-years-war-1337",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -588,7 +588,7 @@
     "sourceReference": "NASA, dossiers Vostok 1 et Voskhod 2 ; Encyclopaedia Britannica, article « Spacewalk »",
     "factGroupId": "fg-gagarin-1961",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -620,7 +620,7 @@
     "sourceReference": "Smithsonian Institution, Global Volcanism Program",
     "factGroupId": "fg-krakatoa-1883",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -652,7 +652,7 @@
     "sourceReference": "The National Archives (Royaume-Uni) ; Archives nationales des États-Unis, Constitution",
     "factGroupId": "fg-uk-slavery-abolition-1833",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {
@@ -684,7 +684,7 @@
     "sourceReference": "Internet Society, chronologie d'ARPANET ; Smithsonian Institution, dossier Ray Tomlinson",
     "factGroupId": "fg-arpanet-1969",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "events": [
       {

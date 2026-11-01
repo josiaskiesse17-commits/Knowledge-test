@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,7 @@ void main() {
     test('same count, same ids and identical content', () {
       final sampleQuestions = SampleQuestionBank.questions;
       expect(questions.length, sampleQuestions.length);
-      expect(questions.length, 117);
+      expect(questions.length, 115);
 
       final sampleById = {for (final q in sampleQuestions) q.id: q};
       final loadedById = {for (final q in questions) q.id: q};
@@ -49,7 +50,7 @@ void main() {
 
   group('Question bank assets', () {
     test('the assets hold exactly the questions of the shipped bank', () {
-      expect(questions.length, 117);
+      expect(questions.length, 115);
     });
 
     test('every game mode has its own file and its own questions', () {
@@ -62,7 +63,7 @@ void main() {
         20,
       );
       expect(questions.where((q) => q.mode == GameMode.factOrCap).length, 25);
-      expect(questions.where((q) => q.mode == GameMode.putInOrder).length, 22);
+      expect(questions.where((q) => q.mode == GameMode.putInOrder).length, 20);
       expect(questions.where((q) => q.mode == GameMode.howMuch).length, 28);
     });
 
@@ -73,7 +74,7 @@ void main() {
       );
       expect(
         questions.where((q) => q.category == QuestionCategory.science).length,
-        24,
+        23,
       );
       expect(
         questions.where((q) => q.category == QuestionCategory.geography).length,
@@ -85,7 +86,7 @@ void main() {
       );
       expect(
         questions.where((q) => q.category == QuestionCategory.sports).length,
-        7,
+        6,
       );
       expect(
         questions
@@ -110,11 +111,11 @@ void main() {
     test('difficulties stay balanced as in the shipped bank', () {
       expect(
         questions.where((q) => q.difficulty == Difficulty.easy).length,
-        35,
+        34,
       );
       expect(
         questions.where((q) => q.difficulty == Difficulty.medium).length,
-        60,
+        59,
       );
       expect(
         questions.where((q) => q.difficulty == Difficulty.hard).length,
@@ -216,6 +217,29 @@ void main() {
     test('every question language is French', () {
       expect(questions.every((q) => q.language == Language.french), isTrue);
     });
+
+    test(
+      'every question declares a valid category, difficulty and variation',
+      () {
+        for (final question in questions) {
+          expect(
+            QuestionCategory.values.contains(question.category),
+            isTrue,
+            reason: '${question.id} catégorie invalide',
+          );
+          expect(
+            Difficulty.values.contains(question.difficulty),
+            isTrue,
+            reason: '${question.id} difficulté invalide',
+          );
+          expect(
+            QuestionVariation.values.contains(question.variation),
+            isTrue,
+            reason: '${question.id} variation invalide',
+          );
+        }
+      },
+    );
 
     test('every question is marked playable', () {
       expect(questions.every((q) => q.isPlayable), isTrue);
@@ -424,6 +448,16 @@ void main() {
       for (final question in estimations) {
         final answer = question.answer;
         expect(answer.referenceValue.isFinite, isTrue);
+        // A How Much question defines its scoring target either through an
+        // accepted range (acceptedMin/acceptedMax) or a reference value.
+        expect(
+          answer.acceptedMin != null ||
+              answer.acceptedMax != null ||
+              answer.referenceValue.isFinite,
+          isTrue,
+          reason:
+              '${question.id} doit définir une plage acceptée ou une valeur de référence',
+        );
         expect(
           answer.unit.isNotEmpty,
           isTrue,
@@ -770,6 +804,9 @@ void main() {
       final repository = await AssetQuestionRepository.load(bundle: bundle);
 
       expect(repository.getAllQuestions(), [valid]);
+      // The malformed entry must be reported, not silently dropped.
+      expect(repository.loadErrors, isNotEmpty);
+      expect(repository.loadErrors.map((e) => e.id), contains('cassée'));
       expect(bundle.requested, containsAll(questionAssetPaths));
     });
 
@@ -782,6 +819,151 @@ void main() {
         AssetQuestionRepository.load(bundle: bundle),
         throwsA(isA<FlutterError>()),
       );
+    });
+  });
+
+  group('Question review status', () {
+    test('every served question is approved or reviewed only', () {
+      for (final question in questions) {
+        expect(
+          question.reviewStatus,
+          anyOf(ContentReviewStatus.approved, ContentReviewStatus.reviewed),
+          reason:
+              '${question.id} a un statut de revue non servi : ${question.reviewStatus.name}',
+        );
+      }
+    });
+
+    test('draft and deprecated questions are never served', () {
+      expect(
+        questions.any(
+          (q) =>
+              q.reviewStatus == ContentReviewStatus.draft ||
+              q.reviewStatus == ContentReviewStatus.deprecated,
+        ),
+        isFalse,
+      );
+    });
+  });
+
+  group('Near-duplicate questions', () {
+    // Two questions of the same mode are near-duplicates when the Jaccard
+    // similarity of their normalized word sets exceeds this threshold.
+    // Normalization: lowercase, accents removed, punctuation removed.
+    // The threshold is set strictly (near-verbatim) so template-similar but
+    // fact-distinct questions (e.g. every "Devine ce pays d'Amérique du Nord"
+    // entry) are not flagged as near-duplicates.
+    const double kNearDuplicateJaccardThreshold = 0.95;
+
+    const Map<String, String> accentMap = {
+      'à': 'a',
+      'á': 'a',
+      'â': 'a',
+      'ã': 'a',
+      'ä': 'a',
+      'å': 'a',
+      'æ': 'ae',
+      'ç': 'c',
+      'è': 'e',
+      'é': 'e',
+      'ê': 'e',
+      'ë': 'e',
+      'ì': 'i',
+      'í': 'i',
+      'î': 'i',
+      'ï': 'i',
+      'ð': 'd',
+      'ñ': 'n',
+      'ò': 'o',
+      'ó': 'o',
+      'ô': 'o',
+      'õ': 'o',
+      'ö': 'o',
+      'ø': 'o',
+      'ù': 'u',
+      'ú': 'u',
+      'û': 'u',
+      'ü': 'u',
+      'ý': 'y',
+      'þ': 'th',
+      'ÿ': 'y',
+    };
+
+    Set<String> normalizedWords(String text) {
+      final withoutAccents = text.toLowerCase().replaceAllMapped(
+        RegExp(r'[àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ]'),
+        (m) => accentMap[m.group(0)!] ?? m.group(0)!,
+      );
+      final cleaned = withoutAccents.replaceAll(RegExp(r'[^a-z0-9\s]+'), ' ');
+      return cleaned.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toSet();
+    }
+
+    double jaccard(Set<String> a, Set<String> b) {
+      if (a.isEmpty && b.isEmpty) return 1.0;
+      return a.intersection(b).length / a.union(b).length;
+    }
+
+    test('no two questions of the same mode are near-duplicates', () {
+      final byMode = <GameMode, List<(String, Set<String>)>>{};
+      for (final question in questions) {
+        byMode.putIfAbsent(question.mode, () => []).add((
+          question.id,
+          normalizedWords(question.text),
+        ));
+      }
+
+      final duplicates = <String>[];
+      for (final entry in byMode.entries) {
+        final list = entry.value;
+        for (var i = 0; i < list.length; i++) {
+          for (var j = i + 1; j < list.length; j++) {
+            final similarity = jaccard(list[i].$2, list[j].$2);
+            if (similarity > kNearDuplicateJaccardThreshold) {
+              duplicates.add(
+                '${entry.key.name}: ${list[i].$1} <-> ${list[j].$1} '
+                '(similarity ${similarity.toStringAsFixed(3)})',
+              );
+            }
+          }
+        }
+      }
+
+      expect(
+        duplicates,
+        isEmpty,
+        reason:
+            'Questions près des doublons détectés dans le même mode :\n'
+            '${duplicates.join('\n')}',
+      );
+    });
+  });
+
+  group('Batch asset loading', () {
+    test('every question asset file is listed and loaded', () async {
+      final directory = Directory('assets/questions');
+      final onDisk = <String>{};
+      for (final entity in directory.listSync()) {
+        if (entity is File && entity.path.endsWith('.json')) {
+          onDisk.add(entity.path.split(Platform.pathSeparator).last);
+        }
+      }
+
+      final listed = questionAssetPaths.map((p) => p.split('/').last).toSet();
+
+      expect(
+        listed,
+        equals(onDisk),
+        reason:
+            'questionAssetPaths doit lister exactement les fichiers de '
+            'assets/questions/. Absents de la liste : '
+            '${onDisk.difference(listed).join(", ")}. '
+            'Inconnus sur le disque : '
+            '${listed.difference(onDisk).join(", ")}.',
+      );
+
+      // Every listed file must load without producing load errors.
+      final repository = await AssetQuestionRepository.load();
+      expect(repository.loadErrors, isEmpty);
     });
   });
 }

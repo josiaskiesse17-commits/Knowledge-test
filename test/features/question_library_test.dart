@@ -103,7 +103,7 @@ void main() {
       await pumpNarrow(tester, libraryUnderTest());
 
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
-      expect(find.text('117 questions'), findsOneWidget);
+      expect(find.text('115 questions'), findsOneWidget);
       expect(
         find.text(
           'Lequel est arrivé en premier : le premier pas de '
@@ -115,7 +115,7 @@ void main() {
 
     testWidgets('filters by mode', (tester) async {
       await pumpNarrow(tester, libraryUnderTest());
-      expect(find.text('117 questions'), findsOneWidget);
+      expect(find.text('115 questions'), findsOneWidget);
 
       await openFilters(tester);
       await tester.tap(find.text('Fait ou Fake').first);
@@ -133,7 +133,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Filtering by difficulty updates the result count.
-      expect(find.text('35 questions'), findsOneWidget);
+      expect(find.text('34 questions'), findsOneWidget);
     });
 
     testWidgets('searching filters the list', (tester) async {
@@ -162,7 +162,7 @@ void main() {
 
       await tester.enterText(find.byType(TextField), '');
       await tester.pumpAndSettle();
-      expect(find.text('117 questions'), findsOneWidget);
+      expect(find.text('115 questions'), findsOneWidget);
     });
 
     testWidgets('a search without a match shows the empty state', (
@@ -187,7 +187,7 @@ void main() {
 
       await tester.tap(find.text('Réinitialiser'));
       await tester.pumpAndSettle();
-      expect(find.text('117 questions'), findsOneWidget);
+      expect(find.text('115 questions'), findsOneWidget);
     });
 
     testWidgets('the library shows a question with answer and explanation', (
@@ -239,7 +239,7 @@ void main() {
       // A tablet or desktop layout shows the filters and a detail pane.
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
       expect(find.text('Sélectionnez une question'), findsOneWidget);
-      expect(find.text('117 questions'), findsOneWidget);
+      expect(find.text('115 questions'), findsOneWidget);
 
       await tester.tap(
         find.text(

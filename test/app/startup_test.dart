@@ -20,14 +20,12 @@ void main() {
   });
 
   group('StartupApp widget', () {
-    testWidgets('shows loading indicator while loader is in progress', (tester) async {
+    testWidgets('shows loading indicator while loader is in progress', (
+      tester,
+    ) async {
       final completer = Completer<QuestionRepository>();
 
-      await tester.pumpWidget(
-        StartupApp(
-          loader: () => completer.future,
-        ),
-      );
+      await tester.pumpWidget(StartupApp(loader: () => completer.future));
 
       // Pump a single frame: CircularProgressIndicator should be visible
       await tester.pump();
@@ -42,14 +40,12 @@ void main() {
       expect(find.text('Nouvelle partie'), findsOneWidget);
     });
 
-    testWidgets('shows home screen when repository loads successfully', (tester) async {
+    testWidgets('shows home screen when repository loads successfully', (
+      tester,
+    ) async {
       final repo = InMemoryQuestionRepository(const []);
 
-      await tester.pumpWidget(
-        StartupApp(
-          loader: () async => repo,
-        ),
-      );
+      await tester.pumpWidget(StartupApp(loader: () async => repo));
 
       await tester.pump();
       await tester.pumpAndSettle();
@@ -59,7 +55,9 @@ void main() {
       expect(find.text('Bibliothèque de questions'), findsOneWidget);
     });
 
-    testWidgets('shows error screen and retries when loader throws', (tester) async {
+    testWidgets('shows error screen and retries when loader throws', (
+      tester,
+    ) async {
       var callCount = 0;
       final successfulRepo = InMemoryQuestionRepository(const []);
 
@@ -71,18 +69,17 @@ void main() {
         return successfulRepo;
       }
 
-      await tester.pumpWidget(
-        StartupApp(
-          loader: fakeLoader,
-        ),
-      );
+      await tester.pumpWidget(StartupApp(loader: fakeLoader));
 
       // Let the error snapshot propagate
       await tester.pump();
       await tester.pump();
 
       expect(find.text('Réessayer'), findsOneWidget);
-      expect(find.textContaining('Impossible de charger la banque de questions'), findsOneWidget);
+      expect(
+        find.textContaining('Impossible de charger la banque de questions'),
+        findsOneWidget,
+      );
       expect(find.byType(MainApp), findsNothing);
       expect(callCount, 1);
 
@@ -98,21 +95,19 @@ void main() {
   });
 
   group('Question repository provider override with assets', () {
-    test('serves the full 117 JSON-loaded questions when overridden', () async {
+    test('serves the full 115 JSON-loaded questions when overridden', () async {
       final questions = await loadQuestionBank();
-      expect(questions.length, 117);
+      expect(questions.length, 115);
 
       final assetRepo = InMemoryQuestionRepository(questions);
 
       final container = ProviderContainer(
-        overrides: [
-          questionRepositoryProvider.overrideWithValue(assetRepo),
-        ],
+        overrides: [questionRepositoryProvider.overrideWithValue(assetRepo)],
       );
       addTearDown(container.dispose);
 
       final repo = container.read(questionRepositoryProvider);
-      expect(repo.getAllQuestions().length, 117);
+      expect(repo.getAllQuestions().length, 115);
 
       for (final mode in GameMode.values) {
         expect(repo.getQuestionsByMode(mode).isNotEmpty, isTrue);

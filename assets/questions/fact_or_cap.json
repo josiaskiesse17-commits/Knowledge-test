@@ -12,7 +12,7 @@
     "sourceReference": "NOAA, National Ocean Service ; Encyclopaedia Britannica",
     "factGroupId": "fg-pacific-largest",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -38,7 +38,7 @@
     "sourceReference": "NASA, questions fréquentes sur la Lune",
     "factGroupId": "fg-great-wall-myth",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -64,7 +64,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Desert » et « Sahara »",
     "factGroupId": "fg-desert-records",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -102,7 +102,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Greenland » et « Borneo »",
     "factGroupId": "fg-island-continent",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -140,7 +140,7 @@
     "sourceReference": "Musée du Louvre ; Museo Reina Sofía ; MoMA ; Nasjonalmuseet",
     "factGroupId": "fg-art-museums",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -184,7 +184,7 @@
     "sourceReference": "Royal Society of Chemistry, tableau périodique",
     "factGroupId": "fg-metal-records",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -228,7 +228,7 @@
     "sourceReference": "ESA, données sur Proxima Centauri",
     "factGroupId": "fg-star-distances",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -272,7 +272,7 @@
     "sourceReference": "NASA, fiche sur la vitesse de la lumière et les distances du Système solaire",
     "factGroupId": "fg-light-travel-time",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -298,7 +298,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Dolphin »",
     "factGroupId": "fg-dolphin-mammal",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -324,7 +324,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Lake Victoria » ; UNESCO, programme du lac Victoria",
     "factGroupId": "fg-lake-victoria-borders",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -350,7 +350,7 @@
     "sourceReference": "UNESCO, parc national du Kilimandjaro ; Encyclopaedia Britannica, article « Kilimanjaro »",
     "factGroupId": "fg-kilimanjaro-highest",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -376,7 +376,7 @@
     "sourceReference": "UNESCO, Grande Barrière de corail ; Encyclopaedia Britannica, article « Great Barrier Reef »",
     "factGroupId": "fg-great-barrier-reef-location",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -402,7 +402,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Niger River », « Zanzibar » et « Sahara »",
     "factGroupId": "fg-africa-geography-mix",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -440,7 +440,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « World War I »",
     "factGroupId": "fg-wwi-start-1914",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -466,7 +466,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Romulus Augustulus » et « Odoacer »",
     "factGroupId": "fg-western-rome-end-476",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -492,7 +492,7 @@
     "sourceReference": "Apple, communiqué de presse de 2007",
     "factGroupId": "fg-iphone-2007",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -518,7 +518,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Giant panda » et « Hummingbird » ; Smithsonian Institution, chauves-souris",
     "factGroupId": "fg-animal-traits-mix",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -556,7 +556,7 @@
     "sourceReference": "Organisation météorologique mondiale, propriétés de l'eau ; Encyclopaedia Britannica, article « Boiling point »",
     "factGroupId": "fg-water-boiling-point",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -582,7 +582,7 @@
     "sourceReference": "UNESCO, dossier Tombouctou ; Encyclopaedia Britannica, articles « Mali empire » et « Songhai empire »",
     "factGroupId": "fg-mali-empire-capital",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -608,7 +608,7 @@
     "sourceReference": "Musée du Louvre, collection des peintures",
     "factGroupId": "fg-mona-lisa-louvre",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -634,7 +634,7 @@
     "sourceReference": "IFAB, Lois du jeu de la FIFA",
     "factGroupId": "fg-football-eleven",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -660,7 +660,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Strait of Gibraltar » et « Lake Baikal »",
     "factGroupId": "fg-geography-records-mix",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -698,7 +698,7 @@
     "sourceReference": "UNESCO, sites de la vallée du Grand Rift ; Encyclopaedia Britannica, article « Great Rift Valley »",
     "factGroupId": "fg-great-rift-valley",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -724,7 +724,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Lightning » et « Thunder » ; Empire State Realty Trust, foudre sur l'Empire State Building",
     "factGroupId": "fg-atmospheric-mix",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {
@@ -762,7 +762,7 @@
     "sourceReference": "Proceedings of the London Mathematical Society, article de Turing (1936)",
     "factGroupId": "fg-turing-machine-1936",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "statements": [
       {

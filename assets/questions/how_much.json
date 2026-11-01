@@ -12,7 +12,7 @@
     "sourceReference": "Organisation des Nations unies, composition du Conseil de sécurité",
     "factGroupId": "fg-unsc-permanent",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 5.0,
@@ -37,7 +37,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Piano »",
     "factGroupId": "fg-piano-keys",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 52.0,
@@ -62,7 +62,7 @@
     "sourceReference": "Organisation des Nations unies, langues officielles",
     "factGroupId": "fg-un-languages",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 6.0,
@@ -87,7 +87,7 @@
     "sourceReference": "NASA, mission Apollo 11",
     "factGroupId": "fg-moon-landing-1969",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1969.0,
@@ -112,7 +112,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Berlin Wall »",
     "factGroupId": "fg-berlin-wall-1989",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1989.0,
@@ -137,7 +137,7 @@
     "sourceReference": "IGN, calculs de distances orthodromiques",
     "factGroupId": "fg-paris-newyork-distance",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 5837.0,
@@ -162,7 +162,7 @@
     "sourceReference": "INSEE, bilan démographique 2024",
     "factGroupId": "fg-france-population",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 68.4,
@@ -187,7 +187,7 @@
     "sourceReference": "Union astronomique internationale, définition d'une planète",
     "factGroupId": "fg-solar-planets-count",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 8.0,
@@ -212,7 +212,7 @@
     "sourceReference": "Union européenne, liste des pays membres",
     "factGroupId": "fg-eu-members",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 27.0,
@@ -237,7 +237,7 @@
     "sourceReference": "National Human Genome Research Institute, « How many chromosomes do people have? »",
     "factGroupId": "fg-human-chromosomes",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 46.0,
@@ -262,7 +262,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Nile River »",
     "factGroupId": "fg-nile-length",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 6650.0,
@@ -287,7 +287,7 @@
     "sourceReference": "UNESCO, parc national du Kilimandjaro",
     "factGroupId": "fg-kilimanjaro-height",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 5895.0,
@@ -312,7 +312,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « South Africa » ; Commission électorale indépendante sud-africaine",
     "factGroupId": "fg-southafrica-election-1994",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1994.0,
@@ -337,7 +337,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Storming of the Bastille »",
     "factGroupId": "fg-bastille-1789",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1789.0,
@@ -362,7 +362,7 @@
     "sourceReference": "Fédération internationale de volleyball, règles du jeu",
     "factGroupId": "fg-volleyball-players",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 6.0,
@@ -387,7 +387,7 @@
     "sourceReference": "NASA, fiche sur la vitesse de la lumière",
     "factGroupId": "fg-light-travel-minutes",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 8.3,
@@ -412,7 +412,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Octopus »",
     "factGroupId": "fg-octopus-hearts",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 3.0,
@@ -437,7 +437,7 @@
     "sourceReference": "GSMA, spécifications des SMS",
     "factGroupId": "fg-sms-length",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 160.0,
@@ -462,7 +462,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Nigeria » ; Nations unies, chronologie de la décolonisation",
     "factGroupId": "fg-nigeria-independence-1960",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1960.0,
@@ -487,7 +487,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Russia » ; IANA, base des fuseaux horaires",
     "factGroupId": "fg-russia-timezones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 11.0,
@@ -512,7 +512,7 @@
     "sourceReference": "Orchestre philharmonique de Vienne ; Encyclopaedia Britannica, article « Ludwig van Beethoven »",
     "factGroupId": "fg-beethoven-symphonies",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 9.0,
@@ -537,7 +537,7 @@
     "sourceReference": "National Institute of Arthritis and Musculoskeletal and Skin Diseases, squelette humain",
     "factGroupId": "fg-human-bones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 206.0,
@@ -562,7 +562,7 @@
     "sourceReference": "Nelson Mandela Foundation, chronologie ; Encyclopaedia Britannica, article « Nelson Mandela »",
     "factGroupId": "fg-mandela-release-1990",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 1990.0,
@@ -587,7 +587,7 @@
     "sourceReference": "Comité international olympique, symboles olympiques",
     "factGroupId": "fg-olympic-rings",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 5.0,
@@ -612,7 +612,7 @@
     "sourceReference": "Encyclopaedia Britannica, article « Spider »",
     "factGroupId": "fg-spider-legs",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 8.0,
@@ -637,7 +637,7 @@
     "sourceReference": "Apple, communiqué de presse de 2007",
     "factGroupId": "fg-iphone-2007",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 2007.0,
@@ -662,7 +662,7 @@
     "sourceReference": "Administration nationale océanique et atmosphérique, composition de l'atmosphère",
     "factGroupId": "fg-oxygen-percentage",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 21.0,
@@ -687,7 +687,7 @@
     "sourceReference": "Distances aéronautiques publiées par l'OACI ; calculs orthodromiques de référence",
     "factGroupId": "fg-capetown-nairobi-distance",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "answer": {
       "referenceValue": 3000.0,

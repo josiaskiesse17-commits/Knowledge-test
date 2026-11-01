@@ -12,7 +12,7 @@
     "sourceReference": "Encyclopaedia Britannica, histoire des télécommunications",
     "factGroupId": "fg-communication-milestones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -72,7 +72,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles historiques correspondants",
     "factGroupId": "fg-historical-timeline",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -132,7 +132,7 @@
     "sourceReference": "NASA, fiches planétaires du Système solaire",
     "factGroupId": "fg-planet-distances",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -192,7 +192,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles de chaque sommet",
     "factGroupId": "fg-mountain-heights",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -252,7 +252,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles de chaque plan d'eau",
     "factGroupId": "fg-lake-areas",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -312,7 +312,7 @@
     "sourceReference": "NASA, histoire de l'aviation et des vols spatiaux habités",
     "factGroupId": "fg-aviation-space-milestones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -372,7 +372,7 @@
     "sourceReference": "Apple, chronologie des produits ; IBM, histoire du premier PC ; Microsoft, historique de Windows ; CERN, naissance du Web",
     "factGroupId": "fg-personal-computing-timeline",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -432,7 +432,7 @@
     "sourceReference": "Nations unies, chronologie de la décolonisation",
     "factGroupId": "fg-african-independence-timeline",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -492,7 +492,7 @@
     "sourceReference": "Organisation mondiale de la santé, histoire de la vaccination ; Human Genome Project, chronologie",
     "factGroupId": "fg-medicine-milestones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -552,7 +552,7 @@
     "sourceReference": "Nations unies, Histoire de la Charte ; CCNUCC, accord de Paris ; Encyclopaedia Britannica, articles historiques correspondants",
     "factGroupId": "fg-diplomacy-milestones",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -612,7 +612,7 @@
     "sourceReference": "Comité international olympique ; Tour de France, archives ; NFL ; World Rugby ; Six Nations Rugby",
     "factGroupId": "fg-sport-events-creation",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -672,7 +672,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Dinosaur », « Mammoth » et « Homo sapiens » ; Smithsonian, programme « Human Origins »",
     "factGroupId": "fg-life-forms-appearance",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -716,7 +716,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Renaissance », « Baroque », « Romanticism », « Impressionism » et « Cubism »",
     "factGroupId": "fg-art-movements-timeline",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -776,7 +776,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles correspondants ; National Geographic, atlas",
     "factGroupId": "fg-african-capitals-latitude",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -836,7 +836,7 @@
     "sourceReference": "Nations unies, World Population Prospects ; Saint-Siège, statistiques",
     "factGroupId": "fg-country-populations-scale",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -885,66 +885,6 @@
   },
   {
     "type": "putInOrder",
-    "id": "pio-016",
-    "mode": "putInOrder",
-    "variation": "putInOrderByProperty",
-    "category": "science",
-    "difficulty": "easy",
-    "text": "Range ces planètes du Système solaire de la plus proche du Soleil à la plus éloignée.",
-    "explanationFr": "L'ordre est : Mercure (0,39 unité astronomique du Soleil), Vénus (0,72), la Terre (1), Mars (1,52) puis Jupiter (5,2). Une unité astronomique vaut environ 150 millions de kilomètres.",
-    "imageUrl": null,
-    "sourceReference": "NASA, fiche des distances planétaires",
-    "factGroupId": "fg-planets-distance",
-    "language": "french",
-    "reviewStatus": "approved",
-    "createdAt": "2025-01-01T00:00:00.000Z",
-    "items": [
-      {
-        "id": "pio-016-i1",
-        "label": "Mercure",
-        "description": null,
-        "referenceValue": 0.39,
-        "unit": "unités astronomiques"
-      },
-      {
-        "id": "pio-016-i2",
-        "label": "Vénus",
-        "description": null,
-        "referenceValue": 0.72,
-        "unit": "unités astronomiques"
-      },
-      {
-        "id": "pio-016-i3",
-        "label": "Terre",
-        "description": null,
-        "referenceValue": 1.0,
-        "unit": "unités astronomiques"
-      },
-      {
-        "id": "pio-016-i4",
-        "label": "Mars",
-        "description": null,
-        "referenceValue": 1.52,
-        "unit": "unités astronomiques"
-      },
-      {
-        "id": "pio-016-i5",
-        "label": "Jupiter",
-        "description": null,
-        "referenceValue": 5.2,
-        "unit": "unités astronomiques"
-      }
-    ],
-    "correctOrderIds": [
-      "pio-016-i1",
-      "pio-016-i2",
-      "pio-016-i3",
-      "pio-016-i4",
-      "pio-016-i5"
-    ]
-  },
-  {
-    "type": "putInOrder",
     "id": "pio-017",
     "mode": "putInOrder",
     "variation": "putInOrderChronological",
@@ -956,7 +896,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles biographiques correspondants",
     "factGroupId": "fg-leaders-rise",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -1016,7 +956,7 @@
     "sourceReference": "San Diego Zoo, fiches animales ; Encyclopaedia Britannica, articles correspondants",
     "factGroupId": "fg-african-animals-size",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -1068,7 +1008,7 @@
     "sourceReference": "British Museum, histoire du musée ; Louvre ; MoMA ; Centre Pompidou ; Louvre Abu Dhabi",
     "factGroupId": "fg-museums-opening",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -1128,7 +1068,7 @@
     "sourceReference": "NASA, chronologie des missions",
     "factGroupId": "fg-space-exploration-timeline",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -1188,7 +1128,7 @@
     "sourceReference": "Encyclopaedia Britannica, articles « Cheetah » et « Peregrine falcon » ; San Diego Zoo",
     "factGroupId": "fg-speed-records",
     "language": "french",
-    "reviewStatus": "approved",
+    "reviewStatus": "reviewed",
     "createdAt": "2025-01-01T00:00:00.000Z",
     "items": [
       {
@@ -1233,66 +1173,6 @@
       "pio-021-i3",
       "pio-021-i4",
       "pio-021-i5"
-    ]
-  },
-  {
-    "type": "putInOrder",
-    "id": "pio-022",
-    "mode": "putInOrder",
-    "variation": "putInOrderChronological",
-    "category": "sports",
-    "difficulty": "medium",
-    "text": "Range ces événements sportifs par leur première édition, de la plus ancienne à la plus récente.",
-    "explanationFr": "L'ordre est : les Jeux olympiques modernes d'Athènes (1896), le premier Tour de France (1903), le premier Super Bowl (1967), la première Coupe du monde de rugby (1987) puis la première Coupe du monde féminine de football (1991).",
-    "imageUrl": null,
-    "sourceReference": "Comité international olympique ; Tour de France, archives ; NFL ; World Rugby ; FIFA",
-    "factGroupId": "fg-sport-events-first-edition",
-    "language": "french",
-    "reviewStatus": "approved",
-    "createdAt": "2025-01-01T00:00:00.000Z",
-    "items": [
-      {
-        "id": "pio-022-i1",
-        "label": "Jeux olympiques modernes d'Athènes",
-        "description": null,
-        "referenceValue": 1896.0,
-        "unit": "année"
-      },
-      {
-        "id": "pio-022-i2",
-        "label": "Premier Tour de France",
-        "description": null,
-        "referenceValue": 1903.0,
-        "unit": "année"
-      },
-      {
-        "id": "pio-022-i3",
-        "label": "Premier Super Bowl",
-        "description": null,
-        "referenceValue": 1967.0,
-        "unit": "année"
-      },
-      {
-        "id": "pio-022-i4",
-        "label": "Première Coupe du monde de rugby",
-        "description": null,
-        "referenceValue": 1987.0,
-        "unit": "année"
-      },
-      {
-        "id": "pio-022-i5",
-        "label": "Première Coupe du monde féminine de football",
-        "description": null,
-        "referenceValue": 1991.0,
-        "unit": "année"
-      }
-    ],
-    "correctOrderIds": [
-      "pio-022-i1",
-      "pio-022-i2",
-      "pio-022-i3",
-      "pio-022-i4",
-      "pio-022-i5"
     ]
   }
 ]
