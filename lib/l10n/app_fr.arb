@@ -9,6 +9,8 @@
   "homeQuestionLibraryDescription": "Consultez les questions du quiz",
   "homeSessionHistory": "Historique des sessions",
   "homeSessionHistoryDescription": "Reprenez vos parties terminées",
+  "homeSoloHistory": "Historique solo",
+  "homeSoloHistoryDescription": "Reprenez vos parties solo terminées",
   "homeSettings": "Paramètres",
   "homeSettingsDescription": "Thème clair ou sombre",
 
@@ -455,5 +457,51 @@
   "soloHowMuchInvalid": "Nombre invalide",
   "soloHowMuchReference": "Valeur de référence",
   "soloHowMuchAcceptedRange": "Plage acceptée",
-  "soloHowMuchTolerance": "Tolérance appliquée"
+  "soloHowMuchTolerance": "Tolérance appliquée",
+
+  "soloSummaryMaxStreak": "Série maximale : {streak}",
+  "@soloSummaryMaxStreak": {
+    "placeholders": {
+      "streak": { "type": "int" }
+    }
+  },
+  "soloSummaryQuestionsPlayed": "{count, plural, =1 {1 question jouée} other {# questions jouées}}",
+  "@soloSummaryQuestionsPlayed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "soloSummaryOverallAccuracy": "Précision globale",
+  "soloSummaryPerCategory": "Précision par catégorie",
+  "soloSummaryMistakes": "Erreurs à revoir",
+  "soloSummaryNoMistakes": "Aucune erreur ! Bravo.",
+  "soloSummaryPlayAgain": "Rejouer la même partie",
+  "soloSummaryNewSoloSetup": "Nouvelle configuration solo",
+  "soloSummaryBackHome": "Retour à l'accueil",
+
+  "soloHistoryTitle": "Historique solo",
+  "soloHistoryBackTooltip": "Retour",
+  "soloHistoryClearTooltip": "Vider l'historique solo",
+  "soloHistoryClearDialogTitle": "Vider l'historique solo ?",
+  "soloHistoryClearDialogContent": "Toutes les parties solo enregistrées seront supprimées de cet appareil.",
+  "soloHistoryClearDialogCancel": "Annuler",
+  "soloHistoryClearDialogConfirm": "Vider",
+  "soloHistoryDeleteSessionTooltip": "Supprimer cette partie",
+  "soloHistoryDeleteDialogTitle": "Supprimer cette partie ?",
+  "soloHistoryDeleteDialogContent": "Cette partie et ses résultats seront supprimés de cet appareil.",
+  "soloHistoryDeleteDialogCancel": "Annuler",
+  "soloHistoryDeleteDialogConfirm": "Supprimer",
+  "soloHistoryNoSessions": "Aucune partie solo enregistrée",
+  "soloHistoryEmptyMessage": "Terminez une partie solo pour la retrouver ici, avec son score et ses questions.",
+  "soloHistoryUnavailable": "Historique solo indisponible",
+  "soloHistoryUnavailableMessage": "Les parties solo ne peuvent pas être lues sur cet appareil pour le moment.",
+  "soloHistoryDate": "Date",
+  "soloHistoryAccuracy": "Précision",
+  "soloHistoryQuestions": "{count, plural, =1 {1 question} other {# questions}}",
+  "@soloHistoryQuestions": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "soloHistoryFooter": "Les parties restent sur cet appareil : aucun compte ni connexion n'est nécessaire."
 }

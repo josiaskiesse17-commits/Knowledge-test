@@ -27,6 +27,12 @@ class HomeScreen extends StatelessWidget {
         onTap: () => context.go(AppRoute.soloSetup.path),
       ),
       _MenuEntry(
+        label: l10n.homeSoloHistory,
+        icon: Icons.history_outlined,
+        description: l10n.homeSoloHistoryDescription,
+        onTap: () => context.go(AppRoute.soloHistory.path),
+      ),
+      _MenuEntry(
         label: l10n.homeQuestionLibrary,
         icon: Icons.menu_book_outlined,
         description: l10n.homeQuestionLibraryDescription,

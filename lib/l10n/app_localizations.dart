@@ -146,6 +146,18 @@ abstract class AppLocalizations {
   /// **'Reprenez vos parties terminées'**
   String get homeSessionHistoryDescription;
 
+  /// No description provided for @homeSoloHistory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Historique solo'**
+  String get homeSoloHistory;
+
+  /// No description provided for @homeSoloHistoryDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Reprenez vos parties solo terminées'**
+  String get homeSoloHistoryDescription;
+
   /// No description provided for @homeSettings.
   ///
   /// In fr, this message translates to:
@@ -1861,6 +1873,180 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Tolérance appliquée'**
   String get soloHowMuchTolerance;
+
+  /// No description provided for @soloSummaryMaxStreak.
+  ///
+  /// In fr, this message translates to:
+  /// **'Série maximale : {streak}'**
+  String soloSummaryMaxStreak(int streak);
+
+  /// No description provided for @soloSummaryQuestionsPlayed.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1 {1 question jouée} other {# questions jouées}}'**
+  String soloSummaryQuestionsPlayed(int count);
+
+  /// No description provided for @soloSummaryOverallAccuracy.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précision globale'**
+  String get soloSummaryOverallAccuracy;
+
+  /// No description provided for @soloSummaryPerCategory.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précision par catégorie'**
+  String get soloSummaryPerCategory;
+
+  /// No description provided for @soloSummaryMistakes.
+  ///
+  /// In fr, this message translates to:
+  /// **'Erreurs à revoir'**
+  String get soloSummaryMistakes;
+
+  /// No description provided for @soloSummaryNoMistakes.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune erreur ! Bravo.'**
+  String get soloSummaryNoMistakes;
+
+  /// No description provided for @soloSummaryPlayAgain.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rejouer la même partie'**
+  String get soloSummaryPlayAgain;
+
+  /// No description provided for @soloSummaryNewSoloSetup.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle configuration solo'**
+  String get soloSummaryNewSoloSetup;
+
+  /// No description provided for @soloSummaryBackHome.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour à l\'accueil'**
+  String get soloSummaryBackHome;
+
+  /// No description provided for @soloHistoryTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Historique solo'**
+  String get soloHistoryTitle;
+
+  /// No description provided for @soloHistoryBackTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retour'**
+  String get soloHistoryBackTooltip;
+
+  /// No description provided for @soloHistoryClearTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider l\'historique solo'**
+  String get soloHistoryClearTooltip;
+
+  /// No description provided for @soloHistoryClearDialogTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider l\'historique solo ?'**
+  String get soloHistoryClearDialogTitle;
+
+  /// No description provided for @soloHistoryClearDialogContent.
+  ///
+  /// In fr, this message translates to:
+  /// **'Toutes les parties solo enregistrées seront supprimées de cet appareil.'**
+  String get soloHistoryClearDialogContent;
+
+  /// No description provided for @soloHistoryClearDialogCancel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get soloHistoryClearDialogCancel;
+
+  /// No description provided for @soloHistoryClearDialogConfirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vider'**
+  String get soloHistoryClearDialogConfirm;
+
+  /// No description provided for @soloHistoryDeleteSessionTooltip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer cette partie'**
+  String get soloHistoryDeleteSessionTooltip;
+
+  /// No description provided for @soloHistoryDeleteDialogTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer cette partie ?'**
+  String get soloHistoryDeleteDialogTitle;
+
+  /// No description provided for @soloHistoryDeleteDialogContent.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette partie et ses résultats seront supprimés de cet appareil.'**
+  String get soloHistoryDeleteDialogContent;
+
+  /// No description provided for @soloHistoryDeleteDialogCancel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Annuler'**
+  String get soloHistoryDeleteDialogCancel;
+
+  /// No description provided for @soloHistoryDeleteDialogConfirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Supprimer'**
+  String get soloHistoryDeleteDialogConfirm;
+
+  /// No description provided for @soloHistoryNoSessions.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucune partie solo enregistrée'**
+  String get soloHistoryNoSessions;
+
+  /// No description provided for @soloHistoryEmptyMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminez une partie solo pour la retrouver ici, avec son score et ses questions.'**
+  String get soloHistoryEmptyMessage;
+
+  /// No description provided for @soloHistoryUnavailable.
+  ///
+  /// In fr, this message translates to:
+  /// **'Historique solo indisponible'**
+  String get soloHistoryUnavailable;
+
+  /// No description provided for @soloHistoryUnavailableMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les parties solo ne peuvent pas être lues sur cet appareil pour le moment.'**
+  String get soloHistoryUnavailableMessage;
+
+  /// No description provided for @soloHistoryDate.
+  ///
+  /// In fr, this message translates to:
+  /// **'Date'**
+  String get soloHistoryDate;
+
+  /// No description provided for @soloHistoryAccuracy.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précision'**
+  String get soloHistoryAccuracy;
+
+  /// No description provided for @soloHistoryQuestions.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1 {1 question} other {# questions}}'**
+  String soloHistoryQuestions(int count);
+
+  /// No description provided for @soloHistoryFooter.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les parties restent sur cet appareil : aucun compte ni connexion n\'est nécessaire.'**
+  String get soloHistoryFooter;
 }
 
 class _AppLocalizationsDelegate

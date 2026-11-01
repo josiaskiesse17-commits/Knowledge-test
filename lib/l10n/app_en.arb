@@ -402,6 +402,8 @@
 
   "homeSoloMode": "Play solo",
   "homeSoloModeDescription": "Answer questions yourself and improve with explanations",
+  "homeSoloHistory": "Solo history",
+  "homeSoloHistoryDescription": "Review your finished solo games",
 
   "soloSetupTitle": "Solo setup",
   "soloSetupModesTitle": "Game modes",
@@ -462,5 +464,51 @@
   "soloHowMuchInvalid": "Invalid number",
   "soloHowMuchReference": "Reference value",
   "soloHowMuchAcceptedRange": "Accepted range",
-  "soloHowMuchTolerance": "Tolerance applied"
+  "soloHowMuchTolerance": "Tolerance applied",
+
+  "soloSummaryMaxStreak": "Max streak: {streak}",
+  "@soloSummaryMaxStreak": {
+    "placeholders": {
+      "streak": { "type": "int" }
+    }
+  },
+  "soloSummaryQuestionsPlayed": "{count, plural, =1 {1 question played} other {# questions played}}",
+  "@soloSummaryQuestionsPlayed": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "soloSummaryOverallAccuracy": "Overall accuracy",
+  "soloSummaryPerCategory": "Accuracy by category",
+  "soloSummaryMistakes": "Mistakes to review",
+  "soloSummaryNoMistakes": "No mistakes! Well done.",
+  "soloSummaryPlayAgain": "Replay the same game",
+  "soloSummaryNewSoloSetup": "New solo setup",
+  "soloSummaryBackHome": "Back to home",
+
+  "soloHistoryTitle": "Solo history",
+  "soloHistoryBackTooltip": "Back",
+  "soloHistoryClearTooltip": "Clear solo history",
+  "soloHistoryClearDialogTitle": "Clear solo history?",
+  "soloHistoryClearDialogContent": "All recorded solo games will be deleted from this device.",
+  "soloHistoryClearDialogCancel": "Cancel",
+  "soloHistoryClearDialogConfirm": "Clear",
+  "soloHistoryDeleteSessionTooltip": "Delete this game",
+  "soloHistoryDeleteDialogTitle": "Delete this game?",
+  "soloHistoryDeleteDialogContent": "This game and its results will be deleted from this device.",
+  "soloHistoryDeleteDialogCancel": "Cancel",
+  "soloHistoryDeleteDialogConfirm": "Delete",
+  "soloHistoryNoSessions": "No solo games recorded",
+  "soloHistoryEmptyMessage": "Finish a solo game to find it here, with its score and questions.",
+  "soloHistoryUnavailable": "Solo history unavailable",
+  "soloHistoryUnavailableMessage": "Solo games cannot be read on this device at the moment.",
+  "soloHistoryDate": "Date",
+  "soloHistoryAccuracy": "Accuracy",
+  "soloHistoryQuestions": "{count, plural, =1 {1 question} other {# questions}}",
+  "@soloHistoryQuestions": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "soloHistoryFooter": "Solo games stay on this device: no account or connection required."
 }

@@ -36,6 +36,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeSessionHistoryDescription => 'Reprenez vos parties terminées';
 
   @override
+  String get homeSoloHistory => 'Historique solo';
+
+  @override
+  String get homeSoloHistoryDescription =>
+      'Reprenez vos parties solo terminées';
+
+  @override
   String get homeSettings => 'Paramètres';
 
   @override
@@ -1072,4 +1079,114 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get soloHowMuchTolerance => 'Tolérance appliquée';
+
+  @override
+  String soloSummaryMaxStreak(int streak) {
+    return 'Série maximale : $streak';
+  }
+
+  @override
+  String soloSummaryQuestionsPlayed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# questions jouées',
+      one: '1 question jouée',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloSummaryOverallAccuracy => 'Précision globale';
+
+  @override
+  String get soloSummaryPerCategory => 'Précision par catégorie';
+
+  @override
+  String get soloSummaryMistakes => 'Erreurs à revoir';
+
+  @override
+  String get soloSummaryNoMistakes => 'Aucune erreur ! Bravo.';
+
+  @override
+  String get soloSummaryPlayAgain => 'Rejouer la même partie';
+
+  @override
+  String get soloSummaryNewSoloSetup => 'Nouvelle configuration solo';
+
+  @override
+  String get soloSummaryBackHome => 'Retour à l\'accueil';
+
+  @override
+  String get soloHistoryTitle => 'Historique solo';
+
+  @override
+  String get soloHistoryBackTooltip => 'Retour';
+
+  @override
+  String get soloHistoryClearTooltip => 'Vider l\'historique solo';
+
+  @override
+  String get soloHistoryClearDialogTitle => 'Vider l\'historique solo ?';
+
+  @override
+  String get soloHistoryClearDialogContent =>
+      'Toutes les parties solo enregistrées seront supprimées de cet appareil.';
+
+  @override
+  String get soloHistoryClearDialogCancel => 'Annuler';
+
+  @override
+  String get soloHistoryClearDialogConfirm => 'Vider';
+
+  @override
+  String get soloHistoryDeleteSessionTooltip => 'Supprimer cette partie';
+
+  @override
+  String get soloHistoryDeleteDialogTitle => 'Supprimer cette partie ?';
+
+  @override
+  String get soloHistoryDeleteDialogContent =>
+      'Cette partie et ses résultats seront supprimés de cet appareil.';
+
+  @override
+  String get soloHistoryDeleteDialogCancel => 'Annuler';
+
+  @override
+  String get soloHistoryDeleteDialogConfirm => 'Supprimer';
+
+  @override
+  String get soloHistoryNoSessions => 'Aucune partie solo enregistrée';
+
+  @override
+  String get soloHistoryEmptyMessage =>
+      'Terminez une partie solo pour la retrouver ici, avec son score et ses questions.';
+
+  @override
+  String get soloHistoryUnavailable => 'Historique solo indisponible';
+
+  @override
+  String get soloHistoryUnavailableMessage =>
+      'Les parties solo ne peuvent pas être lues sur cet appareil pour le moment.';
+
+  @override
+  String get soloHistoryDate => 'Date';
+
+  @override
+  String get soloHistoryAccuracy => 'Précision';
+
+  @override
+  String soloHistoryQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloHistoryFooter =>
+      'Les parties restent sur cet appareil : aucun compte ni connexion n\'est nécessaire.';
 }

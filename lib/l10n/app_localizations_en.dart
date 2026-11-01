@@ -34,6 +34,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeSessionHistoryDescription => 'Review your finished games';
 
   @override
+  String get homeSoloHistory => 'Solo history';
+
+  @override
+  String get homeSoloHistoryDescription => 'Review your finished solo games';
+
+  @override
   String get homeSettings => 'Settings';
 
   @override
@@ -1062,4 +1068,114 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get soloHowMuchTolerance => 'Tolerance applied';
+
+  @override
+  String soloSummaryMaxStreak(int streak) {
+    return 'Max streak: $streak';
+  }
+
+  @override
+  String soloSummaryQuestionsPlayed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# questions played',
+      one: '1 question played',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloSummaryOverallAccuracy => 'Overall accuracy';
+
+  @override
+  String get soloSummaryPerCategory => 'Accuracy by category';
+
+  @override
+  String get soloSummaryMistakes => 'Mistakes to review';
+
+  @override
+  String get soloSummaryNoMistakes => 'No mistakes! Well done.';
+
+  @override
+  String get soloSummaryPlayAgain => 'Replay the same game';
+
+  @override
+  String get soloSummaryNewSoloSetup => 'New solo setup';
+
+  @override
+  String get soloSummaryBackHome => 'Back to home';
+
+  @override
+  String get soloHistoryTitle => 'Solo history';
+
+  @override
+  String get soloHistoryBackTooltip => 'Back';
+
+  @override
+  String get soloHistoryClearTooltip => 'Clear solo history';
+
+  @override
+  String get soloHistoryClearDialogTitle => 'Clear solo history?';
+
+  @override
+  String get soloHistoryClearDialogContent =>
+      'All recorded solo games will be deleted from this device.';
+
+  @override
+  String get soloHistoryClearDialogCancel => 'Cancel';
+
+  @override
+  String get soloHistoryClearDialogConfirm => 'Clear';
+
+  @override
+  String get soloHistoryDeleteSessionTooltip => 'Delete this game';
+
+  @override
+  String get soloHistoryDeleteDialogTitle => 'Delete this game?';
+
+  @override
+  String get soloHistoryDeleteDialogContent =>
+      'This game and its results will be deleted from this device.';
+
+  @override
+  String get soloHistoryDeleteDialogCancel => 'Cancel';
+
+  @override
+  String get soloHistoryDeleteDialogConfirm => 'Delete';
+
+  @override
+  String get soloHistoryNoSessions => 'No solo games recorded';
+
+  @override
+  String get soloHistoryEmptyMessage =>
+      'Finish a solo game to find it here, with its score and questions.';
+
+  @override
+  String get soloHistoryUnavailable => 'Solo history unavailable';
+
+  @override
+  String get soloHistoryUnavailableMessage =>
+      'Solo games cannot be read on this device at the moment.';
+
+  @override
+  String get soloHistoryDate => 'Date';
+
+  @override
+  String get soloHistoryAccuracy => 'Accuracy';
+
+  @override
+  String soloHistoryQuestions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get soloHistoryFooter =>
+      'Solo games stay on this device: no account or connection required.';
 }

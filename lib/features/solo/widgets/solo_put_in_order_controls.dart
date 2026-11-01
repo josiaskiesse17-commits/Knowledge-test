@@ -97,31 +97,29 @@ class _SoloPutInOrderControlsState extends State<SoloPutInOrderControls> {
           ),
         ),
         const SizedBox(height: AppDimensions.spacingSm),
-        SizedBox(
-          height: 400,
-          child: ReorderableListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _ordered.length,
-            itemBuilder: (context, index) {
-              final item = _ordered[index];
-              return ListTile(
-                key: ValueKey(item.id),
-                leading: Icon(
-                  Icons.drag_handle,
+        ReorderableListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: _ordered.length,
+          itemBuilder: (context, index) {
+            final item = _ordered[index];
+            return ListTile(
+              key: ValueKey(item.id),
+              leading: Icon(
+                Icons.drag_handle,
+                color: colorScheme.onSurfaceVariant,
+                size: AppDimensions.iconMd,
+              ),
+              title: Text(item.label, style: textTheme.bodyMedium),
+              trailing: Text(
+                '${item.referenceValue}${item.unit != null ? ' ${item.unit}' : ''}',
+                style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
-                  size: AppDimensions.iconMd,
                 ),
-                title: Text(item.label, style: textTheme.bodyMedium),
-                trailing: Text(
-                  '${item.referenceValue}${item.unit != null ? ' ${item.unit}' : ''}',
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              );
-            },
-            onReorderItem: _onReorderItem,
-          ),
+              ),
+            );
+          },
+          onReorderItem: _onReorderItem,
         ),
         const SizedBox(height: AppDimensions.spacingMd),
         PrimaryButton(

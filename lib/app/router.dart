@@ -9,6 +9,7 @@ import 'package:knowledge_test/features/session_history/session_detail_screen.da
 import 'package:knowledge_test/features/session_history/session_history_screen.dart';
 import 'package:knowledge_test/features/settings/settings_screen.dart';
 import 'package:knowledge_test/features/solo/solo_game_screen.dart';
+import 'package:knowledge_test/features/solo/solo_history_screen.dart';
 import 'package:knowledge_test/features/solo/solo_setup_screen.dart';
 import 'package:knowledge_test/features/solo/solo_summary_screen.dart';
 import 'package:knowledge_test/l10n/app_localizations.dart';
@@ -25,6 +26,7 @@ enum AppRoute {
   soloSetup,
   soloGame,
   soloSummary,
+  soloHistory,
 }
 
 extension AppRouteExtension on AppRoute {
@@ -52,6 +54,8 @@ extension AppRouteExtension on AppRoute {
         return '/solo-game';
       case AppRoute.soloSummary:
         return '/solo-summary';
+      case AppRoute.soloHistory:
+        return '/solo-history';
     }
   }
 }
@@ -113,7 +117,15 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoute.soloSummary.path,
       name: AppRoute.soloSummary.name,
-      builder: (context, state) => const SoloSummaryScreen(),
+      builder: (context, state) {
+        final id = state.uri.queryParameters['id'] ?? '';
+        return SoloSummaryScreen(sessionId: id.isEmpty ? null : id);
+      },
+    ),
+    GoRoute(
+      path: AppRoute.soloHistory.path,
+      name: AppRoute.soloHistory.name,
+      builder: (context, state) => const SoloHistoryScreen(),
     ),
   ],
   errorBuilder: (context, state) {

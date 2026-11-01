@@ -180,3 +180,129 @@ final soloControllerProvider =
         }
       });
     });
+
+/// State of the stored solo history.
+class SoloHistoryState {
+  final List<SoloSession> sessions;
+  final bool isLoading;
+  final bool loadFailed;
+
+  const SoloHistoryState({
+    this.sessions = const [],
+    this.isLoading = false,
+    this.loadFailed = false,
+  });
+
+  bool get isEmpty => sessions.isEmpty;
+
+  SoloHistoryState copyWith({
+    List<SoloSession>? sessions,
+    bool? isLoading,
+    bool? loadFailed,
+  }) {
+    return SoloHistoryState(
+      sessions: sessions ?? this.sessions,
+      isLoading: isLoading ?? this.isLoading,
+      loadFailed: loadFailed ?? this.loadFailed,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SoloHistoryState &&
+          runtimeType == other.runtimeType &&
+          _soloListEquals(sessions, other.sessions) &&
+          isLoading == other.isLoading &&
+          loadFailed == other.loadFailed;
+
+  @override
+  int get hashCode => Object.hash(
+    sessions.length,
+    sessions.isEmpty ? null : sessions.first,
+    isLoading,
+    loadFailed,
+  );
+}
+
+/// Owns the stored solo history: loading, deleting one session, clearing all
+/// and refreshing the list.
+class SoloHistoryNotifier extends StateNotifier<SoloHistoryState> {
+  SoloHistoryNotifier(this._storageLoader) : super(const SoloHistoryState());
+
+  final Future<StorageService?> Function() _storageLoader;
+
+  /// Whether a load has already been attempted, so the screen does not
+  /// schedule another load after every rebuild.
+  bool _hasLoaded = false;
+  bool get hasLoaded => _hasLoaded;
+
+  /// Reloads the stored solo sessions from storage, ignoring the
+  /// [_hasLoaded] guard: used after delete/clear so the UI refreshes.
+  Future<void> _reload() async {
+    final storage = await _storageLoader();
+    if (storage == null) {
+      state = state.copyWith(isLoading: false, loadFailed: true);
+      return;
+    }
+    try {
+      final sessions = await storage.getSoloSessions();
+      state = SoloHistoryState(sessions: sessions);
+    } catch (_) {
+      state = state.copyWith(isLoading: false, loadFailed: true);
+    }
+  }
+
+  /// Loads the stored solo sessions, most recent first. Safe to call more than
+  /// once: after a successful load the list is kept in memory until the next
+  /// explicit load, delete or clear.
+  Future<void> load() async {
+    if (_hasLoaded) return;
+    _hasLoaded = true;
+    await _reload();
+  }
+
+  /// Deletes [sessionId] from storage and refreshes the list. Best effort: a
+  /// storage failure leaves the in-memory state as it was.
+  Future<void> deleteSoloSession(String sessionId) async {
+    final storage = await _storageLoader();
+    if (storage == null) return;
+    try {
+      await storage.deleteSoloSession(sessionId);
+      await _reload();
+    } catch (_) {}
+  }
+
+  /// Clears every stored solo session and resets the list. Best effort.
+  Future<void> clearSoloSessions() async {
+    final storage = await _storageLoader();
+    if (storage == null) return;
+    try {
+      await storage.clearSoloSessions();
+      state = const SoloHistoryState();
+    } catch (_) {}
+  }
+}
+
+/// Stored completed solo sessions, most recent first, with delete/clear and
+/// refresh. Loads automatically on first read; returns an empty list when
+/// storage is unreachable.
+final soloHistoryProvider =
+    StateNotifierProvider<SoloHistoryNotifier, SoloHistoryState>((ref) {
+      return SoloHistoryNotifier(() async {
+        try {
+          return await ref.read(storageServiceProvider.future);
+        } catch (_) {
+          return null;
+        }
+      });
+    });
+
+bool _soloListEquals(List<SoloSession> a, List<SoloSession> b) {
+  if (identical(a, b)) return true;
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}
